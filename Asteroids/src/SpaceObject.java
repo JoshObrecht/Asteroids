@@ -1,10 +1,17 @@
 
 public abstract class SpaceObject 
 	{
-		int xPos;
-		int yPos;
-		int xVel;
-		int yVel;
-		int xAcc;
-		int yAcc;
+		Vector pos;
+		Vector vel;
+		Vector acc;
+		
+		public SpaceObject()
+		{
+			
+		}
+		
+		public int[] coordToPolar(int xVect, int yVect)
+		{
+			return null;
+		}
 	}

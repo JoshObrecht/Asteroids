@@ -23,7 +23,6 @@ public class AsteroidsRunner extends JPanel
 				frame.setSize(913, 813);
 				frame.add(new AsteroidsRunner());
 				frame.setVisible(true);
-
 			}
 
 	}
