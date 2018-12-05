@@ -1,18 +1,14 @@
 
 public abstract class SpaceObject 
 	{
-		Vector pos;
-		Vector vel;
-		Vector acc;
+		protected Vector pos;
+		protected Vector vel;
+		protected Vector acc;
 		double angle;
 		
-		public SpaceObject()
+		public SpaceObject(double angle)
 		{
-		angle = 0;	
+			this.angle = angle;	
 		}
 		
-		public int[] coordToPolar(int xVect, int yVect)
-		{
-			return null;
-		}
 	}

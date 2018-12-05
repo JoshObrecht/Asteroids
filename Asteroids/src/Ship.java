@@ -5,9 +5,9 @@ public class Ship extends SpaceObject
 	private int yCord[] = {400, 300, 500};
 	private int numPoints=3;
 	
-	public Ship()
+	public Ship(double angle)
 	{
-	
+		super(angle);
 	}
 
 	public int[] getxCord()
