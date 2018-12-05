@@ -1,24 +1,22 @@
 
 public abstract class SpaceObject 
 	{
+
+		protected Vector pos;
+		protected Vector vel;
+		protected Vector acc;
+
 		protected int xCord[] = {650, 600, 600};
 		protected int yCord[] = {450, 435, 465};
 		protected int numPoints=3;
-		
-		Vector pos;
-		Vector vel;
-		Vector acc;
+
 		double angle;
 		
-		public SpaceObject()
+		public SpaceObject(double angle)
 		{
-		angle = 0;	
+			this.angle = angle;	
 		}
 		
-		public int[] coordToPolar(int xVect, int yVect)
-		{
-			return null;
-		}
 		
 		public int[] getxCord()
 			{
@@ -49,4 +47,5 @@ public abstract class SpaceObject
 			{
 				this.numPoints = numPoints;
 			}
+
 	}

@@ -3,9 +3,9 @@ public class Ship extends SpaceObject
 	{
 	
 	
-	public Ship()
+	public Ship(double angle)
 	{
-	
+		super(angle);
 	}
 
 

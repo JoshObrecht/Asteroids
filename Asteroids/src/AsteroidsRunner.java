@@ -15,7 +15,7 @@ public class AsteroidsRunner extends JPanel
 		{
 			super.paintComponent(g);
 			
-			Ship player = new Ship();
+			Ship player = new Ship(0.00);
 			g.setColor(Color.WHITE);
 			g.drawPolygon(player.getxCord(), player.getyCord(), player.getNumPoints());
 		

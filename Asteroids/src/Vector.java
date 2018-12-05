@@ -1,59 +1,71 @@
 
 public class Vector
 	{
-		double xr;
-		double yo;
-		boolean isXY;
+		double x;
+		double y;
+		double r;
+		double o;
 		
-		public Vector(double xr, double yo, boolean isXY)
+		public Vector(double x, double y) //Vectors always initialize in XY form
 		{
-			this.xr = xr;
-			this.yo = yo;
-			this.isXY = isXY;
+			this.x = x;
+			this.y = y;
+			updateTypes(true);
 		}
 		
 		
-		public double getXr()
+		
+		public double getX()
 			{
-				return xr;
+				return x;
 			}
-		public void setXr(double xr)
+		public void setX(double x)
 			{
-				this.xr = xr;
+				this.x = x;
+				updateTypes(true);
 			}
-		public double getYo()
+		public double getY()
 			{
-				return yo;
+				return y;
 			}
-		public void setYo(double yo)
+		public void setY(double y)
 			{
-				this.yo = yo;
+				this.y = y;
+				updateTypes(true);
 			}
-		public boolean isXY()
+		public double getR()
 			{
-				return isXY;
+				return r;
 			}
-		public void setXY(boolean isXY)
+		public void setR(double r)
 			{
-				this.isXY = isXY;
+				this.r = r;
+				updateTypes(false);
 			}
-		public void switchTypes()
+		public double getO()
+			{
+				return o;
+			}
+		public void setO(double o)
+			{
+				this.o = o;
+				updateTypes(false);
+			}
+		private void updateTypes(boolean isXY)
 		{
 			if(isXY)
 				{
-					double theta = Math.atan((double)(yo/xr));
-					double magnitude = Math.sqrt((Math.pow((double) xr, 2)) + (Math.pow((double) yo, 2)));
-					setXr(magnitude);
-					setYo(theta);
-					setXY(false);
+					double theta = Math.atan((double)(y/x));
+					double magnitude = Math.sqrt((Math.pow((double) x, 2)) + (Math.pow((double) y, 2)));
+					setR(magnitude);
+					setO(theta);
 				}
 			else
 				{
-					double newX = (Math.sin(yo) * xr);
-					double newY = (Math.cos(yo) * xr);
-					setXr(newX);
-					setYo(newY);
-					setXY(true);
+					double newX = (Math.sin(o) * r);
+					double newY = (Math.cos(o) * r);
+					setX(newX);
+					setY(newY);
 				}
 		}
 	}
