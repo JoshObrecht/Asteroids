@@ -6,16 +6,19 @@ public abstract class SpaceObject
 		protected Vector vel;
 		protected Vector acc;
 
-		protected int xCord[] = {650, 600, 600};
-		protected int yCord[] = {450, 435, 465};
+		protected int xCord[];
+		protected int yCord[];
 		protected int numPoints;
+
 
 		protected double angle;
 		
-		public SpaceObject(double angle, int numPoints)
+		public SpaceObject(double angle, int numPoints, int[]xCord, int[]yCord)
 		{
-			this.angle = angle;
+			this.angle = angle;	
 			this.numPoints = numPoints;
+			this.xCord = xCord;
+			this.yCord = yCord;
 		}
 		
 		

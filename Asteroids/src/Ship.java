@@ -3,10 +3,10 @@ public class Ship extends SpaceObject
 	{
 	
 	
-	public Ship(double angle, int numPoints)
+	public Ship(double angle, int numPoints, int [] xCord, int []yCord)
 	{
-		super(angle, numPoints);
-		numPoints = 3;
+		super(angle, numPoints, xCord, yCord);
+	
 	}
 
 
