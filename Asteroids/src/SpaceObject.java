@@ -8,13 +8,14 @@ public abstract class SpaceObject
 
 		protected int xCord[] = {650, 600, 600};
 		protected int yCord[] = {450, 435, 465};
-		protected int numPoints=3;
+		protected int numPoints;
 
-		double angle;
+		protected double angle;
 		
-		public SpaceObject(double angle)
+		public SpaceObject(double angle, int numPoints)
 		{
-			this.angle = angle;	
+			this.angle = angle;
+			this.numPoints = numPoints;
 		}
 		
 		
@@ -22,30 +23,72 @@ public abstract class SpaceObject
 			{
 				return xCord;
 			}
-
 		public void setxCord(int[] xCord)
 			{
 				this.xCord = xCord;
 			}
-
 		public int[] getyCord()
 			{
 				return yCord;
 			}
-
 		public void setyCord(int[] yCord)
 			{
 				this.yCord = yCord;
 			}
-
 		public int getNumPoints()
 			{
 				return numPoints;
 			}
-
 		public void setNumPoints(int numPoints)
 			{
 				this.numPoints = numPoints;
 			}
-
+		public Vector getPos()
+			{
+				return pos;
+			}
+		public void setPos(Vector pos)
+			{
+				this.pos = pos;
+			}
+		public Vector getVel()
+			{
+				return vel;
+			}
+		public void setVel(Vector vel)
+			{
+				this.vel = vel;
+			}
+		public Vector getAcc()
+			{
+				return acc;
+			}
+		public void setAcc(Vector acc)
+			{
+				this.acc = acc;
+			}
+		public double getAngle()
+			{
+				return angle;
+			}
+		public void setAngle(double angle)
+			{
+				this.angle = angle;
+				System.out.println("called");
+				rotatePoints();
+			}
+		protected void rotatePoints()
+		{
+			for(int i = 0; i < xCord.length; i++)
+				{
+					Vector v = new Vector(xCord[i], yCord[i]);
+					v.setO(angle);
+					xCord[i] = (int) v.getX();
+					yCord[i] = (int) v.getY();
+					System.out.println(xCord[i]);
+					System.out.println(yCord[i]);
+				}
+		}
+		
+		
 	}
