@@ -39,7 +39,7 @@ public class AsteroidsRunner extends JPanel
 				{
 					switch(e.getKeyCode())
 					{
-						case KeyEvent.VK_SPACE:
+						case KeyEvent.VK_RIGHT:
 							player.setAngle(0.785);
 							break;
 					}
