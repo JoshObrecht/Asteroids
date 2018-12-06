@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.JFrame;
 import javax.swing.Timer;
 
 
@@ -14,6 +15,20 @@ public class AsteroidsRunner extends JPanel
 		
 		static int [] shipXCord = {650, 600, 600};
 		static int [] shipYCord = {450, 435, 465};
+		
+		static Ship player = new Ship(0.00, 3, shipXCord, shipYCord);
+		
+		public static void main(String[] args)
+		{
+			JFrame frame = new JFrame("Asteroids");
+			frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			frame.setSize(913, 813);
+			AsteroidsRunner game = new AsteroidsRunner();
+			frame.add(game);
+			frame.setVisible(true);
+			game.setFocusable(true);
+		}
+		
 		public AsteroidsRunner()
 		{
 			setBackground(Color.BLACK);
@@ -24,14 +39,21 @@ public class AsteroidsRunner extends JPanel
 				{
 					switch(e.getKeyCode())
 					{
-						case KeyEvent.VK_LEFT:
-							System.out.println("ping");
-							player.setAngle(0.7);
-							repaint();
+						case KeyEvent.VK_SPACE:
+							player.setAngle(0.785);
 							break;
 					}
 				}
 			});
+			Timer timer = new Timer(100, new ActionListener(){
+	        	@Override
+	        	public void actionPerformed(ActionEvent e)
+	        	{
+	        		repaint();
+	        	}
+	        
+	        });
+	        timer.start();
 			
 		}
 		
@@ -39,19 +61,12 @@ public class AsteroidsRunner extends JPanel
 		public void paintComponent(Graphics g)
 		{
 			super.paintComponent(g);
-			Ship player = new Ship(0.00, 3, shipXCord, shipYCord);
+			
 			g.setColor(Color.WHITE);
 			g.drawPolygon(player.getxCord(), player.getyCord(), player.getNumPoints());
 			
 		}
 		
-		public static void main(String[] args)
-			{
-				JFrame frame = new JFrame("Asteroids");
-				frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-				frame.setSize(913, 813);
-				frame.add(new AsteroidsRunner());
-				frame.setVisible(true);
-			}
+		
 
 	}

@@ -24,6 +24,10 @@ public class Vector
 				this.x = x;
 				updateTypes(true);
 			}
+		public void setXSafe(double x)
+		{
+			this.x = x;
+		}
 		public double getY()
 			{
 				return y;
@@ -33,6 +37,10 @@ public class Vector
 				this.y = y;
 				updateTypes(true);
 			}
+		public void setYSafe(double y)
+		{
+			this.y = y;
+		}
 		public double getR()
 			{
 				return r;
@@ -42,6 +50,10 @@ public class Vector
 				this.r = r;
 				updateTypes(false);
 			}
+		public void setRSafe(double r)
+		{
+			this.r = r;
+		}
 		public double getO()
 			{
 				return o;
@@ -51,21 +63,26 @@ public class Vector
 				this.o = o;
 				updateTypes(false);
 			}
+		public void setOSafe(double o)
+		{
+			this.o = o;
+		}
+		
 		private void updateTypes(boolean isXY)
 		{
 			if(isXY)
 				{
 					double theta = Math.atan((double)(y/x));
 					double magnitude = Math.sqrt((Math.pow((double) x, 2)) + (Math.pow((double) y, 2)));
-					setR(magnitude);
-					setO(theta);
+					setRSafe(magnitude);
+					setOSafe(theta);
 				}
 			else
 				{
 					double newX = (Math.sin(o) * r);
 					double newY = (Math.cos(o) * r);
-					setX(newX);
-					setY(newY);
+					setXSafe(newX);
+					setYSafe(newY);
 				}
 		}
 	}
