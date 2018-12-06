@@ -2,6 +2,9 @@
 public class Ship extends SpaceObject
 	{
 	
+	protected int[] xCoord;
+	protected int[] yCoord;
+	
 	public Ship(double angle, int numPoints, int [] xCord, int []yCord)
 	{
 		super(angle, numPoints, xCord, yCord);

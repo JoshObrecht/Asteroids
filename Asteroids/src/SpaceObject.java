@@ -6,8 +6,8 @@ public abstract class SpaceObject
 		protected Vector vel;
 		protected Vector acc;
 
-		protected int xCord[];
-		protected int yCord[];
+		protected int[] xCord;
+		protected int[] yCord;
 		protected int numPoints;
 
 
