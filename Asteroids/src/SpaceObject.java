@@ -77,19 +77,19 @@ public abstract class SpaceObject
 		public void setAngle(double angle)
 			{
 				this.angle = angle;
-				System.out.println("called");
 				rotatePoints();
 			}
 		protected void rotatePoints()
 		{
 			for(int i = 0; i < xCord.length; i++)
 				{
-					Vector v = new Vector(xCord[i], yCord[i]);
-					v.setO(angle);
-					xCord[i] = (int) v.getX();
-					yCord[i] = (int) v.getY();
-					System.out.println(xCord[i]);
-					System.out.println(yCord[i]);
+					double x1 = (double) (xCord[i] - pos.getX());
+					double y1 = (double) (yCord[i] - pos.getY());
+					x1 = ((x1 * Math.cos(angle)) - (y1 * Math.sin(angle)));
+					y1 = ((x1 * Math.cos(angle)) + (y1 * Math.sin(angle)));
+					xCord[i] = (int) x1 + pos.getX();
+					yCord[i] = (int) y1 + pos.getY();
+					
 				}
 		}
 		
