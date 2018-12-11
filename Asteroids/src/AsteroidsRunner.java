@@ -50,6 +50,13 @@ public class AsteroidsRunner extends JPanel
 							break;
 					}
 				}
+				public void keyReleased(KeyEvent e)
+				{
+					switch(e.getKeyCode())
+					{
+						
+					}
+				}
 			});
 			Timer timer = new Timer(10, new ActionListener(){
 	        	@Override
@@ -71,7 +78,7 @@ public class AsteroidsRunner extends JPanel
 			
 			g.setColor(Color.WHITE);
 			g.drawPolygon(player.getxCord(), player.getyCord(), player.getNumPoints());
-//			g.drawRect(player.getPos().getX(), player.getPos().getY(), 1, 1);
+			g.drawRect(player.getPos().getX(), player.getPos().getY(), 1, 1);
 		}
 		
 		

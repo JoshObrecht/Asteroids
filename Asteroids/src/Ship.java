@@ -17,7 +17,10 @@ public class Ship extends SpaceObject
 		pos.setX(pos.getX() + vel.getX());
 		pos.setY(pos.getY() + vel.getY());
 		updatePoints();
-		
+//		for(int i = 0; i < xCord.length; i++)
+//			{
+//				System.out.println(xCord[i] + ", " + yCord[i]);
+//			}
 	}
 		
 	}
