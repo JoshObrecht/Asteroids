@@ -82,25 +82,18 @@ public abstract class SpaceObject
 			}
 		protected void updatePoints()
 		{
-//			for(int i = 0; i < xCord.length; i++)
-//				{
-//					double x1 = (double) (xCord[i] - pos.getX());
-//					double y1 = (double) (yCord[i] - pos.getY());
-//					x1 = ((x1 * Math.cos(angle)) + (y1 * Math.sin(angle)));
-//					y1 = ((x1 * Math.sin(angle)) - (y1 * Math.cos(angle)));
-//					x1 = Math.floor((x1 + 0.5));
-//					y1 = Math.floor((y1 + 0.5));
-//					xCord[i] = (int) x1 + pos.getX();
-//					yCord[i] = (int) y1 + pos.getY();
-//					
-//				}
-			for(int j = 0; j < xCord.length; j++)
-				{
-					Vector v = new Vector(xCord[j] - pos.getX(), yCord[j] - pos.getY());
-					v.setO(angle);
-					xCord[j] = v.getX() + pos.getX();
-					yCord[j] = v.getY() + pos.getY();
-				}
+			Vector v = new Vector(25.00, angle);
+			v.setO(angle);
+			xCord[0] = v.getX() + pos.getX();
+			yCord[0] = v.getY() + pos.getY();
+			v = new Vector(29.15476, angle + 2.60117);
+			v.setO(angle + 2.60117);
+			xCord[1] = v.getX() + pos.getX();
+			yCord[1] = v.getY() + pos.getY();
+			v = new Vector(29.15476, angle - 2.60117);
+			v.setO(angle - 2.60117);
+			xCord[2] = v.getX() + pos.getX();
+			yCord[2] = v.getY() + pos.getY();
 		}
 		
 		
