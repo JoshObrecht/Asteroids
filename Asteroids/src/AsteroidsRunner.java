@@ -46,6 +46,7 @@ public class AsteroidsRunner extends JPanel
 							player.setAngle(player.getAngle() + (Math.PI / 8));
 							break;
 						case KeyEvent.VK_LEFT:
+							player.setAngle(player.getAngle() - (Math.PI / 8));
 							break;
 					}
 				}
@@ -70,7 +71,7 @@ public class AsteroidsRunner extends JPanel
 			
 			g.setColor(Color.WHITE);
 			g.drawPolygon(player.getxCord(), player.getyCord(), player.getNumPoints());
-			g.drawRect(player.getPos().getX(), player.getPos().getY(), 1, 1);
+//			g.drawRect(player.getPos().getX(), player.getPos().getY(), 1, 1);
 		}
 		
 		

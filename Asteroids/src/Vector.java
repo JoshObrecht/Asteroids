@@ -97,10 +97,10 @@ public class Vector
 				}
 			else
 				{
-					double newX = (Math.sin(o) * r);
-					double newY = (Math.cos(o) * r);
-					setXSafe((int) newX);
-					setYSafe((int) newY);
+					double newX = (Math.cos(o) * r);
+					double newY = (Math.sin(o) * r);
+					setXSafe((int) Math.round(newX));
+					setYSafe((int) Math.round(newY));
 				}
 		}
 	}

@@ -17,6 +17,7 @@ public class Ship extends SpaceObject
 		pos.setX(pos.getX() + vel.getX());
 		pos.setY(pos.getY() + vel.getY());
 		updatePoints();
+		
 	}
 		
 	}
