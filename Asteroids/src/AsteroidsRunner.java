@@ -40,13 +40,14 @@ public class AsteroidsRunner extends JPanel
 					switch(e.getKeyCode())
 					{
 						case KeyEvent.VK_UP:
-							player.setVel(new Vector(1,player.getAngle()));
+							player.setAcc(true);
+							player.setSpeed(player.getSpeed() + 0.3);
 							break;
 						case KeyEvent.VK_RIGHT:
-							player.setAngle(player.getAngle() + (Math.PI / 8));
+							player.setIsRot(1);
 							break;
 						case KeyEvent.VK_LEFT:
-							player.setAngle(player.getAngle() - (Math.PI / 8));
+							player.setIsRot(-1);
 							break;
 					}
 				}
@@ -54,7 +55,15 @@ public class AsteroidsRunner extends JPanel
 				{
 					switch(e.getKeyCode())
 					{
-						
+					case KeyEvent.VK_UP:
+						player.setAcc(false);
+						break;
+					case KeyEvent.VK_RIGHT:
+						player.setIsRot(0);
+						break;
+					case KeyEvent.VK_LEFT:
+						player.setIsRot(0);
+						break;
 					}
 				}
 			});
@@ -78,7 +87,7 @@ public class AsteroidsRunner extends JPanel
 			
 			g.setColor(Color.WHITE);
 			g.drawPolygon(player.getxCord(), player.getyCord(), player.getNumPoints());
-			g.drawRect(player.getPos().getX(), player.getPos().getY(), 1, 1);
+//			g.drawRect(player.getPos().getX(), player.getPos().getY(), 1, 1);
 		}
 		
 		
