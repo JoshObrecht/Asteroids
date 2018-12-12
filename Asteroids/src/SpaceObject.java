@@ -10,6 +10,7 @@ public abstract class SpaceObject
 		protected int[] yCord;
 		protected int numPoints;
 		protected double speed = 0;
+		private int tickCounter = 0;
 
 
 		protected double angle;
@@ -113,9 +114,14 @@ public abstract class SpaceObject
 							pos.setY(0);
 						}
 				}
-			
-			updatePoints();
+			tickCounter++;
+//			updatePoints();
 		}
+		public int getTickCounter()
+			{
+				return tickCounter;
+			}
+
 		protected void updatePoints()
 		{
 			Vector v = new Vector(25.00, angle);

@@ -3,7 +3,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.JFrame;
 import javax.swing.Timer;
-
+import java.util.ArrayList;
 
 @SuppressWarnings("serial")
 public class AsteroidsRunner extends JPanel
@@ -17,6 +17,7 @@ public class AsteroidsRunner extends JPanel
 		static int [] shipYCord = {407, 392, 422};
 		
 		static Ship player = new Ship(0.00, 3, shipXCord, shipYCord);
+		static ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 		
 		public static void main(String[] args)
 		{
@@ -49,6 +50,10 @@ public class AsteroidsRunner extends JPanel
 						case KeyEvent.VK_LEFT:
 							player.setIsRot(-1);
 							break;
+						case KeyEvent.VK_SPACE:
+							player.fire();
+							bullets.add(new Bullet(player.getAngle(), 1, player.getxCord(), player.getyCord()));
+							break;
 					}
 				}
 				public void keyReleased(KeyEvent e)
@@ -64,6 +69,8 @@ public class AsteroidsRunner extends JPanel
 					case KeyEvent.VK_LEFT:
 						player.setIsRot(0);
 						break;
+					case KeyEvent.VK_SPACE:
+						break;
 					}
 				}
 			});
@@ -72,6 +79,14 @@ public class AsteroidsRunner extends JPanel
 	        	public void actionPerformed(ActionEvent e)
 	        	{
 	        		player.tick();
+	        		for(int i=0; i<bullets.size();i++)
+	        			{
+	        				bullets.get(i).tick();
+	        				if(bullets.get(0).getTickCounter()==10)
+	        					{
+	        						bullets.remove(bullets.get(0));
+	        					}
+	        			}
 	        		repaint();
 	        	}
 	        
@@ -87,6 +102,10 @@ public class AsteroidsRunner extends JPanel
 			
 			g.setColor(Color.WHITE);
 			g.drawPolygon(player.getxCord(), player.getyCord(), player.getNumPoints());
+			for(Bullet b: bullets)
+				{
+					g.drawOval(b.getPos().getX(), b.getPos().getY(), 5, 5);
+				}
 //			g.drawRect(player.getPos().getX(), player.getPos().getY(), 1, 1);
 		}
 		
