@@ -115,21 +115,8 @@ public abstract class SpaceObject
 			
 			updatePoints();
 		}
-		protected void updatePoints()
-		{
-			Vector v = new Vector(25.00, angle);
-			v.setO(angle);
-			xCord[0] = v.getX() + pos.getX();
-			yCord[0] = v.getY() + pos.getY();
-			v = new Vector(29.15476, angle + 2.60117);
-			v.setO(angle + 2.60117);
-			xCord[1] = v.getX() + pos.getX();
-			yCord[1] = v.getY() + pos.getY();
-			v = new Vector(29.15476, angle - 2.60117);
-			v.setO(angle - 2.60117);
-			xCord[2] = v.getX() + pos.getX();
-			yCord[2] = v.getY() + pos.getY();
-		}
+		protected abstract void updatePoints();
+		
 		
 		
 	}
