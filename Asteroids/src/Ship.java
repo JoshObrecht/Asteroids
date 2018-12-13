@@ -61,21 +61,17 @@ public class Ship extends SpaceObject
 			}
 		if(isAcc)
 			{
-				Vector v = new Vector(0.3, angle);
-				vel = new Vector(speed, velAngle);
-				vel.setX((int)(v.getxDub() + vel.getxDub()));
-				vel.setY((int)(v.getyDub() + vel.getyDub()));
-				velAngle = vel.getO();
+				vel = vel.addVects(new Vector(0.1, angle));
 			}
 		else
 			{
 				if(speed > 0)
 					{
 						speed -= (speed / 65);
+						vel.setR(speed);
 					}
 			}
 		
-		vel = new Vector(speed, velAngle);
 		pos.setX(pos.getX() + vel.getX());
 		pos.setY(pos.getY() + vel.getY());
 		
