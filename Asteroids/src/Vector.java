@@ -5,8 +5,10 @@ public class Vector
 		int y;
 		double r;
 		double o;
+		double xDub;
+		double yDub;
 		
-		public Vector(int x, int y) //Vectors always initialize in XY form
+		public Vector(int x, int y)
 		{
 			this.x = x;
 			this.y = y;
@@ -73,6 +75,22 @@ public class Vector
 		{
 			this.o = o;
 		}
+		public double getxDub()
+			{
+				return xDub;
+			}
+		public void setxDub(double xDub)
+			{
+				this.xDub = xDub;
+			}
+		public double getyDub()
+			{
+				return yDub;
+			}
+		public void setyDub(double yDub)
+			{
+				this.yDub = yDub;
+			}
 		
 		private void updateTypes(boolean isXY)
 		{
@@ -99,8 +117,16 @@ public class Vector
 				{
 					double newX = (Math.cos(o) * r);
 					double newY = (Math.sin(o) * r);
+					setxDub(newX);
+					setyDub(newY);
 					setXSafe((int) Math.round(newX));
 					setYSafe((int) Math.round(newY));
 				}
+		}
+		public Vector addVects(Vector v1)
+		{
+			setR(Math.sqrt(Math.pow(r, 2) + Math.pow(v1.getR(), 2) + (2*r*v1.getR() * Math.cos(o - v1.getO()))));
+			setO(o + Math.atan2(v1.getR() * Math.sin(v1.getO() - o), r + v1.getR() * Math.cos(v1.getO() - o)));
+			return(new Vector(r, o));
 		}
 	}
