@@ -11,7 +11,6 @@ public abstract class SpaceObject
 		protected int numPoints;
 		protected double speed = 0;
 
-
 		protected double angle;
 		
 		public SpaceObject(double angle, int numPoints, int[]xCord, int[]yCord)

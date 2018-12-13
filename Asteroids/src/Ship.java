@@ -5,6 +5,7 @@ public class Ship extends SpaceObject
 		private final double ROTATION_SPEED = 0.05;
 		private boolean isAcc = false;
 		private int isRot = 0;
+		private double velAngle = 0;
 		
 	public Ship(double angle, int numPoints, int [] xCord, int []yCord)
 	{
@@ -47,13 +48,13 @@ public class Ship extends SpaceObject
 			{
 				if(speed > 0)
 					{
-						speed -= 0.05;
+						speed -= (speed / 45);
 					}
 			}
 		
-		Vector v = new Vector(speed, angle);
-		pos.setX(pos.getX() + v.getX());
-		pos.setY(pos.getY() + v.getY());
+		vel = new Vector(speed, velAngle);
+		pos.setX(pos.getX() + vel.getX());
+		pos.setY(pos.getY() + vel.getY());
 		
 		if(pos.getX() < 0 || pos.getX() > 913 || pos.getY() < 0 || pos.getY() > 813)
 			{
