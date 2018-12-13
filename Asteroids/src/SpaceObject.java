@@ -9,7 +9,8 @@ public abstract class SpaceObject
 		protected int[] xCord;
 		protected int[] yCord;
 		protected int numPoints;
-
+		protected double speed = 0;
+		private int tickCounter = 0;
 
 		protected double angle;
 		
@@ -21,7 +22,14 @@ public abstract class SpaceObject
 			this.yCord = yCord;
 		}
 		
-		
+		public double getSpeed()
+			{
+				return speed;
+			}
+		public void setSpeed(double speed)
+			{
+				this.speed = speed;
+			}
 		public int[] getxCord()
 			{
 				return xCord;
@@ -80,28 +88,38 @@ public abstract class SpaceObject
 				vel.setO(angle);
 				updatePoints();
 			}
-		protected void updatePoints()
+		public void tick()
 		{
-//			for(int i = 0; i < xCord.length; i++)
-//				{
-//					double x1 = (double) (xCord[i] - pos.getX());
-//					double y1 = (double) (yCord[i] - pos.getY());
-//					x1 = ((x1 * Math.cos(angle)) + (y1 * Math.sin(angle)));
-//					y1 = ((x1 * Math.sin(angle)) - (y1 * Math.cos(angle)));
-//					x1 = Math.floor((x1 + 0.5));
-//					y1 = Math.floor((y1 + 0.5));
-//					xCord[i] = (int) x1 + pos.getX();
-//					yCord[i] = (int) y1 + pos.getY();
-//					
-//				}
-			for(int j = 0; j < xCord.length; j++)
+			Vector v = new Vector(speed, angle);
+			pos.setX(pos.getX() + v.getX());
+			pos.setY(pos.getY() + v.getY());
+			
+			if(pos.getX() < 0 || pos.getX() > 913 || pos.getY() < 0 || pos.getY() > 813)
 				{
-					Vector v = new Vector(xCord[j] - pos.getX(), yCord[j] - pos.getY());
-					v.setO(angle);
-					xCord[j] = v.getX() + pos.getX();
-					yCord[j] = v.getY() + pos.getY();
+					if(pos.getX() < 0)
+						{
+							pos.setX(913);
+						}
+					else if(pos.getX() > 913)
+						{
+							pos.setX(0);
+						}
+					if(pos.getY() < 0)
+						{
+							pos.setY(813);
+						}
+					else if(pos.getY() > 813)
+						{
+							pos.setY(0);
+						}
 				}
+			tickCounter++;
+//			updatePoints();
 		}
+
+		protected abstract void updatePoints();
+		
+
 		
 		
 	}
