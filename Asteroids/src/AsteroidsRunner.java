@@ -13,6 +13,10 @@ public class AsteroidsRunner extends JPanel
 //		static Asteroid type3= new Asteroid(0.0, 10);
 //		static Asteroid type4= new Asteroid(0.0, 10);
 		
+		static int[] aX = new int[10];
+		static int[] aY = new int[10];
+		static Asteroid a = new Asteroid(0.00, 10, aX, aY);
+		
 		static int [] shipXCord = {457, 407, 407};
 		static int [] shipYCord = {407, 392, 422};
 		
@@ -100,8 +104,10 @@ public class AsteroidsRunner extends JPanel
 		{
 			super.paintComponent(g);
 			
+			
 			g.setColor(Color.WHITE);
 			g.drawPolygon(player.getxCord(), player.getyCord(), player.getNumPoints());
+			g.drawPolygon(a.getxCord(), a.getyCord(), 10);
 			for(Bullet b: bullets)
 				{
 					g.drawOval(b.getPos().getX(), b.getPos().getY(), 5, 5);
