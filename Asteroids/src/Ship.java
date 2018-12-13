@@ -97,5 +97,9 @@ public class Ship extends SpaceObject
 		
 		updatePoints();
 	}
+	public void fire()
+	{
+		
+	}
 		
 	}
