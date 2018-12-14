@@ -14,12 +14,9 @@ public abstract class SpaceObject
 
 		protected double angle;
 		
-		public SpaceObject(double angle, int numPoints, int[]xCord, int[]yCord)
+		public SpaceObject(double angle)
 		{
 			this.angle = angle;	
-			this.numPoints = numPoints;
-			this.xCord = xCord;
-			this.yCord = yCord;
 		}
 		
 		public double getSpeed()
@@ -88,6 +85,14 @@ public abstract class SpaceObject
 				vel.setO(angle);
 				updatePoints();
 			}
+		public int getTickCounter()
+			{
+				return tickCounter;
+			}
+		public void setTickCounter(int tickCounter)
+			{
+				this.tickCounter = tickCounter;
+			}
 		public void tick()
 		{
 			Vector v = new Vector(speed, angle);
@@ -114,7 +119,6 @@ public abstract class SpaceObject
 						}
 				}
 			tickCounter++;
-//			updatePoints();
 		}
 
 		protected abstract void updatePoints();

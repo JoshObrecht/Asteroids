@@ -13,14 +13,8 @@ public class AsteroidsRunner extends JPanel
 //		static Asteroid type3= new Asteroid(0.0, 10);
 //		static Asteroid type4= new Asteroid(0.0, 10);
 		
-		static int[] aX = new int[10];
-		static int[] aY = new int[10];
-		static Asteroid a = new Asteroid(0.00, 10, aX, aY);
-		
-		static int [] shipXCord = {457, 407, 407};
-		static int [] shipYCord = {407, 392, 422};
-		
-		static Ship player = new Ship(0.00, 3, shipXCord, shipYCord);
+		static Ship player = new Ship(0.00);
+
 		static ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 		
 		public static void main(String[] args)
@@ -56,7 +50,7 @@ public class AsteroidsRunner extends JPanel
 							break;
 						case KeyEvent.VK_SPACE:
 							player.fire();
-							bullets.add(new Bullet(player.getAngle(), 1, player.getxCord(), player.getyCord()));
+							bullets.add(new Bullet(player.getAngle(), player.getPoint(true), player.getPoint(false)));
 							break;
 					}
 				}

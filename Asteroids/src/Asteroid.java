@@ -2,13 +2,9 @@ import java.util.*;
 public class Asteroid extends SpaceObject
 	{
 
-	ArrayList<Asteroid> asteroids = new ArrayList<Asteroid>();
-		
-	public Asteroid(double angle, int numPoints, int[]xCord, int[]yCord)
+	public Asteroid(double angle)
 		{
-			super(angle, numPoints, xCord, yCord);
-			pos = new Vector(80,80);
-			updatePoints();
+			super(angle);
 		}
 	protected void updatePoints()
 	{
