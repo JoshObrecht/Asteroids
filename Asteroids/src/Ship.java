@@ -56,10 +56,10 @@ public class Ship extends SpaceObject
 			v = new Vector(29.15476, angle + 2.60117);
 			xCord[1] = v.getX() + pos.getX();
 			yCord[1] = v.getY() + pos.getY();
-			v = new Vector(21.15476, angle + 2.60117);
+			v = new Vector(22.15476, angle + 2.49117);
 			xCord[2] = v.getX() + pos.getX();
 			yCord[2] = v.getY() + pos.getY();
-			v = new Vector(21.15476, angle - 2.60117);
+			v = new Vector(22.15476, angle - 2.49117);
 			xCord[3] = v.getX() + pos.getX();
 			yCord[3] = v.getY() + pos.getY();
 			v = new Vector(29.15476, angle - 2.60117);
