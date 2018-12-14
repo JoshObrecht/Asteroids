@@ -2,9 +2,9 @@
 public class Asteroid extends SpaceObject
 	{
 
-	public Asteroid(double angle, int numPoints, int[]xCord, int[]yCord)
+	public Asteroid(double angle)
 		{
-			super(angle, numPoints, xCord, yCord);
+			super(angle);
 		}
 	protected void updatePoints()
 	{

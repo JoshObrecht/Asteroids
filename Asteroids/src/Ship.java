@@ -5,16 +5,19 @@ public class Ship extends SpaceObject
 		private final double ROTATION_SPEED = 0.05;
 		private boolean isAcc = false;
 		private int isRot = 0;
-		private double velAngle = angle;
 		
-	public Ship(double angle, int numPoints, int [] xCord, int []yCord)
+	public Ship(double angle)
 	{
-		super(angle, numPoints, xCord, yCord);
+		super(angle);
 		pos = new Vector(0,0);
-		pos.setX(xCord[0] - 25);
-		pos.setY(yCord[0]);
+		pos.setX(432);
+		pos.setY(407);
 		vel = new Vector(0,0);
 		acc = new Vector(0,0);
+		xCord = new int[3];
+		yCord = new int[3];
+		numPoints = 3;
+		updatePoints();
 	}
 
 	
@@ -34,18 +37,26 @@ public class Ship extends SpaceObject
 		{
 			this.isRot = isRot;
 		}
+	public int getPoint(boolean x)
+	{
+		if(x)
+			{
+				return xCord[0];
+			}
+		else
+			{
+				return yCord[0];
+			}
+	}
 	protected void updatePoints()
 		{
 			Vector v = new Vector(25.00, angle);
-			v.setO(angle);
 			xCord[0] = v.getX() + pos.getX();
 			yCord[0] = v.getY() + pos.getY();
 			v = new Vector(29.15476, angle + 2.60117);
-			v.setO(angle + 2.60117);
 			xCord[1] = v.getX() + pos.getX();
 			yCord[1] = v.getY() + pos.getY();
 			v = new Vector(29.15476, angle - 2.60117);
-			v.setO(angle - 2.60117);
 			xCord[2] = v.getX() + pos.getX();
 			yCord[2] = v.getY() + pos.getY();
 		}
@@ -61,13 +72,17 @@ public class Ship extends SpaceObject
 			}
 		if(isAcc)
 			{
-				vel = vel.addVects(new Vector(0.1, angle));
+				if(speed < 15)
+					{
+						vel = vel.addVects(new Vector(0.1, angle));
+					}
+						
 			}
 		else
 			{
 				if(speed > 0)
 					{
-						speed -= (speed / 65);
+						speed -= (speed / 55);
 						vel.setR(speed);
 					}
 			}
