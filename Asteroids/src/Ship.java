@@ -14,9 +14,9 @@ public class Ship extends SpaceObject
 		pos.setY(407);
 		vel = new Vector(0,0);
 		acc = new Vector(0,0);
-		xCord = new int[3];
-		yCord = new int[3];
-		numPoints = 3;
+		xCord = new int[5];
+		yCord = new int[5];
+		numPoints = 5;
 		updatePoints();
 	}
 
@@ -56,9 +56,15 @@ public class Ship extends SpaceObject
 			v = new Vector(29.15476, angle + 2.60117);
 			xCord[1] = v.getX() + pos.getX();
 			yCord[1] = v.getY() + pos.getY();
-			v = new Vector(29.15476, angle - 2.60117);
+			v = new Vector(21.15476, angle + 2.60117);
 			xCord[2] = v.getX() + pos.getX();
 			yCord[2] = v.getY() + pos.getY();
+			v = new Vector(21.15476, angle - 2.60117);
+			xCord[3] = v.getX() + pos.getX();
+			yCord[3] = v.getY() + pos.getY();
+			v = new Vector(29.15476, angle - 2.60117);
+			xCord[4] = v.getX() + pos.getX();
+			yCord[4] = v.getY() + pos.getY();
 		}
 	public void tick()
 	{
