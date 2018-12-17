@@ -6,9 +6,6 @@ public class Asteroid extends SpaceObject
 		{
 			super(angle);
 		}
-	protected void updatePoints()
-	{
-	}
 
 		protected void updatePoints()
 		{
