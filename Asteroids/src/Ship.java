@@ -5,6 +5,8 @@ public class Ship extends SpaceObject
 		private final double ROTATION_SPEED = 0.05;
 		private boolean isAcc = false;
 		private int isRot = 0;
+		private int[] fireX;
+		private int[] fireY;
 		
 	public Ship(double angle)
 	{
@@ -17,6 +19,8 @@ public class Ship extends SpaceObject
 		xCord = new int[5];
 		yCord = new int[5];
 		numPoints = 5;
+		fireX = new int[3];
+		fireY = new int[3];
 		updatePoints();
 	}
 
@@ -37,6 +41,22 @@ public class Ship extends SpaceObject
 		{
 			this.isRot = isRot;
 		}
+	public int[] getFireX()
+		{
+			return fireX;
+		}
+	public void setFireX(int[] fireX)
+		{
+			this.fireX = fireX;
+		}
+	public int[] getFireY()
+		{
+			return fireY;
+		}
+	public void setFireY(int[] fireY)
+		{
+			this.fireY = fireY;
+		}
 	public int getPoint(boolean x)
 	{
 		if(x)
@@ -56,15 +76,25 @@ public class Ship extends SpaceObject
 			v = new Vector(29.15476, angle + 2.60117);
 			xCord[1] = v.getX() + pos.getX();
 			yCord[1] = v.getY() + pos.getY();
-			v = new Vector(21.15476, angle + 2.60117);
+			v = new Vector(22.15476, angle + 2.49117);
 			xCord[2] = v.getX() + pos.getX();
 			yCord[2] = v.getY() + pos.getY();
-			v = new Vector(21.15476, angle - 2.60117);
+			v = new Vector(22.15476, angle - 2.49117);
 			xCord[3] = v.getX() + pos.getX();
 			yCord[3] = v.getY() + pos.getY();
 			v = new Vector(29.15476, angle - 2.60117);
 			xCord[4] = v.getX() + pos.getX();
 			yCord[4] = v.getY() + pos.getY();
+			
+			v = new Vector(20.15476, angle + 2.79117);
+			fireX[0] = v.getX() + pos.getX();
+			fireY[0] = v.getY() + pos.getY();
+			v = new Vector((Math.random() * 12) + 32, angle + Math.PI);
+			fireX[1] = v.getX() + pos.getX();
+			fireY[1] = v.getY() + pos.getY();
+			v = new Vector(20.15476, angle - 2.79117);
+			fireX[2] = v.getX() + pos.getX();
+			fireY[2] = v.getY() + pos.getY();
 		}
 	public void tick()
 	{
