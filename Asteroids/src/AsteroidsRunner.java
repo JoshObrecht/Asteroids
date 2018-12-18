@@ -20,12 +20,13 @@ public class AsteroidsRunner extends JPanel
 		public static void main(String[] args)
 		{
 			JFrame frame = new JFrame("Asteroids");
-			frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			frame.setSize(1013, 913);
 			AsteroidsRunner game = new AsteroidsRunner();
 			frame.add(game);
 			frame.setVisible(true);
 			game.setFocusable(true);
+			asteroids.add(new Asteroid(0.00, 1));
 		}
 		
 		public AsteroidsRunner()
@@ -85,9 +86,18 @@ public class AsteroidsRunner extends JPanel
 	        						bullets.remove(bullets.get(0));
 	        					}
 	        			}
+	        		for(int i = 0; i < asteroids.size(); i++)
+	        			{
+	        				for(Bullet b: bullets)
+	        					{
+	        						if(asteroids.get(i).getBounds().contains(b.getPos().getX(), b.getPos().getY()))
+	        							{
+	        								System.out.println("hit!");
+	        							}
+	        					}
+	        			}
 	        		repaint();
 	        	}
-	        
 	        });
 	        timer.start();
 			
@@ -111,7 +121,7 @@ public class AsteroidsRunner extends JPanel
 				}
 			for(Asteroid a: asteroids)
 				{
-					g.drawPolyline(a.getxCord(), a.getyCord(), 10);
+					g.drawPolygon(a.getxCord(), a.getyCord(), 10);
 				}
 //			g.drawRect(player.getPos().getX(), player.getPos().getY(), 1, 1);
 		}

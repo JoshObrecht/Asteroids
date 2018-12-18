@@ -1,8 +1,9 @@
 import java.util.*;
+import java.awt.Polygon;
 public class Asteroid extends SpaceObject
 	{
-
 		private int type;
+		private Polygon bounds = new Polygon();
 		
 	public Asteroid(double angle, int type)
 		{
@@ -12,6 +13,15 @@ public class Asteroid extends SpaceObject
 			xCord = new int[10];
 			yCord = new int[10];
 			updatePoints();
+		}
+	
+		public Polygon getBounds()
+		{
+			return bounds;
+		}
+		public void setBounds(Polygon bounds)
+		{
+			this.bounds = bounds;
 		}
 
 		protected void updatePoints()
@@ -59,6 +69,11 @@ public class Asteroid extends SpaceObject
 					v = new Vector(25.00, 6.10865);
 					xCord[9] = pos.getX() + v.getX();
 					yCord[9] = pos.getY() + v.getY();
+					
+					bounds.xpoints = getxCord();
+					bounds.ypoints = getyCord();
+					bounds.npoints = getNumPoints();
+					
 					break;
 				case 2:
 					v = new Vector(25.00, 0.087267);
