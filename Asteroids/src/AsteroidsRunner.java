@@ -15,7 +15,7 @@ public class AsteroidsRunner extends JPanel
 		
 		static Ship player = new Ship(0.00);
 		static ArrayList<Bullet> bullets = new ArrayList<Bullet>();
-		static Asteroid a = new Asteroid(0.00, 1);
+		static ArrayList<Asteroid> asteroids = new ArrayList<Asteroid>();
 		
 		public static void main(String[] args)
 		{
@@ -101,15 +101,17 @@ public class AsteroidsRunner extends JPanel
 			
 			g.setColor(Color.WHITE);
 			g.drawPolygon(player.getxCord(), player.getyCord(), player.getNumPoints());
-			g.drawPolyline(a.getxCord(), a.getyCord(), 10);
 			if(player.isAcc() == true)
 				{
 					g.drawPolygon(player.getFireX(), player.getFireY(), 3);
 				}
-
 			for(Bullet b: bullets)
 				{
 					g.drawOval(b.getPos().getX(), b.getPos().getY(), 5, 5);
+				}
+			for(Asteroid a: asteroids)
+				{
+					g.drawPolyline(a.getxCord(), a.getyCord(), 10);
 				}
 //			g.drawRect(player.getPos().getX(), player.getPos().getY(), 1, 1);
 		}
