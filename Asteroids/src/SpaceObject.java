@@ -14,12 +14,9 @@ public abstract class SpaceObject
 
 		protected double angle;
 		
-		public SpaceObject(double angle, int numPoints, int[]xCord, int[]yCord)
+		public SpaceObject(double angle)
 		{
 			this.angle = angle;	
-			this.numPoints = numPoints;
-			this.xCord = xCord;
-			this.yCord = yCord;
 		}
 		
 		public double getSpeed()
@@ -88,33 +85,40 @@ public abstract class SpaceObject
 				vel.setO(angle);
 				updatePoints();
 			}
+		public int getTickCounter()
+			{
+				return tickCounter;
+			}
+		public void setTickCounter(int tickCounter)
+			{
+				this.tickCounter = tickCounter;
+			}
 		public void tick()
 		{
 			Vector v = new Vector(speed, angle);
 			pos.setX(pos.getX() + v.getX());
 			pos.setY(pos.getY() + v.getY());
 			
-			if(pos.getX() < 0 || pos.getX() > 913 || pos.getY() < 0 || pos.getY() > 813)
+			if(pos.getX() < 0 || pos.getX() > 1013 || pos.getY() < 0 || pos.getY() > 913)
 				{
 					if(pos.getX() < 0)
 						{
-							pos.setX(913);
+							pos.setX(1013);
 						}
-					else if(pos.getX() > 913)
+					else if(pos.getX() > 1013)
 						{
 							pos.setX(0);
 						}
 					if(pos.getY() < 0)
 						{
-							pos.setY(813);
+							pos.setY(913);
 						}
-					else if(pos.getY() > 813)
+					else if(pos.getY() > 913)
 						{
 							pos.setY(0);
 						}
 				}
 			tickCounter++;
-//			updatePoints();
 		}
 
 		protected abstract void updatePoints();

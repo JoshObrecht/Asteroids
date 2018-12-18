@@ -13,17 +13,15 @@ public class AsteroidsRunner extends JPanel
 //		static Asteroid type3= new Asteroid(0.0, 10);
 //		static Asteroid type4= new Asteroid(0.0, 10);
 		
-		static int [] shipXCord = {457, 407, 407};
-		static int [] shipYCord = {407, 392, 422};
-		
-		static Ship player = new Ship(0.00, 3, shipXCord, shipYCord);
+		static Ship player = new Ship(0.00);
 		static ArrayList<Bullet> bullets = new ArrayList<Bullet>();
+		static Asteroid a = new Asteroid(0.00, 1);
 		
 		public static void main(String[] args)
 		{
 			JFrame frame = new JFrame("Asteroids");
 			frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-			frame.setSize(913, 813);
+			frame.setSize(1013, 913);
 			AsteroidsRunner game = new AsteroidsRunner();
 			frame.add(game);
 			frame.setVisible(true);
@@ -52,7 +50,7 @@ public class AsteroidsRunner extends JPanel
 							break;
 						case KeyEvent.VK_SPACE:
 							player.fire();
-							bullets.add(new Bullet(player.getAngle(), 1, player.getxCord(), player.getyCord()));
+							bullets.add(new Bullet(player.getAngle(), player.getPoint(true), player.getPoint(false)));
 							break;
 					}
 				}
@@ -100,8 +98,15 @@ public class AsteroidsRunner extends JPanel
 		{
 			super.paintComponent(g);
 			
+			
 			g.setColor(Color.WHITE);
 			g.drawPolygon(player.getxCord(), player.getyCord(), player.getNumPoints());
+			g.drawPolyline(a.getxCord(), a.getyCord(), 10);
+			if(player.isAcc() == true)
+				{
+					g.drawPolygon(player.getFireX(), player.getFireY(), 3);
+				}
+
 			for(Bullet b: bullets)
 				{
 					g.drawOval(b.getPos().getX(), b.getPos().getY(), 5, 5);
