@@ -1,7 +1,7 @@
 
 public class Bullet extends SpaceObject
 	{
-
+		
 	public Bullet(double angle, int x, int y)
 		{
 			super(angle);
