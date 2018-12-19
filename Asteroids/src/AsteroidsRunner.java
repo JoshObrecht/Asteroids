@@ -41,7 +41,6 @@ public class AsteroidsRunner extends JPanel
 					{
 						case KeyEvent.VK_UP:
 							player.setAcc(true);
-							player.setSpeed(player.getSpeed() + 0.3);
 							break;
 						case KeyEvent.VK_RIGHT:
 							player.setIsRot(1);

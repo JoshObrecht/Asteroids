@@ -108,7 +108,7 @@ public class Ship extends SpaceObject
 			}
 		if(isAcc)
 			{
-				if(speed < 5)
+				if(vel.getR() < 10)
 					{
 						vel = vel.addVects(new Vector(0.1, angle));
 					}
@@ -116,10 +116,9 @@ public class Ship extends SpaceObject
 			}
 		else
 			{
-				if(speed > 0)
+				if(vel.getR() > 0)
 					{
-						speed -= (speed / 55);
-						vel.setR(speed);
+						vel.setR(vel.getR() - (vel.getR() / 55));
 					}
 			}
 		
