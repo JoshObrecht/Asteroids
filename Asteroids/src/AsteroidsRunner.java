@@ -101,7 +101,7 @@ public class AsteroidsRunner extends JPanel
 			
 			g.setColor(Color.WHITE);
 			g.drawPolygon(player.getxCord(), player.getyCord(), player.getNumPoints());
-			g.drawPolyline(a.getxCord(), a.getyCord(), 10);
+			g.drawPolygon(a.getxCord(), a.getyCord(), 10);
 			if(player.isAcc() == true)
 				{
 					g.drawPolygon(player.getFireX(), player.getFireY(), 3);
