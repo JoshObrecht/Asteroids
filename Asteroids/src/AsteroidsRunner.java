@@ -85,16 +85,7 @@ public class AsteroidsRunner extends JPanel
 	        						bullets.remove(bullets.get(0));
 	        					}
 	        			}
-	        		for(int i = 0; i < asteroids.size(); i++)
-	        			{
-	        				for(Bullet b: bullets)
-	        					{
-	        						if(asteroids.get(i).getAstBounds().intersects(asteroids.get(i).getPos().getX(), asteroids.get(i).getPos().getY(), 1, 1))
-	        							{
-	        								System.out.println("Hit");
-	        							}
-	        					}
-	        			}
+	        		a.tick();
 	        		repaint();
 	        	}
 	        });
