@@ -9,7 +9,6 @@ public abstract class SpaceObject
 		protected int[] xCord;
 		protected int[] yCord;
 		protected int numPoints;
-		protected double speed = 0;
 		private int tickCounter = 0;
 
 		protected double angle;
@@ -19,14 +18,6 @@ public abstract class SpaceObject
 			this.angle = angle;	
 		}
 		
-		public double getSpeed()
-			{
-				return speed;
-			}
-		public void setSpeed(double speed)
-			{
-				this.speed = speed;
-			}
 		public int[] getxCord()
 			{
 				return xCord;
@@ -95,7 +86,7 @@ public abstract class SpaceObject
 			}
 		public void tick()
 		{
-			Vector v = new Vector(speed, angle);
+			Vector v = new Vector(vel.getR(), angle);
 			pos.setX(pos.getX() + v.getX());
 			pos.setY(pos.getY() + v.getY());
 			
