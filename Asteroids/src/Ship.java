@@ -112,7 +112,7 @@ public class Ship extends SpaceObject
 					{
 						vel = vel.addVects(new Vector(0.1, angle));
 					}
-				else if(vel.getR() >= 10 && isRot != 0)
+				else if(vel.getR() >= 10 && angle != vel.getO())
 					{
 						vel = vel.addVects(new Vector(0.1, angle));
 					}
