@@ -113,7 +113,6 @@ public class Ship extends SpaceObject
    			    	{
    			    		vel.setR(10);
    			    	}
-
 			}
 		else
 			{
