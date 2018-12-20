@@ -27,96 +27,47 @@ public class Asteroid extends SpaceObject
 		protected void updatePoints()
 		{
 			Vector v;
-			switch(type)
-			{
-				case 1:
-					v = new Vector(25.00, 0.087267);
-					xCord[0] = pos.getX() + v.getX();
-					yCord[0] = pos.getY() + v.getY();
+			
+			v = new Vector(((Math.random()*50)+50), angle+(Math.random()*0.523599));
+			xCord[0] = pos.getX() + v.getX();
+			yCord[0] = pos.getY() + v.getY();
 					
-					v = new Vector(30.00, 0.610865);
-					xCord[1] = pos.getX() + v.getX();
-					yCord[1] = pos.getY() + v.getY();
+			v = new Vector(((Math.random()*50)+50), angle+((Math.random()*0.523601)+0.523599));
+			xCord[1] = pos.getX() + v.getX();
+			yCord[1] = pos.getY() + v.getY();
 					
-					v = new Vector(20.00, 1.22173);
-					xCord[2] = pos.getX() + v.getX();
-					yCord[2] = pos.getY() + v.getY();
+			v = new Vector(((Math.random()*50)+50), angle+((Math.random()*0.5236)+1.0472));
+			xCord[2] = pos.getX() + v.getX();
+			yCord[2] = pos.getY() + v.getY();
 					
-					v = new Vector(35.00, 1.91986);
-					xCord[3] = pos.getX() + v.getX();
-					yCord[3] = pos.getY() + v.getY();
+			v = new Vector(((Math.random()*50)+50), angle+((Math.random()*.78539)+1.5708));
+			xCord[3] = pos.getX() + v.getX();
+			yCord[3] = pos.getY() + v.getY();
 					
-					v = new Vector(25.00 , 2.87979);
-					xCord[4] = pos.getX() + v.getX();
-					yCord[4] = pos.getY() + v.getY();
+			v = new Vector(((Math.random()*50)+50), angle+((Math.random()*.78539)+2.35619));
+			xCord[4] = pos.getX() + v.getX();
+			yCord[4] = pos.getY() + v.getY();
 					
-					v = new Vector(25.00, 3.75246);
-					xCord[5] = pos.getX() + v.getX();
-					yCord[5] = pos.getY() + v.getY();
+			v = new Vector(((Math.random()*50)+50), angle+((Math.random()*.5236)+3.14159));
+			xCord[5] = pos.getX() + v.getX();
+			yCord[5] = pos.getY() + v.getY();
 					
-					v = new Vector(35.00, 4.36332);
-					xCord[6] = pos.getX() + v.getX();
-					yCord[6] = pos.getY() + v.getY();
+			v = new Vector(((Math.random()*50)+50), angle+((Math.random()*.5236)+3.66519));
+			xCord[6] = pos.getX() + v.getX();
+			yCord[6] = pos.getY() + v.getY();
 					
-					v = new Vector(35.00, 5.14872);
-					xCord[7] = pos.getX() + v.getX();
-					yCord[7] = pos.getY() + v.getY();
+			v = new Vector(((Math.random()*50)+50), angle+((Math.random()*.5236)+4.18879));
+			xCord[7] = pos.getX() + v.getX();
+			yCord[7] = pos.getY() + v.getY();
 					
-					v = new Vector(15.00, 5.49779);
-					xCord[8] = pos.getX() + v.getX();
-					yCord[8] = pos.getY() + v.getY();
+			v = new Vector(((Math.random()*50)+50), ((Math.random()*.7854)+4.71239));
+			xCord[8] = pos.getX() + v.getX();
+			yCord[8] = pos.getY() + v.getY();
 					
-					v = new Vector(25.00, 6.10865);
-					xCord[9] = pos.getX() + v.getX();
-					yCord[9] = pos.getY() + v.getY();
-					
-					bounds.xpoints = getxCord();
-					bounds.ypoints = getyCord();
-					bounds.npoints = getNumPoints();
-					
-					break;
-				case 2:
-					v = new Vector(25.00, 0.087267);
-					xCord[0] = pos.getX() + v.getX();
-					yCord[0] = pos.getY() + v.getY();
-					
-					v = new Vector(30.00, 0.610865);
-					xCord[1] = pos.getX() + v.getX();
-					yCord[1] = pos.getY() + v.getY();
-					
-					v = new Vector(20.00, 1.22173);
-					xCord[2] = pos.getX() + v.getX();
-					yCord[2] = pos.getY() + v.getY();
-					
-					v = new Vector(35.00, 1.91986);
-					xCord[3] = pos.getX() + v.getX();
-					yCord[3] = pos.getY() + v.getY();
-					
-					v = new Vector(25.00 , 2.87979);
-					xCord[4] = pos.getX() + v.getX();
-					yCord[4] = pos.getY() + v.getY();
-					
-					v = new Vector(25.00, 3.75246);
-					xCord[5] = pos.getX() + v.getX();
-					yCord[5] = pos.getY() + v.getY();
-					
-					v = new Vector(35.00, 4.36332);
-					xCord[6] = pos.getX() + v.getX();
-					yCord[6] = pos.getY() + v.getY();
-					
-					v = new Vector(35.00, 5.14872);
-					xCord[7] = pos.getX() + v.getX();
-					yCord[7] = pos.getY() + v.getY();
-					
-					v = new Vector(15.00, 5.49779);
-					xCord[8] = pos.getX() + v.getX();
-					yCord[8] = pos.getY() + v.getY();
-					
-					v = new Vector(25.00, 6.10865);
-					xCord[9] = pos.getX() + v.getX();
-					yCord[9] = pos.getY() + v.getY();
-					break;
-			}
+			v = new Vector(((Math.random()*50)+50), ((Math.random()*.7854)+5.49779));
+			xCord[9] = pos.getX() + v.getX();
+			yCord[9] = pos.getY() + v.getY();
+		
 			
 		}
 	}
