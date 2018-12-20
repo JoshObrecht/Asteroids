@@ -123,10 +123,10 @@ public class Vector
 					setYSafe((int) Math.round(newY));
 				}
 		}
-		public Vector addVects(Vector v1)
+		public void addVects(Vector v1)
 		{
 			setR(Math.sqrt(Math.pow(r, 2) + Math.pow(v1.getR(), 2) + (2*r*v1.getR() * Math.cos(o - v1.getO()))));
 			setO(o + Math.atan2(v1.getR() * Math.sin(v1.getO() - o), r + v1.getR() * Math.cos(v1.getO() - o)));
-			return(new Vector(r, o));
 		}
+		
 	}
