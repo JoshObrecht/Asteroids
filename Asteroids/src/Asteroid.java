@@ -15,7 +15,7 @@ public class Asteroid extends SpaceObject
 			updatePoints();
 		}
 	
-		public Polygon getBounds()
+		public Polygon getAstBounds()
 		{
 			return bounds;
 		}

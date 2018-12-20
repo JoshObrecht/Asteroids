@@ -89,7 +89,7 @@ public class AsteroidsRunner extends JPanel
 	        			{
 	        				for(Bullet b: bullets)
 	        					{
-	        						if(asteroids.get(i).getBounds().intersects(asteroids.get(i).getPos().getX(), asteroids.get(i).getPos().getY(), 1, 1))
+	        						if(asteroids.get(i).getAstBounds().intersects(asteroids.get(i).getPos().getX(), asteroids.get(i).getPos().getY(), 1, 1))
 	        							{
 	        								System.out.println("Hit");
 	        							}
@@ -121,7 +121,8 @@ public class AsteroidsRunner extends JPanel
 				}
 			for(Asteroid a: asteroids)
 				{
-					g.drawPolygon(a.getxCord(), a.getyCord(), 10);
+					a.updatePoints();
+					g.drawPolygon(a.getAstBounds());
 				}
 //			g.drawRect(player.getPos().getX(), player.getPos().getY(), 1, 1);
 		}
