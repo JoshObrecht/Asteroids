@@ -108,15 +108,12 @@ public class Ship extends SpaceObject
 			}
 		if(isAcc)
 			{
-				if(vel.getR() < 10)
-					{
-						vel = vel.addVects(new Vector(0.1, angle));
-					}
-				else if(vel.getR() >= 10 && angle != vel.getO())
-					{
-						vel = vel.addVects(new Vector(0.1, angle));
-					}
-						
+   			    vel.addVects(new Vector(0.1, angle));
+   			    if(vel.getR() >= 10)
+   			    	{
+   			    		vel.setR(10);
+   			    	}
+
 			}
 		else
 			{
