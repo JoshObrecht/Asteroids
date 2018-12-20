@@ -20,7 +20,7 @@ public class AsteroidsRunner extends JPanel
 		public static void main(String[] args)
 		{
 			JFrame frame = new JFrame("Asteroids");
-			frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			frame.setSize(1013, 913);
 			AsteroidsRunner game = new AsteroidsRunner();
 			frame.add(game);
@@ -85,6 +85,7 @@ public class AsteroidsRunner extends JPanel
 	        						bullets.remove(bullets.get(0));
 	        					}
 	        			}
+	        		a.tick();
 	        		repaint();
 	        	}
 	        

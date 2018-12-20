@@ -12,6 +12,7 @@ public class Asteroid extends SpaceObject
 			xCord = new int[10];
 			yCord = new int[10];
 			updatePoints();
+			vel = new Vector(5, angle);
 		}
 
 		protected void updatePoints()
@@ -50,11 +51,11 @@ public class Asteroid extends SpaceObject
 			xCord[7] = pos.getX() + v.getX();
 			yCord[7] = pos.getY() + v.getY();
 					
-			v = new Vector(((Math.random()*50)+50), ((Math.random()*.7854)+4.71239));
+			v = new Vector(((Math.random()*50)+50), angle+((Math.random()*.7854)+4.71239));
 			xCord[8] = pos.getX() + v.getX();
 			yCord[8] = pos.getY() + v.getY();
 					
-			v = new Vector(((Math.random()*50)+50), ((Math.random()*.7854)+5.49779));
+			v = new Vector(((Math.random()*50)+50), angle+((Math.random()*.7854)+5.49779));
 			xCord[9] = pos.getX() + v.getX();
 			yCord[9] = pos.getY() + v.getY();
 		
