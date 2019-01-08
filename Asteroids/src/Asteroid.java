@@ -100,6 +100,7 @@ public class Asteroid extends SpaceObject
 		protected void updatePoints()
 		{
 			Vector v;
+
 			v = new Vector(magnitudes[0], angle + angles[0]);
 			xCord[0] = pos.getX() + v.getX();
 			yCord[0] = pos.getY() + v.getY();
