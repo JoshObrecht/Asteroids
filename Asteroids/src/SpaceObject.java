@@ -10,6 +10,7 @@ public abstract class SpaceObject
 		protected int[] yCord;
 		protected int numPoints;
 		private int tickCounter = 0;
+		protected double rotationSpeed;
 
 		protected double angle;
 		
@@ -83,6 +84,14 @@ public abstract class SpaceObject
 		public void setTickCounter(int tickCounter)
 			{
 				this.tickCounter = tickCounter;
+			}
+		public double getRotationSpeed() 
+			{
+				return rotationSpeed;
+			}
+		public void setRotationSpeed(double rotationSpeed) 
+			{
+				this.rotationSpeed = rotationSpeed;
 			}
 		public void tick()
 		{
