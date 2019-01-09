@@ -5,13 +5,11 @@ public abstract class SpaceObject
 		protected Vector pos;
 		protected Vector vel;
 		protected Vector acc;
-
 		protected int[] xCord;
 		protected int[] yCord;
 		protected int numPoints;
 		private int tickCounter = 0;
 		protected double rotationSpeed;
-
 		protected double angle;
 		
 		public SpaceObject(double angle)
