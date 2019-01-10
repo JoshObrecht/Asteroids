@@ -2,13 +2,13 @@
 public class Bullet extends SpaceObject
 	{
 		
-	public Bullet(double angle, int x, int y)
+	public Bullet(double angle, int x, int y, double speed)
 		{
 			super(angle);
 			pos = new Vector(0,0);
 			pos.setX(x);
 			pos.setY(y);
-			vel = new Vector(10.00, angle);
+			vel = new Vector(10.00 + speed, angle);
 		}
 
 	protected void updatePoints()
