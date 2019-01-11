@@ -15,8 +15,8 @@ public class Asteroid extends SpaceObject
 			magnitudes = new double[10];
 			angles = new double[10];
 			createPoints();
-			vel = new Vector(0.00, angle);
-			rotationSpeed = 0.3;
+			vel = new Vector(2.00, angle);
+			rotationSpeed = 0.03;
 		}
 	
 		public Polygon getAstBounds()
@@ -27,7 +27,7 @@ public class Asteroid extends SpaceObject
 		{
 			this.bounds = bounds;
 		}
-
+		
 		protected void createPoints()
 		{
 			Vector v;
@@ -143,5 +143,13 @@ public class Asteroid extends SpaceObject
 			
 			bounds.xpoints = xCord;
 			bounds.ypoints = yCord;
+		}
+		public void tick()
+		{
+			super.tick();
+			for(int i = 0; i < angles.length; i++)
+				{
+					angles[i] += rotationSpeed;
+				}
 		}
 	}

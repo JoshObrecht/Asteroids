@@ -50,7 +50,7 @@ public class AsteroidsRunner extends JPanel
 							break;
 						case KeyEvent.VK_SPACE:
 							player.fire();
-							bullets.add(new Bullet(player.getAngle(), player.getPoint(true), player.getPoint(false)));
+							bullets.add(new Bullet(player.getAngle(), player.getPoint(true), player.getPoint(false), player.getVel().getR()));
 							break;
 					}
 				}
@@ -85,6 +85,10 @@ public class AsteroidsRunner extends JPanel
 	        						bullets.remove(bullets.get(0));
 	        					}
 	        			}
+	        		for(Asteroid a: asteroids)
+		        		{
+		        			a.tick();
+		        		}
 	        		for(int i = 0; i < asteroids.size(); i++)
 	        			{
 	        				for(int b = 0; b < bullets.size(); b++)
@@ -93,13 +97,10 @@ public class AsteroidsRunner extends JPanel
 	        						{
 	        							asteroids.remove(i);
 	        							bullets.remove(b);
+	        							break;
 	        						}
 	        					}
 	        			}
-	        		for(Asteroid a: asteroids)
-	        		{
-	        			a.tick();
-	        		}
 	        		repaint();
 	        	}
 	        });
