@@ -17,6 +17,7 @@ public class AsteroidsRunner extends JPanel
 		static ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 		static ArrayList<Asteroid> asteroids = new ArrayList<Asteroid>();
 		static ArrayList<UFO> enemies = new ArrayList<UFO>();
+		static boolean firing;
 		
 		public static void main(String[] args)
 		{
@@ -24,7 +25,7 @@ public class AsteroidsRunner extends JPanel
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			frame.setSize(1013, 913);
 //			asteroids.add(new Asteroid(0.00));
-			enemies.add(new UFO(0.00));
+			enemies.add(new UFO((Math.random() * Math.PI * 2)));
 			AsteroidsRunner game = new AsteroidsRunner();
 			frame.add(game);
 			frame.setVisible(true);
@@ -52,8 +53,7 @@ public class AsteroidsRunner extends JPanel
 							player.setIsRot(-1);
 							break;
 						case KeyEvent.VK_SPACE:
-							player.fire();
-							bullets.add(new Bullet(player.getAngle(), player.getPoint(true), player.getPoint(false), player.getVel().getR()));
+							firing = true;
 							break;
 						case KeyEvent.VK_V:
 							asteroids.add(new Asteroid(0.00));
@@ -74,6 +74,7 @@ public class AsteroidsRunner extends JPanel
 						player.setIsRot(0);
 						break;
 					case KeyEvent.VK_SPACE:
+						firing = false;
 						break;
 					}
 				}
@@ -95,6 +96,10 @@ public class AsteroidsRunner extends JPanel
 		        		{
 		        			a.tick();
 		        		}
+	        		for(UFO u: enemies)
+	        			{
+	        				u.tick();
+	        			}
 	        		for(int i = 0; i < asteroids.size(); i++)
 	        			{
 	        				for(int b = 0; b < bullets.size(); b++)
@@ -113,6 +118,15 @@ public class AsteroidsRunner extends JPanel
 	        	}
 	        });
 	        timer.start();
+	        Timer bulletTimer = new Timer(100, new ActionListener(){
+				@Override
+				public void actionPerformed(ActionEvent arg0) 
+				{
+					if(firing)
+						bullets.add(new Bullet(player.getAngle(), player.getPoint(true), player.getPoint(false), player.getVel().getR()));
+				}
+	        });
+	        bulletTimer.start();
 			
 		}
 		
