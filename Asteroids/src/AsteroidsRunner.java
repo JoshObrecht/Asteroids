@@ -143,6 +143,8 @@ public class AsteroidsRunner extends JPanel
 				{
 					u.updatePoints();
 					g.drawPolygon(u.getxCord(), u.getyCord(), u.getNumPoints());
+					g.drawLine(u.getxCord()[0], u.getyCord()[0], u.getxCord()[3], u.getyCord()[3]);
+					g.drawLine(u.getxCord()[4], u.getyCord()[4], u.getxCord()[7], u.getyCord()[7]);
 				}
 //			g.drawRect(player.getPos().getX(), player.getPos().getY(), 1, 1);
 		}
