@@ -4,7 +4,6 @@ public abstract class SpaceObject
 
 		protected Vector pos;
 		protected Vector vel;
-		protected Vector acc;
 		protected int[] xCord;
 		protected int[] yCord;
 		protected int numPoints;
@@ -56,14 +55,6 @@ public abstract class SpaceObject
 		public void setVel(Vector vel)
 			{
 				this.vel = vel;
-			}
-		public Vector getAcc()
-			{
-				return acc;
-			}
-		public void setAcc(Vector acc)
-			{
-				this.acc = acc;
 			}
 		public double getAngle()
 			{

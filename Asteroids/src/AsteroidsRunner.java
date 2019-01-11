@@ -16,13 +16,15 @@ public class AsteroidsRunner extends JPanel
 		static Ship player = new Ship(0.00);
 		static ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 		static ArrayList<Asteroid> asteroids = new ArrayList<Asteroid>();
+		static ArrayList<UFO> enemies = new ArrayList<UFO>();
 		
 		public static void main(String[] args)
 		{
 			JFrame frame = new JFrame("Asteroids");
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			frame.setSize(1013, 913);
-			asteroids.add(new Asteroid(0.00));
+//			asteroids.add(new Asteroid(0.00));
+			enemies.add(new UFO(0.00));
 			AsteroidsRunner game = new AsteroidsRunner();
 			frame.add(game);
 			frame.setVisible(true);
@@ -136,6 +138,11 @@ public class AsteroidsRunner extends JPanel
 				{
 					a.updatePoints();
 					g.drawPolygon(a.getAstBounds());
+				}
+			for(UFO u: enemies)
+				{
+					u.updatePoints();
+					g.drawPolygon(u.getxCord(), u.getyCord(), u.getNumPoints());
 				}
 //			g.drawRect(player.getPos().getX(), player.getPos().getY(), 1, 1);
 		}
