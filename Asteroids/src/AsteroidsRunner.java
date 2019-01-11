@@ -26,6 +26,7 @@ public class AsteroidsRunner extends JPanel
 			AsteroidsRunner game = new AsteroidsRunner();
 			frame.add(game);
 			frame.setVisible(true);
+			frame.setResizable(false);
 			game.setFocusable(true);
 		}
 		
@@ -51,6 +52,9 @@ public class AsteroidsRunner extends JPanel
 						case KeyEvent.VK_SPACE:
 							player.fire();
 							bullets.add(new Bullet(player.getAngle(), player.getPoint(true), player.getPoint(false), player.getVel().getR()));
+							break;
+						case KeyEvent.VK_V:
+							asteroids.add(new Asteroid(0.00));
 							break;
 					}
 				}
@@ -96,7 +100,9 @@ public class AsteroidsRunner extends JPanel
 	        						if(asteroids.get(i).getAstBounds().contains(bullets.get(b).getPos().getX(), bullets.get(b).getPos().getY()))
 	        						{
 	        							asteroids.remove(i);
+	        							i--;
 	        							bullets.remove(b);
+	        							b--;
 	        							break;
 	        						}
 	        					}

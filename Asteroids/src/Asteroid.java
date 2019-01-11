@@ -4,7 +4,7 @@ public class Asteroid extends SpaceObject
 	{
 		private double[] magnitudes;
 		private double[] angles;
-		private Polygon bounds = new Polygon();
+		private Polygon bounds;
 		
 	public Asteroid(double angle)
 		{
@@ -14,6 +14,7 @@ public class Asteroid extends SpaceObject
 			yCord = new int[10];
 			magnitudes = new double[10];
 			angles = new double[10];
+			bounds = new Polygon();
 			createPoints();
 			vel = new Vector(2.00, angle);
 			rotationSpeed = 0.03;
@@ -92,14 +93,13 @@ public class Asteroid extends SpaceObject
 			magnitudes[9] = v.getR();
 			angles[9] = v.getO();
 			
-			bounds.xpoints = xCord;
-			bounds.ypoints = yCord;
-			bounds.npoints = xCord.length;
+			bounds = new Polygon(xCord, yCord, xCord.length);
 			
 		}
 		protected void updatePoints()
 		{
 			Vector v;
+
 			v = new Vector(magnitudes[0], angle + angles[0]);
 			xCord[0] = pos.getX() + v.getX();
 			yCord[0] = pos.getY() + v.getY();
@@ -140,8 +140,7 @@ public class Asteroid extends SpaceObject
 			xCord[9] = pos.getX() + v.getX();
 			yCord[9] = pos.getY() + v.getY();
 			
-			bounds.xpoints = xCord;
-			bounds.ypoints = yCord;
+			bounds = new Polygon(xCord, yCord, xCord.length);
 		}
 		public void tick()
 		{
