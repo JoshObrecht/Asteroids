@@ -45,5 +45,10 @@ public class UFO extends SpaceObject
 		public void tick()
 		{
 			super.tick();
+			int random = (int)((Math.random() * 100) + 1);
+			if(random == 69)
+			{
+				angle = (Math.random() * (Math.PI * 2));
+			}
 		}
 	}

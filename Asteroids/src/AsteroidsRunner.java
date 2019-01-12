@@ -99,6 +99,11 @@ public class AsteroidsRunner extends JPanel
 	        		for(UFO u: enemies)
 	        			{
 	        				u.tick();
+	        				int random = (int)((Math.random() * 100) + 1);
+	        				if(random == 100)
+	        				{
+	        					bullets.add(new Bullet(u.getAngle(), u.getxCord()[0], u.getyCord()[0], u.getVel().getR()));
+	        				}
 	        			}
 	        		for(int i = 0; i < asteroids.size(); i++)
 	        			{
