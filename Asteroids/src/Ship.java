@@ -1,3 +1,4 @@
+import java.awt.Polygon;
 
 public class Ship extends SpaceObject
 	{
@@ -20,6 +21,7 @@ public class Ship extends SpaceObject
 		numPoints = 5;
 		fireX = new int[3];
 		fireY = new int[3];
+		bounds = new Polygon();
 		updatePoints();
 	}
 
@@ -94,6 +96,8 @@ public class Ship extends SpaceObject
 			v = new Vector(20.15476, angle - 2.79117);
 			fireX[2] = v.getX() + pos.getX();
 			fireY[2] = v.getY() + pos.getY();
+			
+			bounds = new Polygon(xCord, yCord, xCord.length);
 		}
 	public void tick()
 	{

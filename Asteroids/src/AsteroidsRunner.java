@@ -15,6 +15,7 @@ public class AsteroidsRunner extends JPanel
 		
 		static Ship player = new Ship(0.00);
 		static ArrayList<Bullet> bullets = new ArrayList<Bullet>();
+		static ArrayList<Bullet> enemyBullets = new ArrayList<Bullet>();
 		static ArrayList<Asteroid> asteroids = new ArrayList<Asteroid>();
 		static ArrayList<UFO> enemies = new ArrayList<UFO>();
 		static boolean firing;
@@ -58,6 +59,9 @@ public class AsteroidsRunner extends JPanel
 						case KeyEvent.VK_V:
 							asteroids.add(new Asteroid(0.00));
 							break;
+						case KeyEvent.VK_U:
+							enemies.add(new UFO(0.00));
+							break;
 					}
 				}
 				public void keyReleased(KeyEvent e)
@@ -80,7 +84,8 @@ public class AsteroidsRunner extends JPanel
 				}
 			});
 			Timer timer = new Timer(10, new ActionListener(){
-	        	@Override
+	        	@SuppressWarnings("unused")
+				@Override
 	        	public void actionPerformed(ActionEvent e)
 	        	{
 	        		player.tick();
@@ -92,6 +97,14 @@ public class AsteroidsRunner extends JPanel
 	        						bullets.remove(bullets.get(0));
 	        					}
 	        			}
+	        		for(int i=0; i<enemyBullets.size();i++)
+        				{
+        					enemyBullets.get(i).tick();
+        					if(enemyBullets.get(i).getTickCounter()==60)
+        						{
+        							enemyBullets.remove(enemyBullets.get(i));
+        						}
+        				}
 	        		for(Asteroid a: asteroids)
 		        		{
 		        			a.tick();
@@ -102,9 +115,18 @@ public class AsteroidsRunner extends JPanel
 	        				int random = (int)((Math.random() * 100) + 1);
 	        				if(random == 100)
 	        				{
-	        					bullets.add(new Bullet(u.getAngle(), u.getxCord()[0], u.getyCord()[0], u.getVel().getR()));
+	        					enemyBullets.add(new Bullet(u.getAngle(), u.getxCord()[0], u.getyCord()[0], 0));
 	        				}
 	        			}
+	        		for(int b = 0; b < enemyBullets.size(); b++)
+	        		{
+	        			if(player.getAstBounds().contains(enemyBullets.get(b).getPos().getX(), enemyBullets.get(b).getPos().getY()))
+	        			{
+	        				enemyBullets.remove(b);
+		        			System.out.println("player hit");
+		        			break;
+	        			}
+	        		}
 	        		for(int i = 0; i < asteroids.size(); i++)
 	        			{
 	        				for(int b = 0; b < bullets.size(); b++)
@@ -130,8 +152,8 @@ public class AsteroidsRunner extends JPanel
         							bullets.remove(b);
         							b--;
         							break;
-        						}
         					}
+        				}
         			}
 	        		repaint();
 	        	}
@@ -164,6 +186,10 @@ public class AsteroidsRunner extends JPanel
 					g.drawPolygon(player.getFireX(), player.getFireY(), 3);
 				}
 			for(Bullet b: bullets)
+				{
+					g.drawOval(b.getPos().getX(), b.getPos().getY(), 5, 5);
+				}
+			for(Bullet b: enemyBullets)
 				{
 					g.drawOval(b.getPos().getX(), b.getPos().getY(), 5, 5);
 				}
