@@ -1,3 +1,4 @@
+import java.awt.Polygon;
 
 public abstract class SpaceObject 
 	{
@@ -10,6 +11,7 @@ public abstract class SpaceObject
 		private int tickCounter = 0;
 		protected double rotationSpeed;
 		protected double angle;
+		protected Polygon bounds;
 		
 		public SpaceObject(double angle)
 		{
@@ -81,6 +83,14 @@ public abstract class SpaceObject
 		public void setRotationSpeed(double rotationSpeed) 
 			{
 				this.rotationSpeed = rotationSpeed;
+			}
+		public Polygon getAstBounds()
+			{
+				return bounds;
+			}
+		public void setBounds(Polygon bounds)
+			{
+				this.bounds = bounds;
 			}
 		public void tick()
 		{

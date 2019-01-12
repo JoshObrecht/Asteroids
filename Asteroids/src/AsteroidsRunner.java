@@ -114,6 +114,20 @@ public class AsteroidsRunner extends JPanel
 	        						}
 	        					}
 	        			}
+	        		for(int i = 0; i < enemies.size(); i++)
+        			{
+        				for(int b = 0; b < bullets.size(); b++)
+        					{
+        						if(enemies.get(i).getAstBounds().contains(bullets.get(b).getPos().getX(), bullets.get(b).getPos().getY()))
+        						{
+        							enemies.remove(i);
+        							i--;
+        							bullets.remove(b);
+        							b--;
+        							break;
+        						}
+        					}
+        			}
 	        		repaint();
 	        	}
 	        });
@@ -156,7 +170,7 @@ public class AsteroidsRunner extends JPanel
 			for(UFO u: enemies)
 				{
 					u.updatePoints();
-					g.drawPolygon(u.getxCord(), u.getyCord(), u.getNumPoints());
+					g.drawPolygon(u.getAstBounds());
 					g.drawLine(u.getxCord()[0], u.getyCord()[0], u.getxCord()[3], u.getyCord()[3]);
 					g.drawLine(u.getxCord()[4], u.getyCord()[4], u.getxCord()[7], u.getyCord()[7]);
 				}

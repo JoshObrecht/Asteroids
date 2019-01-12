@@ -1,3 +1,4 @@
+import java.awt.Polygon;
 
 public class UFO extends SpaceObject
 	{
@@ -9,6 +10,7 @@ public class UFO extends SpaceObject
 			xCord = new int[8];
 			yCord = new int[8];
 			numPoints = 8;
+			bounds = new Polygon();
 			updatePoints();
 		}
 		protected void updatePoints()
@@ -37,6 +39,8 @@ public class UFO extends SpaceObject
 			v = new Vector(18.00, ((14 * Math.PI) / 8));
 			xCord[7] = v.getX() + pos.getX();
 			yCord[7] = v.getY() + pos.getY();
+			
+			bounds = new Polygon(xCord, yCord, xCord.length);
 		}
 		public void tick()
 		{
