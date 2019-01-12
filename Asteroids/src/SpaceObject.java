@@ -1,16 +1,17 @@
+import java.awt.Polygon;
 
 public abstract class SpaceObject 
 	{
 
 		protected Vector pos;
 		protected Vector vel;
-		protected Vector acc;
 		protected int[] xCord;
 		protected int[] yCord;
 		protected int numPoints;
 		private int tickCounter = 0;
 		protected double rotationSpeed;
 		protected double angle;
+		protected Polygon bounds;
 		
 		public SpaceObject(double angle)
 		{
@@ -57,14 +58,6 @@ public abstract class SpaceObject
 			{
 				this.vel = vel;
 			}
-		public Vector getAcc()
-			{
-				return acc;
-			}
-		public void setAcc(Vector acc)
-			{
-				this.acc = acc;
-			}
 		public double getAngle()
 			{
 				return angle;
@@ -90,6 +83,14 @@ public abstract class SpaceObject
 		public void setRotationSpeed(double rotationSpeed) 
 			{
 				this.rotationSpeed = rotationSpeed;
+			}
+		public Polygon getAstBounds()
+			{
+				return bounds;
+			}
+		public void setBounds(Polygon bounds)
+			{
+				this.bounds = bounds;
 			}
 		public void tick()
 		{

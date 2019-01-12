@@ -15,14 +15,18 @@ public class AsteroidsRunner extends JPanel
 		
 		static Ship player = new Ship(0.00);
 		static ArrayList<Bullet> bullets = new ArrayList<Bullet>();
+		static ArrayList<Bullet> enemyBullets = new ArrayList<Bullet>();
 		static ArrayList<Asteroid> asteroids = new ArrayList<Asteroid>();
+		static ArrayList<UFO> enemies = new ArrayList<UFO>();
+		static boolean firing;
 		
 		public static void main(String[] args)
 		{
 			JFrame frame = new JFrame("Asteroids");
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			frame.setSize(1013, 913);
-			asteroids.add(new Asteroid(0.00));
+//			asteroids.add(new Asteroid(0.00));
+			enemies.add(new UFO((Math.random() * Math.PI * 2)));
 			AsteroidsRunner game = new AsteroidsRunner();
 			frame.add(game);
 			frame.setVisible(true);
@@ -50,11 +54,13 @@ public class AsteroidsRunner extends JPanel
 							player.setIsRot(-1);
 							break;
 						case KeyEvent.VK_SPACE:
-							player.fire();
-							bullets.add(new Bullet(player.getAngle(), player.getPoint(true), player.getPoint(false), player.getVel().getR()));
+							firing = true;
 							break;
 						case KeyEvent.VK_V:
 							asteroids.add(new Asteroid(0.00));
+							break;
+						case KeyEvent.VK_U:
+							enemies.add(new UFO(0.00));
 							break;
 					}
 				}
@@ -72,12 +78,14 @@ public class AsteroidsRunner extends JPanel
 						player.setIsRot(0);
 						break;
 					case KeyEvent.VK_SPACE:
+						firing = false;
 						break;
 					}
 				}
 			});
 			Timer timer = new Timer(10, new ActionListener(){
-	        	@Override
+	        	@SuppressWarnings("unused")
+				@Override
 	        	public void actionPerformed(ActionEvent e)
 	        	{
 	        		player.tick();
@@ -89,10 +97,36 @@ public class AsteroidsRunner extends JPanel
 	        						bullets.remove(bullets.get(0));
 	        					}
 	        			}
+	        		for(int i=0; i<enemyBullets.size();i++)
+        				{
+        					enemyBullets.get(i).tick();
+        					if(enemyBullets.get(i).getTickCounter()==60)
+        						{
+        							enemyBullets.remove(enemyBullets.get(i));
+        						}
+        				}
 	        		for(Asteroid a: asteroids)
 		        		{
 		        			a.tick();
 		        		}
+	        		for(UFO u: enemies)
+	        			{
+	        				u.tick();
+	        				int random = (int)((Math.random() * 100) + 1);
+	        				if(random == 100)
+	        				{
+	        					enemyBullets.add(new Bullet(u.getAngle(), u.getxCord()[0], u.getyCord()[0], 0));
+	        				}
+	        			}
+	        		for(int b = 0; b < enemyBullets.size(); b++)
+	        		{
+	        			if(player.getAstBounds().contains(enemyBullets.get(b).getPos().getX(), enemyBullets.get(b).getPos().getY()))
+	        			{
+	        				enemyBullets.remove(b);
+		        			System.out.println("player hit");
+		        			break;
+	        			}
+	        		}
 	        		for(int i = 0; i < asteroids.size(); i++)
 	        			{
 	        				for(int b = 0; b < bullets.size(); b++)
@@ -107,10 +141,33 @@ public class AsteroidsRunner extends JPanel
 	        						}
 	        					}
 	        			}
+	        		for(int i = 0; i < enemies.size(); i++)
+        			{
+        				for(int b = 0; b < bullets.size(); b++)
+        					{
+        						if(enemies.get(i).getAstBounds().contains(bullets.get(b).getPos().getX(), bullets.get(b).getPos().getY()))
+        						{
+        							enemies.remove(i);
+        							i--;
+        							bullets.remove(b);
+        							b--;
+        							break;
+        					}
+        				}
+        			}
 	        		repaint();
 	        	}
 	        });
 	        timer.start();
+	        Timer bulletTimer = new Timer(100, new ActionListener(){
+				@Override
+				public void actionPerformed(ActionEvent arg0) 
+				{
+					if(firing)
+						bullets.add(new Bullet(player.getAngle(), player.getPoint(true), player.getPoint(false), player.getVel().getR()));
+				}
+	        });
+	        bulletTimer.start();
 			
 		}
 		
@@ -132,10 +189,21 @@ public class AsteroidsRunner extends JPanel
 				{
 					g.drawOval(b.getPos().getX(), b.getPos().getY(), 5, 5);
 				}
+			for(Bullet b: enemyBullets)
+				{
+					g.drawOval(b.getPos().getX(), b.getPos().getY(), 5, 5);
+				}
 			for(Asteroid a: asteroids)
 				{
 					a.updatePoints();
 					g.drawPolygon(a.getAstBounds());
+				}
+			for(UFO u: enemies)
+				{
+					u.updatePoints();
+					g.drawPolygon(u.getAstBounds());
+					g.drawLine(u.getxCord()[0], u.getyCord()[0], u.getxCord()[3], u.getyCord()[3]);
+					g.drawLine(u.getxCord()[4], u.getyCord()[4], u.getxCord()[7], u.getyCord()[7]);
 				}
 //			g.drawRect(player.getPos().getX(), player.getPos().getY(), 1, 1);
 		}
