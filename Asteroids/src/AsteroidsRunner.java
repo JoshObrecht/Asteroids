@@ -25,8 +25,6 @@ public class AsteroidsRunner extends JPanel
 			JFrame frame = new JFrame("Asteroids");
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			frame.setSize(1013, 913);
-//			asteroids.add(new Asteroid(0.00));
-			enemies.add(new UFO((Math.random() * Math.PI * 2)));
 			AsteroidsRunner game = new AsteroidsRunner();
 			frame.add(game);
 			frame.setVisible(true);
@@ -57,10 +55,10 @@ public class AsteroidsRunner extends JPanel
 							firing = true;
 							break;
 						case KeyEvent.VK_V:
-							asteroids.add(new Asteroid(0.00));
+							asteroids.add(new Asteroid(Math.random() * (Math.PI * 2)));
 							break;
 						case KeyEvent.VK_U:
-							enemies.add(new UFO(0.00));
+							enemies.add(new UFO(Math.random() * (Math.PI * 2)));
 							break;
 					}
 				}
@@ -123,7 +121,7 @@ public class AsteroidsRunner extends JPanel
 	        			if(player.getAstBounds().contains(enemyBullets.get(b).getPos().getX(), enemyBullets.get(b).getPos().getY()))
 	        			{
 	        				enemyBullets.remove(b);
-		        			System.out.println("player hit");
+		        			player.setLives(player.getLives() - 1);
 		        			break;
 	        			}
 	        		}
@@ -134,11 +132,16 @@ public class AsteroidsRunner extends JPanel
 	        						if(asteroids.get(i).getAstBounds().contains(bullets.get(b).getPos().getX(), bullets.get(b).getPos().getY()))
 	        						{
 	        							asteroids.remove(i);
-	        							i--;
+//	        							i--;
 	        							bullets.remove(b);
-	        							b--;
+//	        							b--;
 	        							break;
 	        						}
+	        					}
+	        				if(checkPolyIntersect(player.getAstBounds(), asteroids.get(i).getAstBounds()))
+	        					{
+	        						asteroids.remove(i);
+	        						player.setLives(player.getLives() - 1);
 	        					}
 	        			}
 	        		for(int i = 0; i < enemies.size(); i++)
@@ -148,9 +151,9 @@ public class AsteroidsRunner extends JPanel
         						if(enemies.get(i).getAstBounds().contains(bullets.get(b).getPos().getX(), bullets.get(b).getPos().getY()))
         						{
         							enemies.remove(i);
-        							i--;
+//        							i--;
         							bullets.remove(b);
-        							b--;
+//        							b--;
         							break;
         					}
         				}
@@ -207,6 +210,23 @@ public class AsteroidsRunner extends JPanel
 				}
 //			g.drawRect(player.getPos().getX(), player.getPos().getY(), 1, 1);
 		}
+		public boolean checkPolyIntersect(Polygon p1, Polygon p2)
+	    {
+	        Point p;
+	        for(int i = 0; i < p2.npoints;i++)
+	        {
+	            p = new Point(p2.xpoints[i],p2.ypoints[i]);
+	            if(p1.contains(p))
+	                return true;
+	        }
+	        for(int i = 0; i < p1.npoints;i++)
+	        {
+	            p = new Point(p1.xpoints[i],p1.ypoints[i]);
+	            if(p2.contains(p))
+	                return true;
+	        }
+	        return false;
+	    }
 		
 		
 
