@@ -4,7 +4,6 @@ public class Asteroid extends SpaceObject
 	{
 		private double[] magnitudes;
 		private double[] angles;
-		private Polygon bounds;
 		
 	public Asteroid(double angle)
 		{
@@ -18,15 +17,6 @@ public class Asteroid extends SpaceObject
 			createPoints();
 			vel = new Vector(2.00, angle);
 			rotationSpeed = 0.03;
-		}
-	
-		public Polygon getAstBounds()
-		{
-			return bounds;
-		}
-		public void setBounds(Polygon bounds)
-		{
-			this.bounds = bounds;
 		}
 		
 		protected void createPoints()

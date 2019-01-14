@@ -1,12 +1,14 @@
+import java.awt.Polygon;
 
 public class Ship extends SpaceObject
 	{
 	
 		private final double ROTATION_SPEED = 0.05;
-		private boolean isAcc = false;
-		private int isRot = 0;
+		private boolean isAcc;
+		private int isRot;
 		private int[] fireX;
 		private int[] fireY;
+		private int lives;
 		
 	public Ship(double angle)
 	{
@@ -15,16 +17,27 @@ public class Ship extends SpaceObject
 		pos.setX(432);
 		pos.setY(407);
 		vel = new Vector(0,0);
-		acc = new Vector(0,0);
 		xCord = new int[5];
 		yCord = new int[5];
 		numPoints = 5;
 		fireX = new int[3];
 		fireY = new int[3];
+		bounds = new Polygon();
+		isAcc = false;
+		isRot = 0;
+		lives = 1;
 		updatePoints();
 	}
 
 	
+	public int getLives() 
+		{
+			return lives;
+		}
+	public void setLives(int lives) 
+		{
+			this.lives = lives;
+		}
 	public boolean isAcc()
 		{
 			return isAcc;
@@ -95,9 +108,19 @@ public class Ship extends SpaceObject
 			v = new Vector(20.15476, angle - 2.79117);
 			fireX[2] = v.getX() + pos.getX();
 			fireY[2] = v.getY() + pos.getY();
+			
+			bounds = new Polygon(xCord, yCord, xCord.length);
 		}
 	public void tick()
 	{
+		if(lives <= 0)
+		{
+			pos.setX(432);
+			pos.setY(407);
+			angle = 0.00;
+			updatePoints();
+			return;
+		}
 		if(isRot > 0)
 			{
 				angle += ROTATION_SPEED;
@@ -147,9 +170,4 @@ public class Ship extends SpaceObject
 		
 		updatePoints();
 	}
-	public void fire()
-	{
-		
-	}
-		
 	}
