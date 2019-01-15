@@ -82,7 +82,6 @@ public class AsteroidsRunner extends JPanel
 				}
 			});
 			Timer timer = new Timer(10, new ActionListener(){
-	        	@SuppressWarnings("unused")
 				@Override
 	        	public void actionPerformed(ActionEvent e)
 	        	{
@@ -116,48 +115,55 @@ public class AsteroidsRunner extends JPanel
 	        					enemyBullets.add(new Bullet(u.getAngle(), u.getxCord()[0], u.getyCord()[0], 0));
 	        				}
 	        			}
+	        		ArrayList<SpaceObject> gc = new ArrayList<SpaceObject>();
+	        		ArrayList<SpaceObject> gc2 = new ArrayList<SpaceObject>();
 	        		for(int b = 0; b < enemyBullets.size(); b++)
 	        		{
 	        			if(player.getAstBounds().contains(enemyBullets.get(b).getPos().getX(), enemyBullets.get(b).getPos().getY()))
 	        			{
-	        				enemyBullets.remove(b);
+	        				gc.add(enemyBullets.get(b));
 		        			player.setLives(player.getLives() - 1);
 		        			break;
 	        			}
 	        		}
+	        		enemyBullets.removeAll(gc);
+	        		gc.clear();
 	        		for(int i = 0; i < asteroids.size(); i++)
 	        			{
 	        				for(int b = 0; b < bullets.size(); b++)
 	        					{
 	        						if(asteroids.get(i).getAstBounds().contains(bullets.get(b).getPos().getX(), bullets.get(b).getPos().getY()))
 	        						{
-	        							asteroids.remove(i);
-//	        							i--;
-	        							bullets.remove(b);
-//	        							b--;
+	        							gc.add(asteroids.get(i));
+	        							gc2.add(bullets.get(b));
 	        							break;
 	        						}
 	        					}
 	        				if(checkPolyIntersect(player.getAstBounds(), asteroids.get(i).getAstBounds()))
 	        					{
-	        						asteroids.remove(i);
+	        						gc.add(asteroids.get(i));
 	        						player.setLives(player.getLives() - 1);
 	        					}
 	        			}
+	        		asteroids.removeAll(gc);
+	        		bullets.removeAll(gc2);
+	        		gc.clear();
+	        		gc2.clear();
 	        		for(int i = 0; i < enemies.size(); i++)
         			{
         				for(int b = 0; b < bullets.size(); b++)
         					{
         						if(enemies.get(i).getAstBounds().contains(bullets.get(b).getPos().getX(), bullets.get(b).getPos().getY()))
         						{
-        							enemies.remove(i);
-//        							i--;
-        							bullets.remove(b);
-//        							b--;
-        							break;
+        							gc.add(enemies.get(i));
+        							gc2.add(bullets.get(b));
+        						}
         					}
-        				}
         			}
+	        		enemies.removeAll(gc);
+	        		bullets.removeAll(gc2);
+	        		gc.clear();
+	        		gc2.clear();
 	        		repaint();
 	        	}
 	        });
