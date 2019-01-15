@@ -30,6 +30,7 @@ public class AsteroidsRunner extends JPanel
 			frame.setVisible(true);
 			frame.setResizable(false);
 			game.setFocusable(true);
+			Asteroid.generateAsteroids();
 		}
 		
 		public AsteroidsRunner()

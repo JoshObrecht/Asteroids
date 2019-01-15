@@ -13,9 +13,7 @@ public class Ship extends SpaceObject
 	public Ship(double angle)
 	{
 		super(angle);
-		pos = new Vector(0,0);
-		pos.setX(432);
-		pos.setY(407);
+		pos = new Vector(432,407);
 		vel = new Vector(0,0);
 		xCord = new int[5];
 		yCord = new int[5];
