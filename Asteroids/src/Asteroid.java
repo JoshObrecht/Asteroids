@@ -145,7 +145,7 @@ public class Asteroid extends SpaceObject
 		}
 		public static void generateAsteroids()
 		{
-			for(int i=0; i<4; i++)
+			for(int i=0; i<AsteroidsRunner.level; i++)
 				{
 					boolean isXValid = false;
 					boolean isYValid = false;
