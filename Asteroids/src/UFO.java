@@ -2,10 +2,10 @@ import java.awt.Polygon;
 
 public class UFO extends SpaceObject
 	{
-		public UFO(double angle)
+		public UFO(double angle, Vector v)
 		{
 			super(angle);
-			pos = new Vector(950,500);
+			pos = v;
 			vel = new Vector((Math.random() * 4) + 1, angle);
 			xCord = new int[8];
 			yCord = new int[8];

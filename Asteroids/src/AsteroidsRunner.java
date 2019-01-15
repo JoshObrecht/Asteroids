@@ -55,10 +55,12 @@ public class AsteroidsRunner extends JPanel
 							firing = true;
 							break;
 						case KeyEvent.VK_V:
-							asteroids.add(new Asteroid(Math.random() * (Math.PI * 2)));
+//							asteroids.add(new Asteroid((Math.random() * (Math.PI * 2)), 40, 25, new Vector(80, 80)));
+							asteroids.add(new Asteroid((Math.random() * (Math.PI * 2)), 50, 50, new Vector(80, 80)));
+//							asteroids.add(new Asteroid((Math.random() * (Math.PI * 2)), 25, 10, new Vector(80, 80)));
 							break;
 						case KeyEvent.VK_U:
-							enemies.add(new UFO(Math.random() * (Math.PI * 2)));
+							enemies.add(new UFO(Math.random() * (Math.PI * 2), new Vector(950, 500)));
 							break;
 					}
 				}
@@ -131,6 +133,16 @@ public class AsteroidsRunner extends JPanel
 	        					{
 	        						if(asteroids.get(i).getAstBounds().contains(bullets.get(b).getPos().getX(), bullets.get(b).getPos().getY()))
 	        						{
+	        							if(asteroids.get(i).getSize1()==50)
+	        								{
+	        								asteroids.add(new Asteroid((Math.random() * (Math.PI * 2)), 40, 25, new Vector(asteroids.get(i).getPos().getX(), asteroids.get(i).getPos().getY())));
+	        								asteroids.add(new Asteroid((Math.random() * (Math.PI * 2)), 40, 25, new Vector(asteroids.get(i).getPos().getX(), asteroids.get(i).getPos().getY())));
+	        								}
+	        							if(asteroids.get(i).getSize1()==40)
+	        								{
+	        								asteroids.add(new Asteroid((Math.random() * (Math.PI * 2)), 25, 10, new Vector(asteroids.get(i).getPos().getX(), asteroids.get(i).getPos().getY())));
+	        								asteroids.add(new Asteroid((Math.random() * (Math.PI * 2)), 25, 10, new Vector(asteroids.get(i).getPos().getX(), asteroids.get(i).getPos().getY())));
+	        								}
 	        							asteroids.remove(i);
 //	        							i--;
 	        							bullets.remove(b);
