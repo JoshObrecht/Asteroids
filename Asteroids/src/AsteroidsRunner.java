@@ -125,7 +125,7 @@ public class AsteroidsRunner extends JPanel
 	        			if(player.getAstBounds().contains(enemyBullets.get(b).getPos().getX(), enemyBullets.get(b).getPos().getY()))
 	        			{
 	        				gc.add(enemyBullets.get(b));
-		        			player.setLives(player.getLives() - 1);
+		        			player.die();
 		        			break;
 	        			}
 	        		}
@@ -157,7 +157,7 @@ public class AsteroidsRunner extends JPanel
 	        				if(checkPolyIntersect(player.getAstBounds(), asteroids.get(i).getAstBounds()))
 	        					{
 	        						gc.add(asteroids.get(i));
-	        						player.setLives(player.getLives() - 1);
+	        						player.die();
 	        					}
 	        			}
 	        		asteroids.removeAll(gc);
@@ -202,10 +202,10 @@ public class AsteroidsRunner extends JPanel
 			
 			
 			g.setColor(Color.WHITE);
-			g.drawPolygon(player.getxCord(), player.getyCord(), player.getNumPoints());
+			g.drawPolygon(player.getAstBounds());
 //			g.drawRect(asteroids.get(0).getPos().getX(), asteroids.get(0).getPos().getY(), 1, 1);
 
-			if(player.isAcc() == true)
+			if(player.isAcc() == true && !player.isRespawning())
 				{
 					g.drawPolygon(player.getFireX(), player.getFireY(), 3);
 				}

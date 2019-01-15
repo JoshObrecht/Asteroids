@@ -8,7 +8,7 @@ public abstract class SpaceObject
 		protected int[] xCord;
 		protected int[] yCord;
 		protected int numPoints;
-		private int tickCounter = 0;
+		protected int tickCounter = 0;
 		protected double rotationSpeed;
 		protected double angle;
 		protected Polygon bounds;
