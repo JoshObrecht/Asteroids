@@ -25,7 +25,7 @@ public class Ship extends SpaceObject
 		bounds = new Polygon();
 		isAcc = false;
 		isRot = 0;
-		lives = 1;
+		lives = 4;
 		updatePoints();
 	}
 
@@ -34,9 +34,9 @@ public class Ship extends SpaceObject
 		{
 			return lives;
 		}
-	public void setLives(int lives) 
+	public void setLives(int newLives) 
 		{
-			this.lives = lives;
+			lives = newLives;
 		}
 	public boolean isAcc()
 		{

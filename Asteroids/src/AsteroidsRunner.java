@@ -14,6 +14,7 @@ public class AsteroidsRunner extends JPanel
 //		static Asteroid type4= new Asteroid(0.0, 10);
 		
 		static Ship player = new Ship(0.00);
+		static Ship shimage = new Ship((Math.PI * 3) / 2);
 		static ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 		static ArrayList<Bullet> enemyBullets = new ArrayList<Bullet>();
 		static ArrayList<Asteroid> asteroids = new ArrayList<Asteroid>();
@@ -227,6 +228,12 @@ public class AsteroidsRunner extends JPanel
 					g.drawPolygon(u.getAstBounds());
 					g.drawLine(u.getxCord()[0], u.getyCord()[0], u.getxCord()[3], u.getyCord()[3]);
 					g.drawLine(u.getxCord()[4], u.getyCord()[4], u.getxCord()[7], u.getyCord()[7]);
+				}
+			for(int i = 0; i < player.getLives() - 1; i++)
+				{
+					shimage.setPos(new Vector(50 + (i * 40), 50));
+					shimage.tick();
+					g.drawPolygon(shimage.getAstBounds());
 				}
 //			g.drawRect(player.getPos().getX(), player.getPos().getY(), 1, 1);
 		}
