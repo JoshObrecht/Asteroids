@@ -19,9 +19,11 @@ public class AsteroidsRunner extends JPanel
 		static ArrayList<Asteroid> asteroids = new ArrayList<Asteroid>();
 		static ArrayList<UFO> enemies = new ArrayList<UFO>();
 		static boolean firing;
+		static int level = 4;
 		
 		public static void main(String[] args)
 		{
+			Asteroid.generateAsteroids();
 			JFrame frame = new JFrame("Asteroids");
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			frame.setSize(1013, 913);
@@ -30,7 +32,6 @@ public class AsteroidsRunner extends JPanel
 			frame.setVisible(true);
 			frame.setResizable(false);
 			game.setFocusable(true);
-			Asteroid.generateAsteroids();
 		}
 		
 		public AsteroidsRunner()
@@ -125,7 +126,7 @@ public class AsteroidsRunner extends JPanel
 	        			if(player.getAstBounds().contains(enemyBullets.get(b).getPos().getX(), enemyBullets.get(b).getPos().getY()))
 	        			{
 	        				gc.add(enemyBullets.get(b));
-		        			player.setLives(player.getLives() - 1);
+//		        			player.setLives(player.getLives() - 1);
 		        			break;
 	        			}
 	        		}
@@ -150,20 +151,27 @@ public class AsteroidsRunner extends JPanel
 	        								}
 	        							gc.add(asteroids.get(i));
 	        							gc2.add(bullets.get(b));
-
+	        							
 	        							break;
 	        						}
 	        					}
 	        				if(checkPolyIntersect(player.getAstBounds(), asteroids.get(i).getAstBounds()))
 	        					{
 	        						gc.add(asteroids.get(i));
-	        						player.setLives(player.getLives() - 1);
+//	        						player.setLives(player.getLives() - 1);
 	        					}
 	        			}
 	        		asteroids.removeAll(gc);
 	        		bullets.removeAll(gc2);
 	        		gc.clear();
 	        		gc2.clear();
+	        		
+	        		if(asteroids.size()==0)
+	        			{
+	        				level++;
+	        				Asteroid.generateAsteroids();
+	        			}
+	        		
 	        		for(int i = 0; i < enemies.size(); i++)
         			{
         				for(int b = 0; b < bullets.size(); b++)
