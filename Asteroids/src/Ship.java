@@ -29,6 +29,7 @@ public class Ship extends SpaceObject
 		isRot = 0;
 		lives = 4;
 		respawning = false;
+		delayTicks = 0;
 		updatePoints();
 	}
 
@@ -123,10 +124,12 @@ public class Ship extends SpaceObject
 		}
 	public void tick()
 	{
-		System.out.println(tickCounter - delayTicks);
-		if(tickCounter - delayTicks >= 300 && respawning)
+		if(respawning && (tickCounter - delayTicks >= 200))
 			{
-				System.out.println("reeeespawn!");
+				delayTicks = 0;
+				pos = new Vector(432, 407);
+				vel = new Vector(0,0);
+				angle = 0.00;
 				respawning = false;
 			}
 		
@@ -178,9 +181,9 @@ public class Ship extends SpaceObject
 								pos.setY(0);
 							}
 					}
-				tickCounter++;
 				updatePoints();
 			}
+		tickCounter++;
 		
 	}
 	public void die()
