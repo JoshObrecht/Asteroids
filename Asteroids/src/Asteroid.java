@@ -149,26 +149,43 @@ public class Asteroid extends SpaceObject
 				{
 					boolean isXValid = false;
 					boolean isYValid = false;
-					Vector tempVector = new Vector(0, 0);
-					do
+					boolean isAngleValid = false;
+					double randAngle = 0;
+					int randomX	= 0;	
+					int randomY	= 0;
+					while(isXValid&&isYValid)
 					{
-					int randomX	= (int)Math.random()*1013;	
-					int randomY	= (int)Math.random()*913;
+					randomX	= (int)Math.random()*1013;
+					randomY	= (int)Math.random()*913;
 
 					
 					if((randomX<=300)||(randomX>=600))
 						{
 							isXValid=true;
-							tempVector.setX(randomX);
 						}
 					if((randomY<=300)||(randomY>=600))
 						{
 							isXValid=true;
-							tempVector.setY(randomY);
 						}
 					}
-					while(isXValid&&isYValid);
-					AsteroidsRunner.asteroids.add(new Asteroid((Math.random() * (Math.PI * 2)), 50, 50, tempVector));
+					
+					while(!isAngleValid)
+					{
+					randAngle = (Math.random() * (Math.PI * 2));
+					int counter=0;
+					for(Asteroid a : AsteroidsRunner.asteroids)
+						{
+						if(a.getAngle()==randAngle)
+							{
+								counter+=1;
+							}
+						}
+					if(counter<1)
+						{
+						isAngleValid=true;	
+						}
+					}
+					AsteroidsRunner.asteroids.add(new Asteroid(randAngle, 50, 50, new Vector(randomX, randomY)));
 				}
 
 		}

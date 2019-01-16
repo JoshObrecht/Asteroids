@@ -138,16 +138,55 @@ public class AsteroidsRunner extends JPanel
 	        					{
 	        						if(asteroids.get(i).getAstBounds().contains(bullets.get(b).getPos().getX(), bullets.get(b).getPos().getY()))
 	        						{
-
 	        							if(asteroids.get(i).getSize1()==50)
 	        								{
 	        								asteroids.add(new Asteroid((Math.random() * (Math.PI * 2)), 40, 25, new Vector(asteroids.get(i).getPos().getX(), asteroids.get(i).getPos().getY())));
-	        								asteroids.add(new Asteroid((Math.random() * (Math.PI * 2)), 40, 25, new Vector(asteroids.get(i).getPos().getX(), asteroids.get(i).getPos().getY())));
+	        		
+	        										boolean isAngleValid = false;
+	    	        								double randAngle = 0;
+	        										while(!isAngleValid)
+	        											{
+	        											randAngle = (Math.random() * (Math.PI * 2));
+	        											int counter=0;
+	        								
+	        												if(asteroids.get(asteroids.size()-1).getAngle()==randAngle)
+	        													{
+	        														counter+=1;
+	        													}
+	        												
+	        											if(counter<1)
+	        												{
+	        												isAngleValid=true;	
+	        												}
+	        											
+	        											}
+	        								
+	        								asteroids.add(new Asteroid(randAngle, 40, 25, new Vector(asteroids.get(i).getPos().getX(), asteroids.get(i).getPos().getY())));
 	        								}
 	        							if(asteroids.get(i).getSize1()==40)
 	        								{
-	        								asteroids.add(new Asteroid((Math.random() * (Math.PI * 2)), 25, 10, new Vector(asteroids.get(i).getPos().getX(), asteroids.get(i).getPos().getY())));
-	        								asteroids.add(new Asteroid((Math.random() * (Math.PI * 2)), 25, 10, new Vector(asteroids.get(i).getPos().getX(), asteroids.get(i).getPos().getY())));
+	        									asteroids.add(new Asteroid((Math.random() * (Math.PI * 2)), 25, 10, new Vector(asteroids.get(i).getPos().getX(), asteroids.get(i).getPos().getY())));
+	        									
+	        									boolean isAngleValid = false;
+    	        								double randAngle = 0;
+        										while(!isAngleValid)
+        											{
+        											randAngle = (Math.random() * (Math.PI * 2));
+        											int counter=0;
+        								
+        												if(asteroids.get(asteroids.size()-1).getAngle()==randAngle)
+        													{
+        														counter+=1;
+        													}
+        												
+        											if(counter<1)
+        												{
+        												isAngleValid=true;	
+        												}
+        											
+        											}
+	        								
+	        								asteroids.add(new Asteroid(randAngle, 25, 10, new Vector(asteroids.get(i).getPos().getX(), asteroids.get(i).getPos().getY())));
 	        								}
 	        							gc.add(asteroids.get(i));
 	        							gc2.add(bullets.get(b));
