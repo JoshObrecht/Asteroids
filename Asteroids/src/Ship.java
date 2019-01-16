@@ -196,7 +196,7 @@ public class Ship extends SpaceObject
 		respawning = true;
 		if(lives <= 0)
 			{
-				
+				delayTicks = Integer.MAX_VALUE;
 			}
 	}
 	}
