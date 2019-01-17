@@ -9,6 +9,8 @@ public class Ship extends SpaceObject
 		private int[] fireX;
 		private int[] fireY;
 		private int lives;
+		private int delayTicks;
+		private boolean respawning;
 		
 	public Ship(double angle)
 	{
@@ -23,18 +25,27 @@ public class Ship extends SpaceObject
 		bounds = new Polygon();
 		isAcc = false;
 		isRot = 0;
-		lives = 1;
+		lives = 4;
+		respawning = false;
+		delayTicks = 0;
 		updatePoints();
 	}
 
-	
+	public boolean isRespawning()
+		{
+			return respawning;
+		}
+	public void setRespawning(boolean respawning)
+		{
+			this.respawning = respawning;
+		}
 	public int getLives() 
 		{
 			return lives;
 		}
-	public void setLives(int lives) 
+	public void setLives(int newLives) 
 		{
-			this.lives = lives;
+			lives = newLives;
 		}
 	public boolean isAcc()
 		{
@@ -111,61 +122,81 @@ public class Ship extends SpaceObject
 		}
 	public void tick()
 	{
+		if(respawning && (tickCounter - delayTicks >= 200))
+			{
+				delayTicks = 0;
+				pos = new Vector(432, 407);
+				vel = new Vector(0,0);
+				angle = 0.00;
+				respawning = false;
+			}
+		if(respawning)
+			AsteroidsRunner.firing = false;
+		
+		if(!respawning)
+			{
+				if(isRot > 0)
+					{
+						angle += ROTATION_SPEED;
+					}
+				else if(isRot < 0)
+					{
+						angle -= ROTATION_SPEED;
+					}
+				if(isAcc)
+					{
+		   			    vel.addVects(new Vector(0.1, angle));
+		   			    if(vel.getR() >= 10)
+		   			    	{
+		   			    		vel.setR(10);
+		   			    	}
+					}
+				else
+					{
+						if(vel.getR() > 0)
+							{
+								vel.setR(vel.getR() - (vel.getR() / 55));
+							}
+					}
+				
+				pos.setX(pos.getX() + vel.getX());
+				pos.setY(pos.getY() + vel.getY());
+				
+				if(pos.getX() < 0 || pos.getX() > 913 || pos.getY() < 0 || pos.getY() > 813)
+					{
+						if(pos.getX() < 0)
+							{
+								pos.setX(1013);
+							}
+						else if(pos.getX() > 1013)
+							{
+								pos.setX(0);
+							}
+						if(pos.getY() < 0)
+							{
+								pos.setY(913);
+							}
+						else if(pos.getY() > 913)
+							{
+								pos.setY(0);
+							}
+					}
+				updatePoints();
+			}
+		tickCounter++;
+		
+	}
+	public void die()
+	{
+		int[] deathX = {-100,-101};
+		int[] deathY = {-100, -101};
+		delayTicks = getTickCounter();
+		lives--;
+		bounds = new Polygon(deathX, deathY, 2);
+		respawning = true;
 		if(lives <= 0)
-		{
-			pos.setX(432);
-			pos.setY(407);
-			angle = 0.00;
-			updatePoints();
-			return;
-		}
-		if(isRot > 0)
 			{
-				angle += ROTATION_SPEED;
+				delayTicks = Integer.MAX_VALUE;
 			}
-		else if(isRot < 0)
-			{
-				angle -= ROTATION_SPEED;
-			}
-		if(isAcc)
-			{
-   			    vel.addVects(new Vector(0.1, angle));
-   			    if(vel.getR() >= 10)
-   			    	{
-   			    		vel.setR(10);
-   			    	}
-			}
-		else
-			{
-				if(vel.getR() > 0)
-					{
-						vel.setR(vel.getR() - (vel.getR() / 55));
-					}
-			}
-		
-		pos.setX(pos.getX() + vel.getX());
-		pos.setY(pos.getY() + vel.getY());
-		
-		if(pos.getX() < 0 || pos.getX() > 913 || pos.getY() < 0 || pos.getY() > 813)
-			{
-				if(pos.getX() < 0)
-					{
-						pos.setX(1013);
-					}
-				else if(pos.getX() > 1013)
-					{
-						pos.setX(0);
-					}
-				if(pos.getY() < 0)
-					{
-						pos.setY(913);
-					}
-				else if(pos.getY() > 913)
-					{
-						pos.setY(0);
-					}
-			}
-		
-		updatePoints();
 	}
 	}
