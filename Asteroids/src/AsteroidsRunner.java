@@ -20,9 +20,11 @@ public class AsteroidsRunner extends JPanel
 		static ArrayList<Asteroid> asteroids = new ArrayList<Asteroid>();
 		static ArrayList<UFO> enemies = new ArrayList<UFO>();
 		static boolean firing;
+		static int level = 4;
 		
 		public static void main(String[] args)
 		{
+			Asteroid.generateAsteroids();
 			JFrame frame = new JFrame("Asteroids");
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			frame.setSize(1013, 913);
@@ -137,20 +139,59 @@ public class AsteroidsRunner extends JPanel
 	        					{
 	        						if(asteroids.get(i).getAstBounds().contains(bullets.get(b).getPos().getX(), bullets.get(b).getPos().getY()))
 	        						{
-
 	        							if(asteroids.get(i).getSize1()==50)
 	        								{
 	        								asteroids.add(new Asteroid((Math.random() * (Math.PI * 2)), 40, 25, new Vector(asteroids.get(i).getPos().getX(), asteroids.get(i).getPos().getY())));
-	        								asteroids.add(new Asteroid((Math.random() * (Math.PI * 2)), 40, 25, new Vector(asteroids.get(i).getPos().getX(), asteroids.get(i).getPos().getY())));
+	        		
+	        										boolean isAngleValid = false;
+	    	        								double randAngle = 0;
+	        										while(!isAngleValid)
+	        											{
+	        											randAngle = (Math.random() * (Math.PI * 2));
+	        											int counter=0;
+	        								
+	        												if(asteroids.get(asteroids.size()-1).getAngle()==randAngle)
+	        													{
+	        														counter+=1;
+	        													}
+	        												
+	        											if(counter<1)
+	        												{
+	        												isAngleValid=true;	
+	        												}
+	        											
+	        											}
+	        								
+	        								asteroids.add(new Asteroid(randAngle, 40, 25, new Vector(asteroids.get(i).getPos().getX(), asteroids.get(i).getPos().getY())));
 	        								}
 	        							if(asteroids.get(i).getSize1()==40)
 	        								{
-	        								asteroids.add(new Asteroid((Math.random() * (Math.PI * 2)), 25, 10, new Vector(asteroids.get(i).getPos().getX(), asteroids.get(i).getPos().getY())));
-	        								asteroids.add(new Asteroid((Math.random() * (Math.PI * 2)), 25, 10, new Vector(asteroids.get(i).getPos().getX(), asteroids.get(i).getPos().getY())));
+	        									asteroids.add(new Asteroid((Math.random() * (Math.PI * 2)), 25, 10, new Vector(asteroids.get(i).getPos().getX(), asteroids.get(i).getPos().getY())));
+	        									
+	        									boolean isAngleValid = false;
+    	        								double randAngle = 0;
+        										while(!isAngleValid)
+        											{
+        											randAngle = (Math.random() * (Math.PI * 2));
+        											int counter=0;
+        								
+        												if(asteroids.get(asteroids.size()-1).getAngle()==randAngle)
+        													{
+        														counter+=1;
+        													}
+        												
+        											if(counter<1)
+        												{
+        												isAngleValid=true;	
+        												}
+        											
+        											}
+	        								
+	        								asteroids.add(new Asteroid(randAngle, 25, 10, new Vector(asteroids.get(i).getPos().getX(), asteroids.get(i).getPos().getY())));
 	        								}
 	        							gc.add(asteroids.get(i));
 	        							gc2.add(bullets.get(b));
-
+	        							
 	        							break;
 	        						}
 	        					}
@@ -164,6 +205,13 @@ public class AsteroidsRunner extends JPanel
 	        		bullets.removeAll(gc2);
 	        		gc.clear();
 	        		gc2.clear();
+	        		
+	        		if(asteroids.size()==0)
+	        			{
+	        				level++;
+	        				Asteroid.generateAsteroids();
+	        			}
+	        		
 	        		for(int i = 0; i < enemies.size(); i++)
         			{
         				for(int b = 0; b < bullets.size(); b++)

@@ -143,6 +143,52 @@ public class Asteroid extends SpaceObject
 					angles[i] += rotationSpeed;
 				}
 		}
+		public static void generateAsteroids()
+		{
+			for(int i=0; i<AsteroidsRunner.level; i++)
+				{
+					boolean isXValid = false;
+					boolean isYValid = false;
+					boolean isAngleValid = false;
+					double randAngle = 0;
+					int randomX	= 0;	
+					int randomY	= 0;
+					while(isXValid&&isYValid)
+					{
+					randomX	= (int)Math.random()*1013;
+					randomY	= (int)Math.random()*913;
+
+					
+					if((randomX<=300)||(randomX>=600))
+						{
+							isXValid=true;
+						}
+					if((randomY<=300)||(randomY>=600))
+						{
+							isXValid=true;
+						}
+					}
+					
+					while(!isAngleValid)
+					{
+					randAngle = (Math.random() * (Math.PI * 2));
+					int counter=0;
+					for(Asteroid a : AsteroidsRunner.asteroids)
+						{
+						if(a.getAngle()==randAngle)
+							{
+								counter+=1;
+							}
+						}
+					if(counter<1)
+						{
+						isAngleValid=true;	
+						}
+					}
+					AsteroidsRunner.asteroids.add(new Asteroid(randAngle, 50, 50, new Vector(randomX, randomY)));
+				}
+
+		}
 
 		public int getSize1()
 			{
