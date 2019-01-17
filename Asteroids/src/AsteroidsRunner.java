@@ -20,6 +20,8 @@ public class AsteroidsRunner extends JPanel
 		static ArrayList<Asteroid> asteroids = new ArrayList<Asteroid>();
 		static ArrayList<UFO> enemies = new ArrayList<UFO>();
 		static ArrayList<Asteroid> shrapnel = new ArrayList<Asteroid>();
+		static ArrayList<Score> highScores = new ArrayList<Score>();
+		static int score = 0;
 		static boolean firing;
 		static int level = 4;
 		
