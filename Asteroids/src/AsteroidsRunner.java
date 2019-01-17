@@ -155,6 +155,7 @@ public class AsteroidsRunner extends JPanel
 	        						{
 	        							if(asteroids.get(i).getSize1()==50)
 	        								{
+	        									score += 50;
 	        								asteroids.add(new Asteroid((Math.random() * (Math.PI * 2)), 40, 25, new Vector(asteroids.get(i).getPos().getX(), asteroids.get(i).getPos().getY())));
 	        		
 	        										boolean isAngleValid = false;
@@ -178,8 +179,9 @@ public class AsteroidsRunner extends JPanel
 	        								
 	        								asteroids.add(new Asteroid(randAngle, 40, 25, new Vector(asteroids.get(i).getPos().getX(), asteroids.get(i).getPos().getY())));
 	        								}
-	        							if(asteroids.get(i).getSize1()==40)
+	        							else if(asteroids.get(i).getSize1()==40)
 	        								{
+	        									score += 25;
 	        									asteroids.add(new Asteroid((Math.random() * (Math.PI * 2)), 25, 10, asteroids.get(i).getPos()));
 	        									
 	        									boolean isAngleValid = false;
@@ -202,6 +204,10 @@ public class AsteroidsRunner extends JPanel
         											}
 	        								
 	        								asteroids.add(new Asteroid(randAngle, 25, 10, asteroids.get(i).getPos()));
+	        								}
+	        							else
+	        								{
+	        									score += 10;
 	        								}
 	        							gc.add(asteroids.get(i));
 	        							gc2.add(bullets.get(b));
@@ -308,6 +314,9 @@ public class AsteroidsRunner extends JPanel
 					shimage.tick();
 					g.drawPolygon(shimage.getAstBounds());
 				}
+			Font s = new Font("bet", Font.PLAIN, 25);
+			g.setFont(s);
+			g.drawString("SCORE: "+score, 860, 25);
 //			g.drawRect(player.getPos().getX(), player.getPos().getY(), 1, 1);
 		}
 		public boolean checkPolyIntersect(Polygon p1, Polygon p2)
