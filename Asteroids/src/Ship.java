@@ -132,6 +132,8 @@ public class Ship extends SpaceObject
 				angle = 0.00;
 				respawning = false;
 			}
+		if(respawning)
+			AsteroidsRunner.firing = false;
 		
 		if(!respawning)
 			{
