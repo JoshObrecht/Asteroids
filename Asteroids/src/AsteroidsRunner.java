@@ -19,6 +19,7 @@ public class AsteroidsRunner extends JPanel
 		static ArrayList<Bullet> enemyBullets = new ArrayList<Bullet>();
 		static ArrayList<Asteroid> asteroids = new ArrayList<Asteroid>();
 		static ArrayList<UFO> enemies = new ArrayList<UFO>();
+		static ArrayList<Asteroid> shrapnel = new ArrayList<Asteroid>();
 		static boolean firing;
 		static int level = 4;
 		
@@ -59,8 +60,9 @@ public class AsteroidsRunner extends JPanel
 							break;
 						case KeyEvent.VK_V:
 //							asteroids.add(new Asteroid((Math.random() * (Math.PI * 2)), 40, 25, new Vector(80, 80)));
-							asteroids.add(new Asteroid((Math.random() * (Math.PI * 2)), 50, 50, new Vector(80, 80)));
+//							asteroids.add(new Asteroid((Math.random() * (Math.PI * 2)), 50, 50, new Vector(80, 80)));
 //							asteroids.add(new Asteroid((Math.random() * (Math.PI * 2)), 25, 10, new Vector(80, 80)));
+							shrapnel.add(new Asteroid((Math.random() * (Math.PI * 2)), 1, 0, new Vector(80, 80)));
 							break;
 						case KeyEvent.VK_U:
 							enemies.add(new UFO(Math.random() * (Math.PI * 2), new Vector(950, 500)));
@@ -90,6 +92,8 @@ public class AsteroidsRunner extends JPanel
 				@Override
 	        	public void actionPerformed(ActionEvent e)
 	        	{
+	        		ArrayList<SpaceObject> gc = new ArrayList<SpaceObject>();
+	        		ArrayList<SpaceObject> gc2 = new ArrayList<SpaceObject>();
 	        		player.tick();
 	        		for(int i=0; i<bullets.size();i++)
 	        			{
@@ -111,6 +115,16 @@ public class AsteroidsRunner extends JPanel
 		        		{
 		        			a.tick();
 		        		}
+	        		for(Asteroid s: shrapnel)
+	        			{
+	        				s.tick();
+	        				if(s.getTickCounter() == 30)
+	        					{
+	        						gc.add(s);
+	        					}
+	        			}
+	        		shrapnel.removeAll(gc);
+	        		gc.clear();
 	        		for(UFO u: enemies)
 	        			{
 	        				u.tick();
@@ -120,8 +134,6 @@ public class AsteroidsRunner extends JPanel
 	        					enemyBullets.add(new Bullet(u.getAngle(), u.getxCord()[0], u.getyCord()[0], 0));
 	        				}
 	        			}
-	        		ArrayList<SpaceObject> gc = new ArrayList<SpaceObject>();
-	        		ArrayList<SpaceObject> gc2 = new ArrayList<SpaceObject>();
 	        		for(int b = 0; b < enemyBullets.size(); b++)
 	        		{
 	        			if(player.getAstBounds().contains(enemyBullets.get(b).getPos().getX(), enemyBullets.get(b).getPos().getY()))
@@ -166,7 +178,7 @@ public class AsteroidsRunner extends JPanel
 	        								}
 	        							if(asteroids.get(i).getSize1()==40)
 	        								{
-	        									asteroids.add(new Asteroid((Math.random() * (Math.PI * 2)), 25, 10, new Vector(asteroids.get(i).getPos().getX(), asteroids.get(i).getPos().getY())));
+	        									asteroids.add(new Asteroid((Math.random() * (Math.PI * 2)), 25, 10, asteroids.get(i).getPos()));
 	        									
 	        									boolean isAngleValid = false;
     	        								double randAngle = 0;
@@ -187,7 +199,7 @@ public class AsteroidsRunner extends JPanel
         											
         											}
 	        								
-	        								asteroids.add(new Asteroid(randAngle, 25, 10, new Vector(asteroids.get(i).getPos().getX(), asteroids.get(i).getPos().getY())));
+	        								asteroids.add(new Asteroid(randAngle, 25, 10, asteroids.get(i).getPos()));
 	        								}
 	        							gc.add(asteroids.get(i));
 	        							gc2.add(bullets.get(b));
@@ -200,6 +212,12 @@ public class AsteroidsRunner extends JPanel
 	        						gc.add(asteroids.get(i));
 	        						player.die();
 	        					}
+	        			}
+	        		for(SpaceObject a: gc)
+	        			{
+//	        				shrapnel.add(new Asteroid((Math.random() * (Math.PI * 2)), 1, 0, a.getPos()));
+//							shrapnel.add(new Asteroid((Math.random() * (Math.PI * 2)), 1, 0, a.getPos()));
+//							shrapnel.add(new Asteroid((Math.random() * (Math.PI * 2)), 1, 0, a.getPos()));
 	        			}
 	        		asteroids.removeAll(gc);
 	        		bullets.removeAll(gc2);
@@ -269,6 +287,11 @@ public class AsteroidsRunner extends JPanel
 				{
 					a.updatePoints();
 					g.drawPolygon(a.getAstBounds());
+				}
+			for(Asteroid s: shrapnel)
+				{
+					s.updatePoints();
+					g.drawPolygon(s.getAstBounds());
 				}
 			for(UFO u: enemies)
 				{
