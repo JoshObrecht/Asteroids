@@ -22,6 +22,7 @@ public class AsteroidsRunner extends JPanel
 		static ArrayList<Asteroid> shrapnel = new ArrayList<Asteroid>();
 		static boolean firing;
 		static int level = 4;
+		static int tick=0;
 		
 		public static void main(String[] args)
 		{
@@ -113,6 +114,32 @@ public class AsteroidsRunner extends JPanel
         							enemyBullets.remove(enemyBullets.get(i));
         						}
         				}
+	        		
+	        		tick++;
+	        		if(tick==2000)
+	        			{
+	        				boolean isXValid = false;
+	    					boolean isYValid = false;
+	    					int randomX	= 0;	
+	    					int randomY	= 0;
+	        				while(!isXValid&&!isYValid)
+	        					{
+	        					randomX	= (int)Math.random()*1013;
+	        					randomY	= (int)Math.random()*913;
+
+	        					
+	        					if((randomX<=300)||(randomX>=600))
+	        						{
+	        							isXValid=true;
+	        						}
+	        					if((randomY<=300)||(randomY>=600))
+	        						{
+	        							isXValid=true;
+	        						}
+	        					}
+	        				enemies.add(new UFO((Math.random()*(Math.PI*2)), new Vector(randomX, randomY)));
+	        				tick=0;
+	        			}
 	        		for(Asteroid a: asteroids)
 		        		{
 		        			a.tick();

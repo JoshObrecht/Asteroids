@@ -153,7 +153,7 @@ public class Asteroid extends SpaceObject
 					double randAngle = 0;
 					int randomX	= 0;	
 					int randomY	= 0;
-					while(isXValid&&isYValid)
+					while(!isXValid&&!isYValid)
 					{
 					randomX	= (int)Math.random()*1013;
 					randomY	= (int)Math.random()*913;
