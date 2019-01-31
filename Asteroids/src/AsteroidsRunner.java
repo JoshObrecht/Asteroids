@@ -178,7 +178,7 @@ public class AsteroidsRunner extends JPanel
 	        								}
 	        							if(asteroids.get(i).getSize1()==40)
 	        								{
-	        									asteroids.add(new Asteroid((Math.random() * (Math.PI * 2)), 25, 10, asteroids.get(i).getPos()));
+	        									asteroids.add(new Asteroid((Math.random() * (Math.PI * 2)), 25, 10, new Vector(asteroids.get(i).getPos().getX(), asteroids.get(i).getPos().getY())));
 	        									
 	        									boolean isAngleValid = false;
     	        								double randAngle = 0;
@@ -199,7 +199,7 @@ public class AsteroidsRunner extends JPanel
         											
         											}
 	        								
-	        								asteroids.add(new Asteroid(randAngle, 25, 10, asteroids.get(i).getPos()));
+	        								asteroids.add(new Asteroid(randAngle, 25, 10, new Vector(asteroids.get(i).getPos().getX(), asteroids.get(i).getPos().getY())));
 	        								}
 	        							gc.add(asteroids.get(i));
 	        							gc2.add(bullets.get(b));
