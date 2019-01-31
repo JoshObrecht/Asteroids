@@ -7,12 +7,7 @@ import java.util.ArrayList;
 
 @SuppressWarnings("serial")
 public class AsteroidsRunner extends JPanel
-	{
-//		static Asteroid type1= new Asteroid(0.0, 10);
-//		static Asteroid type2= new Asteroid(0.0, 10);
-//		static Asteroid type3= new Asteroid(0.0, 10);
-//		static Asteroid type4= new Asteroid(0.0, 10);
-		
+	{		
 		static Ship player = new Ship(0.00);
 		static Ship shimage = new Ship((Math.PI * 3) / 2);
 		static ArrayList<Bullet> bullets = new ArrayList<Bullet>();
@@ -23,6 +18,7 @@ public class AsteroidsRunner extends JPanel
 		static boolean firing;
 		static int level = 4;
 		static int tick=0;
+		static int score =0;
 		
 		public static void main(String[] args)
 		{
@@ -204,6 +200,7 @@ public class AsteroidsRunner extends JPanel
 	        											}
 	        								
 	        								asteroids.add(new Asteroid(randAngle, 40, 25, new Vector(asteroids.get(i).getPos().getX(), asteroids.get(i).getPos().getY())));
+	        								score+=20;
 	        								}
 	        							if(asteroids.get(i).getSize1()==40)
 	        								{
@@ -229,6 +226,11 @@ public class AsteroidsRunner extends JPanel
         											}
 	        								
 	        								asteroids.add(new Asteroid(randAngle, 25, 10, new Vector(asteroids.get(i).getPos().getX(), asteroids.get(i).getPos().getY())));
+	        								score+=50;
+	        								}
+	        							else if(asteroids.get(i).getSize1()==25)
+	        								{
+	        									score+=100;
 	        								}
 	        							gc.add(asteroids.get(i));
 	        							gc2.add(bullets.get(b));
@@ -345,6 +347,10 @@ public class AsteroidsRunner extends JPanel
 		{
 			super.paintComponent(g);
 			
+			Font f = new Font("HELVETICA", Font.PLAIN, 25);
+			g.setColor(Color.white);
+			g.setFont(f);
+			g.drawString(String.valueOf(score), 950, 30);
 			
 			g.setColor(Color.WHITE);
 			g.drawPolygon(player.getAstBounds());
