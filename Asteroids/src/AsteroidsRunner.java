@@ -23,7 +23,7 @@ public class AsteroidsRunner extends JPanel
 		static ArrayList<Score> highScores = new ArrayList<Score>();
 		static Font scoreFont = new Font("Arial", Font.PLAIN, 25);
 		static int score = 0;
-		static int stage = 0;
+		static int stage = 1;
 		static boolean firing;
 		static int level = 4;
 		
