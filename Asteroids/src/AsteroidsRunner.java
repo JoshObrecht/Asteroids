@@ -70,11 +70,11 @@ public class AsteroidsRunner extends JPanel
 						case KeyEvent.VK_P:
 							for(Asteroid a: asteroids)
 								{
-									System.out.println(a.getPos().getX() + ", " + a.getPos().getY());
+									System.out.println(asteroids.indexOf(a) + ": " + a.getAngle());
 								}
 							break;
 						case KeyEvent.VK_L:
-							player.setLives(1000);
+							player.setLives(player.getLives() + 1);
 							asteroids.clear();
 							break;
 					}
@@ -275,9 +275,10 @@ public class AsteroidsRunner extends JPanel
 	        			}
 	        		for(SpaceObject a: gc)
 	        			{
-	        				shrapnel.add(new Asteroid((Math.random() * (Math.PI * 2)), 1, 0, new Vector(a.getPos().getX(), a.getPos().getY())));
-							shrapnel.add(new Asteroid((Math.random() * (Math.PI * 2)), 1, 0, new Vector(a.getPos().getX(), a.getPos().getY())));
-							shrapnel.add(new Asteroid((Math.random() * (Math.PI * 2)), 1, 0, new Vector(a.getPos().getX(), a.getPos().getY())));
+							for(int i = 0; i < 5; i++)
+								{
+									shrapnel.add(new Asteroid((Math.random() * (Math.PI * 2)), 1, 0, new Vector(a.getPos().getX(), a.getPos().getY())));
+								}
 	        			}
 	        		asteroids.removeAll(gc);
 	        		bullets.removeAll(gc2);
@@ -331,7 +332,8 @@ public class AsteroidsRunner extends JPanel
 		{
 			super.paintComponent(g);
 			
-			
+			Font f = new Font("Arial", Font.PLAIN, 15);
+			g.setFont(f);
 			g.setColor(Color.WHITE);
 			g.drawPolygon(player.getAstBounds());
 //			g.drawRect(asteroids.get(0).getPos().getX(), asteroids.get(0).getPos().getY(), 1, 1);
@@ -351,6 +353,7 @@ public class AsteroidsRunner extends JPanel
 			for(Asteroid a: asteroids)
 				{
 					a.updatePoints();
+					g.drawString("" + asteroids.indexOf(a) + "", a.getPos().getX(), a.getPos().getY());
 					g.drawPolygon(a.getAstBounds());
 				}
 			for(Asteroid s: shrapnel)
@@ -390,7 +393,6 @@ public class AsteroidsRunner extends JPanel
 	        }
 	        return false;
 	    }
-		
 		
 
 	}
