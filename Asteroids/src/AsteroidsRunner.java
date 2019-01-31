@@ -26,6 +26,7 @@ public class AsteroidsRunner extends JPanel
 		static int stage = 1;
 		static boolean firing;
 		static int level = 4;
+		static int tick=0;
 		
 		public static void main(String[] args)
 		{
@@ -74,6 +75,7 @@ public class AsteroidsRunner extends JPanel
 						case KeyEvent.VK_ENTER:
 							if(stage != 1)
 								stage++;
+						case KeyEvent.VK_P:
 							break;
 					}
 				}
@@ -101,6 +103,76 @@ public class AsteroidsRunner extends JPanel
 	        	public void actionPerformed(ActionEvent e)
 	        	{
 	        		switch(stage)
+	        		ArrayList<SpaceObject> gc = new ArrayList<SpaceObject>();
+	        		ArrayList<SpaceObject> gc2 = new ArrayList<SpaceObject>();
+	        		player.tick();
+	        		for(int i=0; i<bullets.size();i++)
+	        			{
+	        				bullets.get(i).tick();
+	        				if(bullets.get(0).getTickCounter()==60)
+	        					{
+	        						bullets.remove(bullets.get(0));
+	        					}
+	        			}
+	        		for(int i=0; i<enemyBullets.size();i++)
+        				{
+        					enemyBullets.get(i).tick();
+        					if(enemyBullets.get(i).getTickCounter()==60)
+        						{
+        							enemyBullets.remove(enemyBullets.get(i));
+        						}
+        				}
+	        		
+	        		tick++;
+	        		if(tick==2000)
+	        			{
+	        				boolean isXValid = false;
+	    					boolean isYValid = false;
+	    					int randomX	= 0;	
+	    					int randomY	= 0;
+	        				while(!isXValid&&!isYValid)
+	        					{
+	        					randomX	= (int)Math.random()*1013;
+	        					randomY	= (int)Math.random()*913;
+
+	        					
+	        					if((randomX<=300)||(randomX>=600))
+	        						{
+	        							isXValid=true;
+	        						}
+	        					if((randomY<=300)||(randomY>=600))
+	        						{
+	        							isXValid=true;
+	        						}
+	        					}
+	        				enemies.add(new UFO((Math.random()*(Math.PI*2)), new Vector(randomX, randomY)));
+	        				tick=0;
+	        			}
+	        		for(Asteroid a: asteroids)
+		        		{
+		        			a.tick();
+		        		}
+	        		for(Asteroid s: shrapnel)
+	        			{
+	        				s.tick();
+	        				if(s.getTickCounter() == 30)
+	        					{
+	        						gc.add(s);
+	        					}
+	        			}
+	        		shrapnel.removeAll(gc);
+	        		gc.clear();
+	        		for(UFO u: enemies)
+	        			{
+	        				u.tick();
+	        				int random = (int)((Math.random() * 100) + 1);
+	        				if(random == 100)
+	        				{
+	        					enemyBullets.add(new Bullet(u.getAngle(), u.getxCord()[0], u.getyCord()[0], 0));
+	        				}
+	        			}
+	        		for(int b = 0; b < enemyBullets.size(); b++)
+
 	        		{
 	        			case 1:
 	        				ArrayList<SpaceObject> gc = new ArrayList<SpaceObject>();
@@ -265,6 +337,142 @@ public class AsteroidsRunner extends JPanel
 	    	        		repaint();
 	    	        		break;
 	        		}
+	        		enemyBullets.removeAll(gc);
+	        		gc.clear();
+	        		for(int i = 0; i < asteroids.size(); i++)
+	        			{
+	        				for(int b = 0; b < bullets.size(); b++)
+	        					{
+	        						if(asteroids.get(i).getAstBounds().contains(bullets.get(b).getPos().getX(), bullets.get(b).getPos().getY()))
+	        						{
+	        							if(asteroids.get(i).getSize1()==50)
+	        								{
+	        								asteroids.add(new Asteroid((Math.random() * (Math.PI * 2)), 40, 25, new Vector(asteroids.get(i).getPos().getX(), asteroids.get(i).getPos().getY())));
+	        		
+	        										boolean isAngleValid = false;
+	    	        								double randAngle = 0;
+	        										while(!isAngleValid)
+	        											{
+	        											randAngle = (Math.random() * (Math.PI * 2));
+	        											int counter=0;
+	        								
+	        												if(asteroids.get(asteroids.size()-1).getAngle()==randAngle)
+	        													{
+	        														counter+=1;
+	        													}
+	        												
+	        											if(counter<1)
+	        												{
+	        												isAngleValid=true;	
+	        												}
+	        											
+	        											}
+	        								
+	        								asteroids.add(new Asteroid(randAngle, 40, 25, new Vector(asteroids.get(i).getPos().getX(), asteroids.get(i).getPos().getY())));
+	        								}
+	        							if(asteroids.get(i).getSize1()==40)
+	        								{
+	        									asteroids.add(new Asteroid((Math.random() * (Math.PI * 2)), 25, 10, new Vector(asteroids.get(i).getPos().getX(), asteroids.get(i).getPos().getY())));
+	        									
+	        									boolean isAngleValid = false;
+    	        								double randAngle = 0;
+        										while(!isAngleValid)
+        											{
+        											randAngle = (Math.random() * (Math.PI * 2));
+        											int counter=0;
+        								
+        												if(asteroids.get(asteroids.size()-1).getAngle()==randAngle)
+        													{
+        														counter+=1;
+        													}
+        												
+        											if(counter<1)
+        												{
+        												isAngleValid=true;	
+        												}
+        											
+        											}
+	        								
+	        								asteroids.add(new Asteroid(randAngle, 25, 10, new Vector(asteroids.get(i).getPos().getX(), asteroids.get(i).getPos().getY())));
+	        								}
+	        							gc.add(asteroids.get(i));
+	        							gc2.add(bullets.get(b));
+	        							
+	        							break;
+	        						}
+	        					}
+	        				if(checkPolyIntersect(player.getAstBounds(), asteroids.get(i).getAstBounds()))
+	        					{
+	        						if(asteroids.get(i).getSize1()==50)
+        								{
+        								asteroids.add(new Asteroid((Math.random() * (Math.PI * 2)), 40, 25, new Vector(asteroids.get(i).getPos().getX(), asteroids.get(i).getPos().getY())));
+        		
+        										boolean isAngleValid = false;
+    	        								double randAngle = 0;
+        										while(!isAngleValid)
+        											{
+        											randAngle = (Math.random() * (Math.PI * 2));
+        											int counter=0;
+        								
+        												if(asteroids.get(asteroids.size()-1).getAngle()==randAngle)
+        													{
+        														counter+=1;
+        													}
+        												
+        											if(counter<1)
+        												{
+        												isAngleValid=true;	
+        												}
+        											
+        											}
+        								
+        								asteroids.add(new Asteroid(randAngle, 40, 25, new Vector(asteroids.get(i).getPos().getX(), asteroids.get(i).getPos().getY())));
+        								}
+        							if(asteroids.get(i).getSize1()==40)
+        								{
+        									asteroids.add(new Asteroid((Math.random() * (Math.PI * 2)), 25, 10, new Vector(asteroids.get(i).getPos().getX(), asteroids.get(i).getPos().getY())));
+        									
+        									boolean isAngleValid = false;
+	        								double randAngle = 0;
+    										while(!isAngleValid)
+    											{
+    											randAngle = (Math.random() * (Math.PI * 2));
+    											int counter=0;
+    								
+    												if(asteroids.get(asteroids.size()-1).getAngle()==randAngle)
+    													{
+    														counter+=1;
+    													}
+    												
+    											if(counter<1)
+    												{
+    												isAngleValid=true;	
+    												}
+    											
+    											}
+        								
+        								asteroids.add(new Asteroid(randAngle, 25, 10, new Vector(asteroids.get(i).getPos().getX(), asteroids.get(i).getPos().getY())));
+        								}
+        							gc.add(asteroids.get(i));
+	        						player.die();
+	        					}
+	        			}
+	        		for(SpaceObject a: gc)
+	        			{
+	        				shrapnel.add(new Asteroid((Math.random() * (Math.PI * 2)), 1, 0, new Vector(a.getPos().getX(), a.getPos().getY())));
+							shrapnel.add(new Asteroid((Math.random() * (Math.PI * 2)), 1, 0, new Vector(a.getPos().getX(), a.getPos().getY())));
+							shrapnel.add(new Asteroid((Math.random() * (Math.PI * 2)), 1, 0, new Vector(a.getPos().getX(), a.getPos().getY())));
+	        			}
+	        		asteroids.removeAll(gc);
+	        		bullets.removeAll(gc2);
+	        		gc.clear();
+	        		gc2.clear();
+	        		
+	        		if(asteroids.size()==0)
+	        			{
+	        				level++;
+	        				Asteroid.generateAsteroids();
+	        			}
 	        		
 	        	}
 	        });
