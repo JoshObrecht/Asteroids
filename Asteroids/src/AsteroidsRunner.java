@@ -68,6 +68,14 @@ public class AsteroidsRunner extends JPanel
 							enemies.add(new UFO(Math.random() * (Math.PI * 2), new Vector(950, 500)));
 							break;
 						case KeyEvent.VK_P:
+							for(Asteroid a: asteroids)
+								{
+									System.out.println(a.getPos().getX() + ", " + a.getPos().getY());
+								}
+							break;
+						case KeyEvent.VK_L:
+							player.setLives(1000);
+							asteroids.clear();
 							break;
 					}
 				}
@@ -279,7 +287,12 @@ public class AsteroidsRunner extends JPanel
 	        		if(asteroids.size()==0)
 	        			{
 	        				level++;
-	        				Asteroid.generateAsteroids();
+	        				for(int i = 0; i < level; i++)
+	        					{
+//	        						System.out.println(level);
+	        						Asteroid.generateAsteroids();
+	        					}
+//	        				Asteroid.generateAsteroids();
 	        			}
 	        		
 	        		for(int i = 0; i < enemies.size(); i++)

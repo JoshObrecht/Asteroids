@@ -145,15 +145,15 @@ public class Asteroid extends SpaceObject
 		}
 		public static void generateAsteroids()
 		{
-			for(int i=0; i<AsteroidsRunner.level; i++)
-				{
+//			for(int i=0; i<1; i++)
+//				{
 					boolean isXValid = false;
 					boolean isYValid = false;
 					boolean isAngleValid = false;
 					double randAngle = 0;
 					int randomX	= 0;	
 					int randomY	= 0;
-					while(isXValid&&isYValid)
+					while(!isXValid&&!isYValid)
 					{
 					randomX	= (int)Math.random()*1013;
 					randomY	= (int)Math.random()*913;
@@ -186,7 +186,7 @@ public class Asteroid extends SpaceObject
 						}
 					}
 					AsteroidsRunner.asteroids.add(new Asteroid(randAngle, 50, 50, new Vector(randomX, randomY)));
-				}
+//				}
 
 		}
 
