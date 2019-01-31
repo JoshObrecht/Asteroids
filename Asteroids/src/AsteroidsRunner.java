@@ -124,6 +124,7 @@ public class AsteroidsRunner extends JPanel
 	        		for(Asteroid a: asteroids)
 		        		{
 		        			a.tick();
+		        			System.out.println(asteroids.indexOf(a) + " " + a.getAngle());
 		        		}
 	        		for(Asteroid s: shrapnel)
 	        			{
