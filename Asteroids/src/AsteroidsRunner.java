@@ -19,6 +19,7 @@ public class AsteroidsRunner extends JPanel
 		static ArrayList<Bullet> enemyBullets = new ArrayList<Bullet>();
 		static ArrayList<Asteroid> asteroids = new ArrayList<Asteroid>();
 		static ArrayList<UFO> enemies = new ArrayList<UFO>();
+		static ArrayList<Asteroid> shrapnel = new ArrayList<Asteroid>();
 		static boolean firing;
 		static int level = 4;
 		
@@ -59,11 +60,14 @@ public class AsteroidsRunner extends JPanel
 							break;
 						case KeyEvent.VK_V:
 //							asteroids.add(new Asteroid((Math.random() * (Math.PI * 2)), 40, 25, new Vector(80, 80)));
-							asteroids.add(new Asteroid((Math.random() * (Math.PI * 2)), 50, 50, new Vector(80, 80)));
+//							asteroids.add(new Asteroid((Math.random() * (Math.PI * 2)), 50, 50, new Vector(80, 80)));
 //							asteroids.add(new Asteroid((Math.random() * (Math.PI * 2)), 25, 10, new Vector(80, 80)));
+							shrapnel.add(new Asteroid((Math.random() * (Math.PI * 2)), 1, 0, new Vector(80, 80)));
 							break;
 						case KeyEvent.VK_U:
 							enemies.add(new UFO(Math.random() * (Math.PI * 2), new Vector(950, 500)));
+							break;
+						case KeyEvent.VK_P:
 							break;
 					}
 				}
@@ -90,6 +94,8 @@ public class AsteroidsRunner extends JPanel
 				@Override
 	        	public void actionPerformed(ActionEvent e)
 	        	{
+	        		ArrayList<SpaceObject> gc = new ArrayList<SpaceObject>();
+	        		ArrayList<SpaceObject> gc2 = new ArrayList<SpaceObject>();
 	        		player.tick();
 	        		for(int i=0; i<bullets.size();i++)
 	        			{
@@ -111,6 +117,16 @@ public class AsteroidsRunner extends JPanel
 		        		{
 		        			a.tick();
 		        		}
+	        		for(Asteroid s: shrapnel)
+	        			{
+	        				s.tick();
+	        				if(s.getTickCounter() == 30)
+	        					{
+	        						gc.add(s);
+	        					}
+	        			}
+	        		shrapnel.removeAll(gc);
+	        		gc.clear();
 	        		for(UFO u: enemies)
 	        			{
 	        				u.tick();
@@ -120,8 +136,6 @@ public class AsteroidsRunner extends JPanel
 	        					enemyBullets.add(new Bullet(u.getAngle(), u.getxCord()[0], u.getyCord()[0], 0));
 	        				}
 	        			}
-	        		ArrayList<SpaceObject> gc = new ArrayList<SpaceObject>();
-	        		ArrayList<SpaceObject> gc2 = new ArrayList<SpaceObject>();
 	        		for(int b = 0; b < enemyBullets.size(); b++)
 	        		{
 	        			if(player.getAstBounds().contains(enemyBullets.get(b).getPos().getX(), enemyBullets.get(b).getPos().getY()))
@@ -197,9 +211,65 @@ public class AsteroidsRunner extends JPanel
 	        					}
 	        				if(checkPolyIntersect(player.getAstBounds(), asteroids.get(i).getAstBounds()))
 	        					{
-	        						gc.add(asteroids.get(i));
+	        						if(asteroids.get(i).getSize1()==50)
+        								{
+        								asteroids.add(new Asteroid((Math.random() * (Math.PI * 2)), 40, 25, new Vector(asteroids.get(i).getPos().getX(), asteroids.get(i).getPos().getY())));
+        		
+        										boolean isAngleValid = false;
+    	        								double randAngle = 0;
+        										while(!isAngleValid)
+        											{
+        											randAngle = (Math.random() * (Math.PI * 2));
+        											int counter=0;
+        								
+        												if(asteroids.get(asteroids.size()-1).getAngle()==randAngle)
+        													{
+        														counter+=1;
+        													}
+        												
+        											if(counter<1)
+        												{
+        												isAngleValid=true;	
+        												}
+        											
+        											}
+        								
+        								asteroids.add(new Asteroid(randAngle, 40, 25, new Vector(asteroids.get(i).getPos().getX(), asteroids.get(i).getPos().getY())));
+        								}
+        							if(asteroids.get(i).getSize1()==40)
+        								{
+        									asteroids.add(new Asteroid((Math.random() * (Math.PI * 2)), 25, 10, new Vector(asteroids.get(i).getPos().getX(), asteroids.get(i).getPos().getY())));
+        									
+        									boolean isAngleValid = false;
+	        								double randAngle = 0;
+    										while(!isAngleValid)
+    											{
+    											randAngle = (Math.random() * (Math.PI * 2));
+    											int counter=0;
+    								
+    												if(asteroids.get(asteroids.size()-1).getAngle()==randAngle)
+    													{
+    														counter+=1;
+    													}
+    												
+    											if(counter<1)
+    												{
+    												isAngleValid=true;	
+    												}
+    											
+    											}
+        								
+        								asteroids.add(new Asteroid(randAngle, 25, 10, new Vector(asteroids.get(i).getPos().getX(), asteroids.get(i).getPos().getY())));
+        								}
+        							gc.add(asteroids.get(i));
 	        						player.die();
 	        					}
+	        			}
+	        		for(SpaceObject a: gc)
+	        			{
+	        				shrapnel.add(new Asteroid((Math.random() * (Math.PI * 2)), 1, 0, new Vector(a.getPos().getX(), a.getPos().getY())));
+							shrapnel.add(new Asteroid((Math.random() * (Math.PI * 2)), 1, 0, new Vector(a.getPos().getX(), a.getPos().getY())));
+							shrapnel.add(new Asteroid((Math.random() * (Math.PI * 2)), 1, 0, new Vector(a.getPos().getX(), a.getPos().getY())));
 	        			}
 	        		asteroids.removeAll(gc);
 	        		bullets.removeAll(gc2);
@@ -269,6 +339,11 @@ public class AsteroidsRunner extends JPanel
 				{
 					a.updatePoints();
 					g.drawPolygon(a.getAstBounds());
+				}
+			for(Asteroid s: shrapnel)
+				{
+					s.updatePoints();
+					g.drawPolygon(s.getAstBounds());
 				}
 			for(UFO u: enemies)
 				{
