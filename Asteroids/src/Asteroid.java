@@ -139,12 +139,13 @@ public class Asteroid extends SpaceObject
 		{
 //			super.tick();
 			Vector v = new Vector(vel.getR(), angle);
-			double x = pos.getxDub() + v.getxDub();
-			double y = pos.getyDub() + v.getyDub();
+			double x = Math.round(pos.getxDub() + v.getxDub());
+			double y = Math.round(pos.getyDub() + v.getyDub());
 			pos.setX(pos.getX() + v.getX());
 			pos.setY(pos.getY() + v.getY());
-//			int intX = (int) x;
-//			int intY = (int) y;
+			int intX = (int) x;
+			int intY = (int) y;
+			System.out.println((pos.getX() + v.getX()) + " " + pos.getxDub());
 //			pos = new Vector(intX, intY);
 			
 			if(pos.getX() < 0 || pos.getX() > 1013 || pos.getY() < 0 || pos.getY() > 913)

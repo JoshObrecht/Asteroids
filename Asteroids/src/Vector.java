@@ -12,6 +12,8 @@ public class Vector
 		{
 			this.x = x;
 			this.y = y;
+			xDub = (double) x;
+			yDub = (double) y;
 			updateTypes(true);
 		}
 		public Vector(double r, double o)
