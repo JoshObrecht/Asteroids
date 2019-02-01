@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 @SuppressWarnings("serial")
 public class AsteroidsRunner extends JPanel
@@ -20,8 +21,11 @@ public class AsteroidsRunner extends JPanel
 		static ArrayList<Asteroid> asteroids = new ArrayList<Asteroid>();
 		static ArrayList<UFO> enemies = new ArrayList<UFO>();
 		static ArrayList<Asteroid> shrapnel = new ArrayList<Asteroid>();
+		static Scanner userInput = new Scanner(System.in);
 		static boolean firing;
 		static int level = 4;
+		static boolean drawing = false;
+		static int choice;
 		
 		public static void main(String[] args)
 		{
@@ -70,8 +74,9 @@ public class AsteroidsRunner extends JPanel
 						case KeyEvent.VK_P:
 							for(Asteroid a: asteroids)
 								{
-									System.out.println(asteroids.indexOf(a) + ": " + a.getAngle());
+									System.out.println(asteroids.indexOf(a) + ": " + a.getAngle() + ", " + a.getVel().getR());
 								}
+							drawing = true;
 							break;
 						case KeyEvent.VK_L:
 							player.setLives(player.getLives() + 1);
@@ -124,8 +129,12 @@ public class AsteroidsRunner extends JPanel
 	        		for(Asteroid a: asteroids)
 		        		{
 		        			a.tick();
-		        			System.out.println(asteroids.indexOf(a) + " " + a.getAngle());
+//		        			System.out.println(asteroids.indexOf(a) + " " + a.getAngle());
 		        		}
+//	        		for(int a = 0; a < asteroids.size(); a++)
+//	        			{
+//	        				asteroids.get(a).tick();
+//	        			}
 	        		for(Asteroid s: shrapnel)
 	        			{
 	        				s.tick();
@@ -374,6 +383,16 @@ public class AsteroidsRunner extends JPanel
 					shimage.setPos(new Vector(50 + (i * 40), 50));
 					shimage.tick();
 					g.drawPolygon(shimage.getAstBounds());
+				}
+			if(drawing)
+				{
+					for(int i = 0; i < asteroids.size(); i++)
+						{
+							Vector v = new Vector(1200.00, asteroids.get(i).getAngle());
+							int x = asteroids.get(i).getPos().getX();
+							int y = asteroids.get(i).getPos().getY();
+							g.drawLine((x - v.getX()), (y - v.getY()), (x + v.getX()), (y + v.getY()));
+						}
 				}
 //			g.drawRect(player.getPos().getX(), player.getPos().getY(), 1, 1);
 		}

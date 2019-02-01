@@ -15,7 +15,7 @@ public class Asteroid extends SpaceObject
 			magnitudes = new double[10];
 			angles = new double[10];
 			bounds = new Polygon();
-			vel = new Vector(2.00, angle);
+			vel = new Vector((Math.random() * 1) + 2, angle);
 			rotationSpeed = 0.03;
 			size1=s1;
 			size2=s2;
@@ -137,7 +137,36 @@ public class Asteroid extends SpaceObject
 		}
 		public void tick()
 		{
-			super.tick();
+//			super.tick();
+			Vector v = new Vector(vel.getR(), angle);
+			double x = pos.getxDub() + v.getxDub();
+			double y = pos.getyDub() + v.getyDub();
+			pos.setX(pos.getX() + v.getX());
+			pos.setY(pos.getY() + v.getY());
+//			int intX = (int) x;
+//			int intY = (int) y;
+//			pos = new Vector(intX, intY);
+			
+			if(pos.getX() < 0 || pos.getX() > 1013 || pos.getY() < 0 || pos.getY() > 913)
+				{
+					if(pos.getX() < 0)
+						{
+							pos.setX(1013);
+						}
+					else if(pos.getX() > 1013)
+						{
+							pos.setX(0);
+						}
+					if(pos.getY() < 0)
+						{
+							pos.setY(913);
+						}
+					else if(pos.getY() > 913)
+						{
+							pos.setY(0);
+						}
+				}
+			tickCounter++;
 			for(int i = 0; i < angles.length; i++)
 				{
 					angles[i] += rotationSpeed;
