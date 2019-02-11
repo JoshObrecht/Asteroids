@@ -112,6 +112,8 @@ public class Vector
 						theta = Math.atan((double)(y/x));
 					}
 					double magnitude = Math.sqrt((Math.pow((double) x, 2)) + (Math.pow((double) y, 2)));
+					xDub = (double) x;
+					yDub = (double) y;
 					setRSafe(magnitude);
 					setOSafe(theta);
 				}
@@ -119,11 +121,12 @@ public class Vector
 				{
 					double newX = (Math.cos(o) * r);
 					double newY = (Math.sin(o) * r);
-					setxDub(newX);
-					setyDub(newY);
+					xDub = newX;
+					yDub = newY;
 					setXSafe((int) Math.round(newX));
 					setYSafe((int) Math.round(newY));
 				}
+//			System.out.println(xDub + " " + yDub);
 		}
 		public void addVects(Vector v1)
 		{

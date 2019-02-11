@@ -126,15 +126,19 @@ public class AsteroidsRunner extends JPanel
         							enemyBullets.remove(enemyBullets.get(i));
         						}
         				}
-	        		for(Asteroid a: asteroids)
-		        		{
-		        			a.tick();
-//		        			System.out.println(asteroids.indexOf(a) + " " + a.getAngle());
-		        		}
-//	        		for(int a = 0; a < asteroids.size(); a++)
-//	        			{
-//	        				asteroids.get(a).tick();
-//	        			}
+//	        		for(Asteroid a: asteroids)
+//		        		{
+//		        			a.tick();
+////		        			System.out.println(asteroids.indexOf(a) + " " + a.getAngle());
+//		        		}
+	        		for(int a = 0; a < asteroids.size(); a++)
+	        			{
+	        				Vector v = new Vector(2, asteroids.get(a).getAngle());
+							int x = asteroids.get(a).getPos().getX() + v.getX();
+							int y = asteroids.get(a).getPos().getY() + v.getY();
+							asteroids.get(a).setPos(new Vector(x, y));
+							asteroids.get(a).tick();
+	        			}
 	        		for(Asteroid s: shrapnel)
 	        			{
 	        				s.tick();
@@ -388,10 +392,17 @@ public class AsteroidsRunner extends JPanel
 				{
 					for(int i = 0; i < asteroids.size(); i++)
 						{
+							int oldX = asteroids.get(i).getPos().getX();
+							int oldY = asteroids.get(i).getPos().getY();
+							for(int j = 0; j < 500; j++)
+								{
+									Vector v = new Vector(2.00, asteroids.get(i).getAngle());
+									g.drawLine((oldX - v.getX()), (oldY - v.getY()), (oldX + v.getX()), (oldY + v.getY()));
+									oldX += v.getX();
+									oldY += v.getY();
+								}
 							Vector v = new Vector(1200.00, asteroids.get(i).getAngle());
-							int x = asteroids.get(i).getPos().getX();
-							int y = asteroids.get(i).getPos().getY();
-							g.drawLine((x - v.getX()), (y - v.getY()), (x + v.getX()), (y + v.getY()));
+							g.drawLine((asteroids.get(i).getPos().getX() - v.getX()), (asteroids.get(i).getPos().getY() - v.getY()), (asteroids.get(i).getPos().getX() + v.getX()), (asteroids.get(i).getPos().getY() + v.getY()));
 						}
 				}
 //			g.drawRect(player.getPos().getX(), player.getPos().getY(), 1, 1);
