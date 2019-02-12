@@ -133,10 +133,6 @@ public class AsteroidsRunner extends JPanel
 //		        		}
 	        		for(int a = 0; a < asteroids.size(); a++)
 	        			{
-	        				Vector v = new Vector(2, asteroids.get(a).getAngle());
-							int x = asteroids.get(a).getPos().getX() + v.getX();
-							int y = asteroids.get(a).getPos().getY() + v.getY();
-							asteroids.get(a).setPos(new Vector(x, y));
 							asteroids.get(a).tick();
 	        			}
 	        		for(Asteroid s: shrapnel)
@@ -367,7 +363,7 @@ public class AsteroidsRunner extends JPanel
 			for(Asteroid a: asteroids)
 				{
 					a.updatePoints();
-					g.drawString("" + asteroids.indexOf(a) + "", a.getPos().getX(), a.getPos().getY());
+//					g.drawString("" + asteroids.indexOf(a) + "", a.getPos().getX(), a.getPos().getY());
 					g.drawPolygon(a.getAstBounds());
 				}
 			for(Asteroid s: shrapnel)

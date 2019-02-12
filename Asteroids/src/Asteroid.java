@@ -5,6 +5,7 @@ public class Asteroid extends SpaceObject
 		private double[] angles;
 		private int size1;
 		private int size2;
+		public Path path;
 		
 	public Asteroid(double angle, int s1, int s2, Vector v)
 		{
@@ -19,6 +20,7 @@ public class Asteroid extends SpaceObject
 			rotationSpeed = 0.03;
 			size1=s1;
 			size2=s2;
+			path = new Path(pos, vel.getR(), angle);
 			createPoints();
 		}
 		
@@ -137,29 +139,25 @@ public class Asteroid extends SpaceObject
 		}
 		public void tick()
 		{
-//			super.tick();
-//			Vector v = new Vector(vel.getR(), getAngle());
-//			getPos().setX(getPos().getX() + v.getX());
-//			getPos().setY(getPos().getX() + v.getX());
-//			pos = new Vector(getPos().getX() + v.getX(), getPos().getX() + v.getX());
+			super.tick();
 			
 			if(pos.getX() < 0 || pos.getX() > 1013 || pos.getY() < 0 || pos.getY() > 913)
 				{
 					if(pos.getX() < 0)
 						{
-							pos.setX(1013);
+							pos.setX(1012);
 						}
 					else if(pos.getX() > 1013)
 						{
-							pos.setX(0);
+							pos.setX(1);
 						}
 					if(pos.getY() < 0)
 						{
-							pos.setY(913);
+							pos.setY(912);
 						}
 					else if(pos.getY() > 913)
 						{
-							pos.setY(0);
+							pos.setY(1);
 						}
 				}
 			tickCounter++;
