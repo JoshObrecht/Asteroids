@@ -335,6 +335,7 @@ public class AsteroidsRunner extends JPanel
         					{
         						if(enemies.get(i).getAstBounds().contains(bullets.get(b).getPos().getX(), bullets.get(b).getPos().getY()))
         						{
+        							score+=1000;
         							gc.add(enemies.get(i));
         							gc2.add(bullets.get(b));
         						}
