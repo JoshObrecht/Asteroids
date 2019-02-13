@@ -8,12 +8,7 @@ import java.util.Scanner;
 
 @SuppressWarnings("serial")
 public class AsteroidsRunner extends JPanel
-	{
-//		static Asteroid type1= new Asteroid(0.0, 10);
-//		static Asteroid type2= new Asteroid(0.0, 10);
-//		static Asteroid type3= new Asteroid(0.0, 10);
-//		static Asteroid type4= new Asteroid(0.0, 10);
-		
+	{		
 		static Ship player = new Ship(0.00);
 		static Ship shimage = new Ship((Math.PI * 3) / 2);
 		static ArrayList<Bullet> bullets = new ArrayList<Bullet>();
@@ -26,6 +21,8 @@ public class AsteroidsRunner extends JPanel
 		static int level = 4;
 		static boolean drawing = false;
 		static int choice;
+		static int tick=0;
+		static int score =0;
 		
 		public static void main(String[] args)
 		{
@@ -126,14 +123,34 @@ public class AsteroidsRunner extends JPanel
         							enemyBullets.remove(enemyBullets.get(i));
         						}
         				}
-//	        		for(Asteroid a: asteroids)
-//		        		{
-//		        			a.tick();
-////		        			System.out.println(asteroids.indexOf(a) + " " + a.getAngle());
-//		        		}
 	        		for(int a = 0; a < asteroids.size(); a++)
 	        			{
 							asteroids.get(a).tick();
+	        			}       		
+	        		tick++;
+	        		if(tick==2000)
+	        			{
+	        				boolean isXValid = false;
+	    					boolean isYValid = false;
+	    					int randomX	= 0;	
+	    					int randomY	= 0;
+	        				while(!isXValid&&!isYValid)
+	        					{
+	        					randomX	= (int)Math.random()*1013;
+	        					randomY	= (int)Math.random()*913;
+
+	        					
+	        					if((randomX<=300)||(randomX>=600))
+	        						{
+	        							isXValid=true;
+	        						}
+	        					if((randomY<=300)||(randomY>=600))
+	        						{
+	        							isXValid=true;
+	        						}
+	        					}
+	        				enemies.add(new UFO((Math.random()*(Math.PI*2)), new Vector(randomX, randomY)));
+	        				tick=0;
 	        			}
 	        		for(Asteroid s: shrapnel)
 	        			{
@@ -195,6 +212,7 @@ public class AsteroidsRunner extends JPanel
 	        											}
 	        								
 	        								asteroids.add(new Asteroid(randAngle, 40, 25, new Vector(asteroids.get(i).getPos().getX(), asteroids.get(i).getPos().getY())));
+	        								score+=20;
 	        								}
 	        							if(asteroids.get(i).getSize1()==40)
 	        								{
@@ -220,6 +238,11 @@ public class AsteroidsRunner extends JPanel
         											}
 	        								
 	        								asteroids.add(new Asteroid(randAngle, 25, 10, new Vector(asteroids.get(i).getPos().getX(), asteroids.get(i).getPos().getY())));
+	        								score+=50;
+	        								}
+	        							else if(asteroids.get(i).getSize1()==25)
+	        								{
+	        									score+=100;
 	        								}
 	        							gc.add(asteroids.get(i));
 	        							gc2.add(bullets.get(b));
@@ -342,8 +365,10 @@ public class AsteroidsRunner extends JPanel
 		{
 			super.paintComponent(g);
 			
-			Font f = new Font("Arial", Font.PLAIN, 15);
+			Font f = new Font("HELVETICA", Font.PLAIN, 25);
+			g.setColor(Color.white);
 			g.setFont(f);
+			g.drawString(String.valueOf(score), 950, 30);
 			g.setColor(Color.WHITE);
 			g.drawPolygon(player.getAstBounds());
 //			g.drawRect(asteroids.get(0).getPos().getX(), asteroids.get(0).getPos().getY(), 1, 1);
