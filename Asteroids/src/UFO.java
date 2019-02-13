@@ -11,6 +11,7 @@ public class UFO extends SpaceObject
 			yCord = new int[8];
 			numPoints = 8;
 			bounds = new Polygon();
+			path = new Path(pos, vel.getR(), angle);
 			updatePoints();
 		}
 		protected void updatePoints()
@@ -49,6 +50,7 @@ public class UFO extends SpaceObject
 			if(random == 69)
 			{
 				angle = (Math.random() * (Math.PI * 2));
+				path = new Path(pos, vel.getR(), angle);
 			}
 		}
 	}
