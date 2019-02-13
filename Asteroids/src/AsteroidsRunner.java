@@ -19,10 +19,10 @@ public class AsteroidsRunner extends JPanel
 		static Scanner userInput = new Scanner(System.in);
 		static boolean firing;
 		static int level = 4;
-		static boolean drawing = false;
 		static int choice;
 		static int tick=0;
 		static int score =0;
+		static int stage = 0;
 		
 		public static void main(String[] args)
 		{
@@ -59,25 +59,11 @@ public class AsteroidsRunner extends JPanel
 						case KeyEvent.VK_SPACE:
 							firing = true;
 							break;
-						case KeyEvent.VK_V:
-//							asteroids.add(new Asteroid((Math.random() * (Math.PI * 2)), 40, 25, new Vector(80, 80)));
-//							asteroids.add(new Asteroid((Math.random() * (Math.PI * 2)), 50, 50, new Vector(80, 80)));
-//							asteroids.add(new Asteroid((Math.random() * (Math.PI * 2)), 25, 10, new Vector(80, 80)));
-							shrapnel.add(new Asteroid((Math.random() * (Math.PI * 2)), 1, 0, new Vector(80, 80)));
-							break;
-						case KeyEvent.VK_U:
-							enemies.add(new UFO(Math.random() * (Math.PI * 2), new Vector(950, 500)));
-							break;
-						case KeyEvent.VK_P:
-							for(Asteroid a: asteroids)
+						case KeyEvent.VK_ENTER:
+							if(!(stage == 1))
 								{
-									System.out.println(asteroids.indexOf(a) + ": " + a.getAngle() + ", " + a.getVel().getR());
+									stage++;
 								}
-							drawing = true;
-							break;
-						case KeyEvent.VK_L:
-							player.setLives(player.getLives() + 1);
-							asteroids.clear();
 							break;
 					}
 				}
@@ -364,69 +350,56 @@ public class AsteroidsRunner extends JPanel
 		public void paintComponent(Graphics g)
 		{
 			super.paintComponent(g);
-			
-			Font f = new Font("HELVETICA", Font.PLAIN, 25);
-			g.setColor(Color.white);
-			g.setFont(f);
-			g.drawString(String.valueOf(score), 950, 30);
-			g.setColor(Color.WHITE);
-			g.drawPolygon(player.getAstBounds());
-//			g.drawRect(asteroids.get(0).getPos().getX(), asteroids.get(0).getPos().getY(), 1, 1);
+			switch(stage)
+			{
+				case 1:
+					Font f = new Font("HELVETICA", Font.PLAIN, 25);
+					g.setColor(Color.white);
+					g.setFont(f);
+					g.drawString(String.valueOf(score), 950, 30);
+					g.setColor(Color.WHITE);
+					g.drawPolygon(player.getAstBounds());
+//					g.drawRect(asteroids.get(0).getPos().getX(), asteroids.get(0).getPos().getY(), 1, 1);
 
-			if(player.isAcc() == true && !player.isRespawning())
-				{
-					g.drawPolygon(player.getFireX(), player.getFireY(), 3);
-				}
-			for(Bullet b: bullets)
-				{
-					g.drawOval(b.getPos().getX(), b.getPos().getY(), 5, 5);
-				}
-			for(Bullet b: enemyBullets)
-				{
-					g.drawOval(b.getPos().getX(), b.getPos().getY(), 5, 5);
-				}
-			for(Asteroid a: asteroids)
-				{
-					a.updatePoints();
-//					g.drawString("" + asteroids.indexOf(a) + "", a.getPos().getX(), a.getPos().getY());
-					g.drawPolygon(a.getAstBounds());
-				}
-			for(Asteroid s: shrapnel)
-				{
-					s.updatePoints();
-					g.drawPolygon(s.getAstBounds());
-				}
-			for(UFO u: enemies)
-				{
-					u.updatePoints();
-					g.drawPolygon(u.getAstBounds());
-					g.drawLine(u.getxCord()[0], u.getyCord()[0], u.getxCord()[3], u.getyCord()[3]);
-					g.drawLine(u.getxCord()[4], u.getyCord()[4], u.getxCord()[7], u.getyCord()[7]);
-				}
-			for(int i = 0; i < player.getLives() - 1; i++)
-				{
-					shimage.setPos(new Vector(50 + (i * 40), 50));
-					shimage.tick();
-					g.drawPolygon(shimage.getAstBounds());
-				}
-			if(drawing)
-				{
-					for(int i = 0; i < asteroids.size(); i++)
+					if(player.isAcc() == true && !player.isRespawning())
 						{
-							int oldX = asteroids.get(i).getPos().getX();
-							int oldY = asteroids.get(i).getPos().getY();
-							for(int j = 0; j < 500; j++)
-								{
-									Vector v = new Vector(2.00, asteroids.get(i).getAngle());
-									g.drawLine((oldX - v.getX()), (oldY - v.getY()), (oldX + v.getX()), (oldY + v.getY()));
-									oldX += v.getX();
-									oldY += v.getY();
-								}
-							Vector v = new Vector(1200.00, asteroids.get(i).getAngle());
-							g.drawLine((asteroids.get(i).getPos().getX() - v.getX()), (asteroids.get(i).getPos().getY() - v.getY()), (asteroids.get(i).getPos().getX() + v.getX()), (asteroids.get(i).getPos().getY() + v.getY()));
+							g.drawPolygon(player.getFireX(), player.getFireY(), 3);
 						}
-				}
-//			g.drawRect(player.getPos().getX(), player.getPos().getY(), 1, 1);
+					for(Bullet b: bullets)
+						{
+							g.drawOval(b.getPos().getX(), b.getPos().getY(), 5, 5);
+						}
+					for(Bullet b: enemyBullets)
+						{
+							g.drawOval(b.getPos().getX(), b.getPos().getY(), 5, 5);
+						}
+					for(Asteroid a: asteroids)
+						{
+							a.updatePoints();
+//							g.drawString("" + asteroids.indexOf(a) + "", a.getPos().getX(), a.getPos().getY());
+							g.drawPolygon(a.getAstBounds());
+						}
+					for(Asteroid s: shrapnel)
+						{
+							s.updatePoints();
+							g.drawPolygon(s.getAstBounds());
+						}
+					for(UFO u: enemies)
+						{
+							u.updatePoints();
+							g.drawPolygon(u.getAstBounds());
+							g.drawLine(u.getxCord()[0], u.getyCord()[0], u.getxCord()[3], u.getyCord()[3]);
+							g.drawLine(u.getxCord()[4], u.getyCord()[4], u.getxCord()[7], u.getyCord()[7]);
+						}
+					for(int i = 0; i < player.getLives() - 1; i++)
+						{
+							shimage.setPos(new Vector(50 + (i * 40), 50));
+							shimage.tick();
+							g.drawPolygon(shimage.getAstBounds());
+						}
+					break;
+			}
+			
 		}
 		public boolean checkPolyIntersect(Polygon p1, Polygon p2)
 	    {
