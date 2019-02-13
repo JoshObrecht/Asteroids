@@ -380,6 +380,8 @@ public class AsteroidsRunner extends JPanel
 		@Override
 		public void paintComponent(Graphics g)
 		{
+			Font f = new Font("HELVETICA", Font.PLAIN, 50);
+			Font z=new Font("Arial", Font.PLAIN, 15);
 			super.paintComponent(g);
 			switch(stage)
 			{
@@ -413,7 +415,6 @@ public class AsteroidsRunner extends JPanel
 						}
 					break;
 				case 1:
-					Font f = new Font("HELVETICA", Font.PLAIN, 25);
 					g.setColor(Color.white);
 					g.setFont(f);
 					g.drawString(String.valueOf(score), 950, 30);
@@ -457,6 +458,15 @@ public class AsteroidsRunner extends JPanel
 							shimage.tick();
 							g.drawPolygon(shimage.getAstBounds());
 						}
+					break;
+				case 2:
+					 g.setColor(Color.white);
+					 g.setFont(f);
+					 g.drawString("GAME OVER", 328, 390);	
+					 
+					 g.setColor(Color.white);
+					 g.setFont(z);
+					 g.drawString("YOUR SCORE WAS: "+score, 400, 420);
 					break;
 			}
 			
