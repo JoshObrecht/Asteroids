@@ -18,7 +18,7 @@ public class AsteroidsRunner extends JPanel
 		static ArrayList<Asteroid> shrapnel = new ArrayList<Asteroid>();
 		static Scanner userInput = new Scanner(System.in);
 		static boolean firing;
-		static int level = 4;
+		static int level = 3;
 		static int choice;
 		static int tick=0;
 		static int score =0;
@@ -61,10 +61,16 @@ public class AsteroidsRunner extends JPanel
 							firing = true;
 							break;
 						case KeyEvent.VK_ENTER:
-							if(!(stage == 1))
-								{
+							switch(stage)
+							{
+								case 0:
+									asteroids.clear();
 									stage++;
-								}
+									break;
+								case 1:
+									break;
+									
+							}
 							break;
 					}
 				}
