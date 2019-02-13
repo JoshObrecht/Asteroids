@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 @SuppressWarnings("serial")
 public class AsteroidsRunner extends JPanel
@@ -15,8 +16,11 @@ public class AsteroidsRunner extends JPanel
 		static ArrayList<Asteroid> asteroids = new ArrayList<Asteroid>();
 		static ArrayList<UFO> enemies = new ArrayList<UFO>();
 		static ArrayList<Asteroid> shrapnel = new ArrayList<Asteroid>();
+		static Scanner userInput = new Scanner(System.in);
 		static boolean firing;
 		static int level = 4;
+		static boolean drawing = false;
+		static int choice;
 		static int tick=0;
 		static int score =0;
 		
@@ -65,6 +69,15 @@ public class AsteroidsRunner extends JPanel
 							enemies.add(new UFO(Math.random() * (Math.PI * 2), new Vector(950, 500)));
 							break;
 						case KeyEvent.VK_P:
+							for(Asteroid a: asteroids)
+								{
+									System.out.println(asteroids.indexOf(a) + ": " + a.getAngle() + ", " + a.getVel().getR());
+								}
+							drawing = true;
+							break;
+						case KeyEvent.VK_L:
+							player.setLives(player.getLives() + 1);
+							asteroids.clear();
 							break;
 					}
 				}
@@ -110,7 +123,10 @@ public class AsteroidsRunner extends JPanel
         							enemyBullets.remove(enemyBullets.get(i));
         						}
         				}
-	        		
+	        		for(int a = 0; a < asteroids.size(); a++)
+	        			{
+							asteroids.get(a).tick();
+	        			}       		
 	        		tick++;
 	        		if(tick==2000)
 	        			{
@@ -136,10 +152,6 @@ public class AsteroidsRunner extends JPanel
 	        				enemies.add(new UFO((Math.random()*(Math.PI*2)), new Vector(randomX, randomY)));
 	        				tick=0;
 	        			}
-	        		for(Asteroid a: asteroids)
-		        		{
-		        			a.tick();
-		        		}
 	        		for(Asteroid s: shrapnel)
 	        			{
 	        				s.tick();
@@ -296,9 +308,10 @@ public class AsteroidsRunner extends JPanel
 	        			}
 	        		for(SpaceObject a: gc)
 	        			{
-	        				shrapnel.add(new Asteroid((Math.random() * (Math.PI * 2)), 1, 0, new Vector(a.getPos().getX(), a.getPos().getY())));
-							shrapnel.add(new Asteroid((Math.random() * (Math.PI * 2)), 1, 0, new Vector(a.getPos().getX(), a.getPos().getY())));
-							shrapnel.add(new Asteroid((Math.random() * (Math.PI * 2)), 1, 0, new Vector(a.getPos().getX(), a.getPos().getY())));
+							for(int i = 0; i < 5; i++)
+								{
+									shrapnel.add(new Asteroid((Math.random() * (Math.PI * 2)), 1, 0, new Vector(a.getPos().getX(), a.getPos().getY())));
+								}
 	        			}
 	        		asteroids.removeAll(gc);
 	        		bullets.removeAll(gc2);
@@ -308,7 +321,12 @@ public class AsteroidsRunner extends JPanel
 	        		if(asteroids.size()==0)
 	        			{
 	        				level++;
-	        				Asteroid.generateAsteroids();
+	        				for(int i = 0; i < level; i++)
+	        					{
+//	        						System.out.println(level);
+	        						Asteroid.generateAsteroids();
+	        					}
+//	        				Asteroid.generateAsteroids();
 	        			}
 	        		
 	        		for(int i = 0; i < enemies.size(); i++)
@@ -351,7 +369,6 @@ public class AsteroidsRunner extends JPanel
 			g.setColor(Color.white);
 			g.setFont(f);
 			g.drawString(String.valueOf(score), 950, 30);
-			
 			g.setColor(Color.WHITE);
 			g.drawPolygon(player.getAstBounds());
 //			g.drawRect(asteroids.get(0).getPos().getX(), asteroids.get(0).getPos().getY(), 1, 1);
@@ -371,6 +388,7 @@ public class AsteroidsRunner extends JPanel
 			for(Asteroid a: asteroids)
 				{
 					a.updatePoints();
+//					g.drawString("" + asteroids.indexOf(a) + "", a.getPos().getX(), a.getPos().getY());
 					g.drawPolygon(a.getAstBounds());
 				}
 			for(Asteroid s: shrapnel)
@@ -391,6 +409,23 @@ public class AsteroidsRunner extends JPanel
 					shimage.tick();
 					g.drawPolygon(shimage.getAstBounds());
 				}
+			if(drawing)
+				{
+					for(int i = 0; i < asteroids.size(); i++)
+						{
+							int oldX = asteroids.get(i).getPos().getX();
+							int oldY = asteroids.get(i).getPos().getY();
+							for(int j = 0; j < 500; j++)
+								{
+									Vector v = new Vector(2.00, asteroids.get(i).getAngle());
+									g.drawLine((oldX - v.getX()), (oldY - v.getY()), (oldX + v.getX()), (oldY + v.getY()));
+									oldX += v.getX();
+									oldY += v.getY();
+								}
+							Vector v = new Vector(1200.00, asteroids.get(i).getAngle());
+							g.drawLine((asteroids.get(i).getPos().getX() - v.getX()), (asteroids.get(i).getPos().getY() - v.getY()), (asteroids.get(i).getPos().getX() + v.getX()), (asteroids.get(i).getPos().getY() + v.getY()));
+						}
+				}
 //			g.drawRect(player.getPos().getX(), player.getPos().getY(), 1, 1);
 		}
 		public boolean checkPolyIntersect(Polygon p1, Polygon p2)
@@ -410,7 +445,6 @@ public class AsteroidsRunner extends JPanel
 	        }
 	        return false;
 	    }
-		
 		
 
 	}

@@ -15,10 +15,11 @@ public class Asteroid extends SpaceObject
 			magnitudes = new double[10];
 			angles = new double[10];
 			bounds = new Polygon();
-			vel = new Vector(2.00, angle);
+			vel = new Vector((Math.random() * 1) + 2, angle);
 			rotationSpeed = 0.03;
 			size1=s1;
 			size2=s2;
+			path = new Path(pos, vel.getR(), angle);
 			createPoints();
 		}
 		
@@ -138,15 +139,17 @@ public class Asteroid extends SpaceObject
 		public void tick()
 		{
 			super.tick();
+			
 			for(int i = 0; i < angles.length; i++)
 				{
 					angles[i] += rotationSpeed;
 				}
+			updatePoints();
 		}
 		public static void generateAsteroids()
 		{
-			for(int i=0; i<AsteroidsRunner.level; i++)
-				{
+//			for(int i=0; i<1; i++)
+//				{
 					boolean isXValid = false;
 					boolean isYValid = false;
 					boolean isAngleValid = false;
@@ -186,7 +189,7 @@ public class Asteroid extends SpaceObject
 						}
 					}
 					AsteroidsRunner.asteroids.add(new Asteroid(randAngle, 50, 50, new Vector(randomX, randomY)));
-				}
+//				}
 
 		}
 

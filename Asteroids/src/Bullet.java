@@ -9,6 +9,7 @@ public class Bullet extends SpaceObject
 			pos.setX(x);
 			pos.setY(y);
 			vel = new Vector(10.00 + speed, angle);
+			path = new Path(pos, vel.getR(), angle);
 		}
 
 	protected void updatePoints()

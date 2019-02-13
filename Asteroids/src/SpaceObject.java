@@ -12,6 +12,7 @@ public abstract class SpaceObject
 		protected double rotationSpeed;
 		protected double angle;
 		protected Polygon bounds;
+		protected Path path;
 		
 		public SpaceObject(double angle)
 		{
@@ -94,9 +95,7 @@ public abstract class SpaceObject
 			}
 		public void tick()
 		{
-			Vector v = new Vector(vel.getR(), angle);
-			pos.setX(pos.getX() + v.getX());
-			pos.setY(pos.getY() + v.getY());
+			pos = path.getNewPos();
 			
 			if(pos.getX() < 0 || pos.getX() > 1013 || pos.getY() < 0 || pos.getY() > 913)
 				{
@@ -116,6 +115,7 @@ public abstract class SpaceObject
 						{
 							pos.setY(0);
 						}
+					path = new Path(pos, vel.getR(), angle);
 				}
 			tickCounter++;
 		}
