@@ -23,6 +23,7 @@ public class AsteroidsRunner extends JPanel
 		static int tick=0;
 		static int score =0;
 		static int stage = 0;
+		static boolean[] showingStrings = {false, false};
 		
 		public static void main(String[] args)
 		{
@@ -92,6 +93,25 @@ public class AsteroidsRunner extends JPanel
 	        	{
 	        		switch(stage)
 	        		{
+	        			case 0:
+	        				while(asteroids.size() < 12)
+	        					{
+	        						Asteroid.generateAsteroids();
+	        					}
+	        				for(int a = 0; a < asteroids.size(); a++)
+	        					{
+	        						asteroids.get(a).tick();
+	        					}
+	        				if(tick == 50)
+	        					{
+	        						showingStrings[0] = true;
+	        					}
+	        				if(tick == 100)
+	        					{
+	        						showingStrings[1] = true;
+	        					}
+	        				tick++;
+	        				break;
 	        			case 1:
 	        				ArrayList<SpaceObject> gc = new ArrayList<SpaceObject>();
 	    	        		ArrayList<SpaceObject> gc2 = new ArrayList<SpaceObject>();
@@ -358,7 +378,33 @@ public class AsteroidsRunner extends JPanel
 			switch(stage)
 			{
 				case 0:
-					
+					g.setColor(Color.gray);
+					for(Asteroid a: asteroids)
+						{
+							a.updatePoints();
+							g.drawPolygon(a.getAstBounds());
+						}
+					g.setColor(Color.white);
+					Font aFont = new Font("Arial", Font.BOLD, 70);
+					g.setFont(aFont);
+					g.drawString("ASTEROIDS", 300, 300);
+					if(showingStrings[0])
+						{
+							Font bFont = new Font("HELVETICA", Font.PLAIN, 18);
+							g.setFont(bFont);
+							g.drawString("A GAME BY ANDREW AND JOSH", 360, 360);
+						}
+					if(showingStrings[1])
+						{
+							Font cFont = new Font("HELVETICA", Font.PLAIN, 15);
+							g.setFont(cFont);
+							String s = "PRESS ENTER TO START";
+							int x = 230;
+							for(int c = 0; c < s.length(); c++)
+								{
+									g.drawString(s.substring(c, c+1), x + (30 * c), 600);
+								}
+						}
 					break;
 				case 1:
 					Font f = new Font("HELVETICA", Font.PLAIN, 25);
