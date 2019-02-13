@@ -4,11 +4,17 @@ import javax.swing.*;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 @SuppressWarnings("serial")
 public class AsteroidsRunner extends JPanel
 	{		
+		static int counter = 0;
+		final static String [] alphaBET= {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+		final static int [] alphaBETCounter = {0, 0, 0};
+		//score selection variables
+		static ArrayList<Score> highScores = new ArrayList<Score>();
 		static Ship player = new Ship(0.00);
 		static Ship shimage = new Ship((Math.PI * 3) / 2);
 		static ArrayList<Bullet> bullets = new ArrayList<Bullet>();
@@ -27,6 +33,7 @@ public class AsteroidsRunner extends JPanel
 		
 		public static void main(String[] args)
 		{
+			UploadScores.readScores();
 			Asteroid.generateAsteroids();
 			JFrame frame = new JFrame("Asteroids");
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -49,18 +56,72 @@ public class AsteroidsRunner extends JPanel
 					switch(e.getKeyCode())
 					{
 						case KeyEvent.VK_UP:
-							player.setAcc(true);
+							if(stage==1)
+								player.setAcc(true);
+							
+							else if(stage == 3)
+	                			{
+	                				if(alphaBETCounter[counter]==25)
+	                					{
+	                						alphaBETCounter[counter] = 0;
+	                					}
+	                				else
+	                					{
+	                						alphaBETCounter[counter]+=1;
+	                					}
+	                			}
+							break;
+						case KeyEvent.VK_DOWN:
+							if(stage == 3)
+	                			{
+	                				if(alphaBETCounter[counter]==0)
+	                					{
+	                						alphaBETCounter[counter] = 25;
+	                					}
+	                				else
+	                					{
+	                						alphaBETCounter[counter]-=1;
+	                					}
+	                			}
 							break;
 						case KeyEvent.VK_RIGHT:
-							player.setIsRot(1);
+							if(stage==1)
+								player.setIsRot(1);
+							
+							else if(stage == 3)
+	                			{
+	                				if(counter == 2)
+	                					{
+	                						counter = 0;
+	                					}
+	                				else
+	                					{
+	                						counter+=1;
+	                					}
+	                			}
 							break;
 						case KeyEvent.VK_LEFT:
-							player.setIsRot(-1);
+							if(stage==1)
+								player.setIsRot(-1);
+							
+							else if(stage == 3)
+	                			{
+	                				if(counter == 0)
+	                					{
+	                						counter = 2;
+	                					}
+	                				else
+	                					{
+	                						counter-=1;
+	                					}
+	                			}
 							break;
 						case KeyEvent.VK_SPACE:
-							firing = true;
+							if(stage==1)
+								firing = true;
 							break;
 						case KeyEvent.VK_ENTER:
+
 							switch(stage)
 							{
 								case 0:
@@ -69,8 +130,22 @@ public class AsteroidsRunner extends JPanel
 									break;
 								case 1:
 									break;
+                case 2:
+                stage++;
+                break;
+                case 3:
+                highScores.add(new Score(score, (alphaBET[alphaBETCounter[0]]+alphaBET[alphaBETCounter[1]]+alphaBET[alphaBETCounter[2]])));
+            		Collections.sort(highScores, new ScoreSorter());
+            		Collections.reverse(highScores);
+            		UploadScores.writeScores();
+                stage++
+                break;
+                case 4:
+                stage=1;
+                break;
 									
 							}
+
 							break;
 					}
 				}
@@ -380,8 +455,11 @@ public class AsteroidsRunner extends JPanel
 		@Override
 		public void paintComponent(Graphics g)
 		{
-			Font f = new Font("HELVETICA", Font.PLAIN, 50);
+			Font f = new Font("Arial", Font.PLAIN, 50);
+			Font f2 = new Font("Arial", Font.PLAIN, 25);
 			Font z=new Font("Arial", Font.PLAIN, 15);
+			Font restart = new Font("Arial", Font.PLAIN, 40);
+			Font scores = new Font("Arial", Font.PLAIN, 30);
 			super.paintComponent(g);
 			switch(stage)
 			{
@@ -416,7 +494,7 @@ public class AsteroidsRunner extends JPanel
 					break;
 				case 1:
 					g.setColor(Color.white);
-					g.setFont(f);
+					g.setFont(f2);
 					g.drawString(String.valueOf(score), 950, 30);
 					g.setColor(Color.WHITE);
 					g.drawPolygon(player.getAstBounds());
@@ -468,6 +546,70 @@ public class AsteroidsRunner extends JPanel
 					 g.setFont(z);
 					 g.drawString("YOUR SCORE WAS: "+score, 400, 420);
 					break;
+				case 3:
+					 g.setColor(Color.white);
+					 g.setFont(f);
+					 g.drawString("ENTER YOUR NAME", 218, 290);
+					 
+					 g.setColor(Color.white);
+					 g.setFont(f2);
+					 g.drawString(alphaBET[alphaBETCounter[0]], 420, 400);
+					 
+					 g.setColor(Color.white);
+					 g.setFont(f2);
+					 g.drawString(alphaBET[alphaBETCounter[1]], 445, 400);
+					 
+					 g.setColor(Color.white);
+					 g.setFont(f2);
+					 g.drawString(alphaBET[alphaBETCounter[2]], 470, 400);
+					 
+					 switch(counter)
+					 {
+						 case 0:
+							 drawTriangle(g, 420, 400, true);
+							 drawTriangle(g, 420, 400, false);
+							 break;
+						 case 1:
+							 drawTriangle(g, 445, 400, true);
+							 drawTriangle(g, 445, 400, false);
+							 break;
+						 case 2:
+							 drawTriangle(g, 470, 400, true);
+							 drawTriangle(g, 470, 400, false);
+							 break;
+					 }
+					 break;
+					 
+				case 4:
+					int tempY = 120;
+					 
+					 g.setColor(Color.white);
+					 g.setFont(f);
+					 g.drawString("HIGH SCORES", 270, 50);
+					 
+					 g.drawRect(50, 60, 800, 1);
+					 
+					 g.setColor(Color.white);
+					 g.setFont(restart);
+					 g.drawString("PRESS ENTER TO RESTART", 180, 750);
+					 
+					 for(int i=0 ; i<10; i++)
+						 {
+							 g.setColor(Color.white);
+							 g.setFont(scores);
+							 g.drawString(highScores.get(i).getName(), 366, tempY);
+							 
+							 g.setColor(Color.white);
+							 g.setFont(scores);
+							 g.drawString(String.valueOf(highScores.get(i).getScore()), 496, tempY);
+							 
+							 tempY+=50;
+						 }
+					 break;
+					 
+					 
+					 
+					 
 			}
 			
 		}
@@ -488,6 +630,25 @@ public class AsteroidsRunner extends JPanel
 	        }
 	        return false;
 	    }
+		 public void drawTriangle(Graphics g, int x, int y, boolean up)
+			 {
+				 if(up)
+					 {
+						 g.drawRect(x, y - 25, 15, 1);
+						 g.drawRect(x + 2, y - 27, 11, 1); 
+						 g.drawRect(x + 4, y - 29, 7, 1);
+						 g.drawRect(x + 6, y - 31, 3, 1);
+						 g.drawRect(x + 7, y - 32, 1, 1);
+					 }
+				 else
+					 {
+						 g.drawRect(x, y + 7, 15, 1);
+						 g.drawRect(x + 2, y + 9, 11, 1); 
+						 g.drawRect(x + 4, y + 11, 7, 1);
+						 g.drawRect(x + 6, y + 13, 3, 1);
+						 g.drawRect(x + 7, y + 14, 1, 1); 
+					 }
+			 }
 		
 
 	}
