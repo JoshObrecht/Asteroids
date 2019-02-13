@@ -34,6 +34,7 @@ public class AsteroidsRunner extends JPanel
 		public static void main(String[] args)
 		{
 			UploadScores.readScores();
+			UploadScores.createDefaultScores();
 			Asteroid.generateAsteroids();
 			JFrame frame = new JFrame("Asteroids");
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -138,7 +139,7 @@ public class AsteroidsRunner extends JPanel
             		Collections.sort(highScores, new ScoreSorter());
             		Collections.reverse(highScores);
             		UploadScores.writeScores();
-                stage++
+                stage++;
                 break;
                 case 4:
                 stage=1;

@@ -197,6 +197,7 @@ public class Ship extends SpaceObject
 		if(lives <= 0)
 			{
 				delayTicks = Integer.MAX_VALUE;
+				AsteroidsRunner.stage=2;
 			}
 	}
 	}
