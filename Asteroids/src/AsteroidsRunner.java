@@ -28,7 +28,7 @@ public class AsteroidsRunner extends JPanel
 		static int choice;
 		static int tick=0;
 		static int score =0;
-		static int stage = 0;
+		static int stage = 2;
 		static boolean[] showingStrings = {false, false};
 		
 		public static void main(String[] args)
@@ -131,22 +131,24 @@ public class AsteroidsRunner extends JPanel
 									break;
 								case 1:
 									break;
-                case 2:
-                stage++;
-                break;
-                case 3:
-                highScores.add(new Score(score, (alphaBET[alphaBETCounter[0]]+alphaBET[alphaBETCounter[1]]+alphaBET[alphaBETCounter[2]])));
-            		Collections.sort(highScores, new ScoreSorter());
-            		Collections.reverse(highScores);
-            		UploadScores.writeScores();
-                stage++;
-                break;
-                case 4:
-                stage=1;
-                break;
-									
+								case 2:
+									stage++;
+									break;
+								case 3:
+									highScores.add(new Score(score, (alphaBET[alphaBETCounter[0]]+alphaBET[alphaBETCounter[1]]+alphaBET[alphaBETCounter[2]])));
+									Collections.sort(highScores, new ScoreSorter());
+									Collections.reverse(highScores);
+									UploadScores.writeScores();
+									stage++;
+									break;
+								case 4:
+									stage=1;
+									restart();
+									tick = 0;
+									score = 0;
+									level = 3;
+									break;		
 							}
-
 							break;
 					}
 				}
@@ -436,6 +438,13 @@ public class AsteroidsRunner extends JPanel
 	    	        		gc.clear();
 	    	        		gc2.clear();
 	        				break;
+	        			case 2:
+	        			case 3:
+	        			case 4:
+	        				for(UFO u: enemies)
+	        					{
+	        						u.tick();
+	        					}
 	        		}
 	        		repaint();
 	        	}
@@ -539,6 +548,12 @@ public class AsteroidsRunner extends JPanel
 						}
 					break;
 				case 2:
+					while(enemies.size() < 6)
+						{
+							int x = (int) (Math.random() * 1013);
+							int y = (int) (Math.random() * 913);
+							enemies.add(new UFO(0.00, new Vector(x, y)));
+						}
 					 g.setColor(Color.white);
 					 g.setFont(f);
 					 g.drawString("GAME OVER", 328, 390);	
@@ -546,6 +561,14 @@ public class AsteroidsRunner extends JPanel
 					 g.setColor(Color.white);
 					 g.setFont(z);
 					 g.drawString("YOUR SCORE WAS: "+score, 400, 420);
+					 for(UFO u: enemies)
+						 {
+							g.setColor(Color.gray);
+							u.updatePoints();
+							g.drawPolygon(u.getAstBounds());
+							g.drawLine(u.getxCord()[0], u.getyCord()[0], u.getxCord()[3], u.getyCord()[3]);
+							g.drawLine(u.getxCord()[4], u.getyCord()[4], u.getxCord()[7], u.getyCord()[7]);
+						 }
 					break;
 				case 3:
 					 g.setColor(Color.white);
@@ -579,6 +602,14 @@ public class AsteroidsRunner extends JPanel
 							 drawTriangle(g, 470, 400, false);
 							 break;
 					 }
+					 for(UFO u: enemies)
+						 {
+							g.setColor(Color.gray);
+							u.updatePoints();
+							g.drawPolygon(u.getAstBounds());
+							g.drawLine(u.getxCord()[0], u.getyCord()[0], u.getxCord()[3], u.getyCord()[3]);
+							g.drawLine(u.getxCord()[4], u.getyCord()[4], u.getxCord()[7], u.getyCord()[7]);
+						 }
 					 break;
 					 
 				case 4:
@@ -605,6 +636,14 @@ public class AsteroidsRunner extends JPanel
 							 g.drawString(String.valueOf(highScores.get(i).getScore()), 496, tempY);
 							 
 							 tempY+=50;
+						 }
+					 for(UFO u: enemies)
+						 {
+							g.setColor(Color.gray);
+							u.updatePoints();
+							g.drawPolygon(u.getAstBounds());
+							g.drawLine(u.getxCord()[0], u.getyCord()[0], u.getxCord()[3], u.getyCord()[3]);
+							g.drawLine(u.getxCord()[4], u.getyCord()[4], u.getxCord()[7], u.getyCord()[7]);
 						 }
 					 break;
 					 
@@ -650,6 +689,15 @@ public class AsteroidsRunner extends JPanel
 						 g.drawRect(x + 7, y + 14, 1, 1); 
 					 }
 			 }
+		 public static void restart()
+		 {
+			 asteroids.clear();
+			 enemies.clear();
+			 bullets.clear();
+			 enemyBullets.clear();
+			 shrapnel.clear();
+			 player = new Ship(0.00);
+		 }
 		
 
 	}
