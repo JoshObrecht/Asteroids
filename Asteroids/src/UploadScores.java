@@ -50,7 +50,7 @@ public class UploadScores
 				}
 			catch(Exception e)
 				{
-					System.out.println("b e     t");
+//					System.out.println("b e     t");
 				}
 			
 		
