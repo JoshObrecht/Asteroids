@@ -14,7 +14,7 @@ public class AsteroidsRunner extends JPanel
 		final static String [] alphaBET= {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
 		final static int [] alphaBETCounter = {0, 0, 0};
 		//score selection variables
-		static ArrayList<Score> highScores = new ArrayList<Score>();
+		static ArrayList<Score> highScores = new ArrayList<Score>(10);
 		static Ship player = new Ship(0.00);
 		static Ship shimage = new Ship((Math.PI * 3) / 2);
 		static ArrayList<Bullet> bullets = new ArrayList<Bullet>();
@@ -35,6 +35,7 @@ public class AsteroidsRunner extends JPanel
 		{
 			UploadScores.readScores();
 			UploadScores.createDefaultScores();
+			highScores.trimToSize();
 			Asteroid.generateAsteroids();
 			JFrame frame = new JFrame("Asteroids");
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -426,6 +427,7 @@ public class AsteroidsRunner extends JPanel
 	            					{
 	            						if(enemies.get(i).getAstBounds().contains(bullets.get(b).getPos().getX(), bullets.get(b).getPos().getY()))
 	            						{
+	            							score+=1000;
 	            							gc.add(enemies.get(i));
 	            							gc2.add(bullets.get(b));
 	            						}
@@ -494,9 +496,24 @@ public class AsteroidsRunner extends JPanel
 						}
 					break;
 				case 1:
+					
+					int scoreDigits=0;
+					boolean run = true;
+					int tempScore = score;
+					while(run)
+					{
+						if(tempScore==0)
+							run=false;
+						else
+							{
+						tempScore/=10;
+						scoreDigits+=12;
+							}
+					}
+					
 					g.setColor(Color.white);
 					g.setFont(f2);
-					g.drawString(String.valueOf(score), 950, 30);
+					g.drawString(String.valueOf(score), (990-scoreDigits), 30);
 					g.setColor(Color.WHITE);
 					g.drawPolygon(player.getAstBounds());
 //					g.drawRect(asteroids.get(0).getPos().getX(), asteroids.get(0).getPos().getY(), 1, 1);

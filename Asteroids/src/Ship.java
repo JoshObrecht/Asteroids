@@ -155,7 +155,7 @@ public class Ship extends SpaceObject
 					{
 						if(vel.getR() > 0)
 							{
-								vel.setR(vel.getR() - (vel.getR() / 55));
+								vel.setR(vel.getR() - (vel.getR() / 140));
 							}
 					}
 				
