@@ -28,7 +28,7 @@ public class AsteroidsRunner extends JPanel
 		static int choice;
 		static int tick=0;
 		static int score =0;
-		static int stage = 2;
+		static int stage = 0;
 		static boolean[] showingStrings = {false, false};
 		
 		public static void main(String[] args)
